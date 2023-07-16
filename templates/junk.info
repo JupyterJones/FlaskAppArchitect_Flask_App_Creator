@@ -1,0 +1,58 @@
+'''
+@app.route('/square_video/<path:directory>')
+def square_video(directory=None):
+    if directory is None:
+        app.logger.error('Error: no directory specified')
+        return "Error: no directory specified"
+    
+    # Get the list of image files in the selected directory
+    image_filenames = glob.glob(os.path.join(directory, '*.png'))
+    if not image_filenames:
+        app.logger.error('Error: no image files found in directory')
+        return "Error: no image files found in directory"
+    
+    # Randomly select 50 image files from the list
+    image_filenames = random.sample(image_filenames, 50)
+    
+    image_clips = []
+    for filename in image_filenames:
+        # Open the image file and resize it to 640x640
+        image = Image.open(filename)
+        image = image.resize((640, 640), Image.ANTIALIAS)
+        # Convert the PIL Image object to a NumPy array
+        image_array = np.array(image)
+        
+        # Create an ImageClip object from the resized image and set its duration to 1 second
+        image_clip = ImageClip(image_array).set_duration(1)
+        # Append the image clip to the list
+        image_clips.append(image_clip)
+    # Concatenate all the image clips into a single video clip
+    video_clip = concatenate_videoclips(image_clips, method='compose')
+    # Set the fps value for the video clip
+    video_clip.fps = 24
+    # Write the video clip to a file
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    video_filename = 'static/square_vids/'+timestr+'video.mp4'
+    video_clip.write_videofile(video_filename, fps=24)
+    return render_template('square_video.html', video_url=video_filename)
+
+
+@app.route('/image_directories', methods=['GET', 'POST'])
+def image_directories():
+    if request.method == 'POST':
+        directory = request.form['directory']
+        # Check that the directory parameter is not empty
+        if directory:
+            # Get the list of image files in the selected directory
+            app.logger.info('Getting image files from directory: %s', directory)
+            image_filenames = random.sample(glob.glob(os.path.join(directory, '*.png')), 50)
+            # Pass the directory value to the square_video endpoint
+            app.logger.info('Redirecting to square_video endpoint with directory: %s', directory)
+            return redirect(url_for('square_video', directory=directory))
+        else:
+            # Render an error template if the directory parameter is empty
+            app.logger.error('Directory parameter is empty')
+            return render_template('error.html', message='Please enter a directory path.')
+    else:
+        return render_template('image_directories.html')
+'''

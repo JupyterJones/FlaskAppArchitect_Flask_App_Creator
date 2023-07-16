@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Select and Play MP3</title>
+    </head>
+    <body>
+        <h1>Select and Play MP3</h1>
+        <form method="post">
+            <select name="mp3_file">
+                {% for file in mp3_files %}
+                    <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <input type="submit" value="Play">
+        </form>
+    </body>
+</html>

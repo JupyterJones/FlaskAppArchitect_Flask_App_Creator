@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Create Scrolling Text</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding-left: 20%;
+      padding-right: 20%;
+      background-color: darkred;
+    }
+
+    /* Style the header */
+    .header {
+      background-color: #cfcece;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Style the top navigation bar */
+    .topnav {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    /* Style the topnav links */
+    .topnav a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    /* Change color on hover */
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 33.33%;
+      height: 1000px;
+      padding: 15px;
+      background-color: #ddcbb0;
+    }
+
+    p {
+      font-size: 20px;
+      font-family: "Times New Roman", Times, serif;
+      color: #000000;
+      text-align: justify;
+
+      line-height: 1.5;
+      margin: 0 0 1em 0;
+      padding: 0;
+    }
+
+    /* Clear floats after the columns */
+    .row::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media screen and (max-width:600px) {
+      .column {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>Flask VideoMaker V2.1</h1>
+    <p>Below is an example of 'Type' of video this application can create. First Create a text file. You can hand write
+      it or use ChatGPT. Then you format the text in lines of five words per line. Next create a video of scrolling text
+      That is read as the text scrolls by. Then create an Image_Video which gradually fades from one image to another. A
+      image directory is required. for best results be sure all images are the same size. The last step is add the
+      Image_Video to the scrolling text.'</p>
+    <p>Avatar_Maker is included (Link is in the Black Band below) to create video introductions. This app is all ready
+      created, but not yet connected to the Flask VideoMaker</p>
+    <video width="200" height="auto" controls>
+      <source src="static/assets/result_voice.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video><br />
+    <video width="300" height="auto" controls>
+      <source src="static/assets/Near_Done.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video><br /><a href="{{ url_for('large_video') }}">See Above Video Full Size</a><br /><br /><br /><br />
+
+  </div>
+
+  <div class="topnav">
+    <a style="font-size: 24px;margin-left: 10%;color: #29b2f1;" href="{{ url_for('indeX') }}">Link to indeX: Create an
+      Avatar</a><br /><a href="{{ url_for('indexdb') }}">Link to Database:</a><br />
+
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <h2>Create a Text File</h2>
+      <center>Play Me</center>
+      <video width="200" height="auto" controls>
+        <source src="static/assets/This_Column.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video><br />
+
+      <h3>Create Text</h3><br />
+      <a href="{{ url_for('mk_text') }}">Create a Text File</a><br /><br />
+      <a href="{{ url_for('format_file') }}">Format Text Files</a><br /><br />
+      <a href="{{ url_for('view_text') }}">View Text Files</a><br /><br />
+      <a href="{{ url_for('edit_file') }}">Edit File</a><br /><br />
+      <a href="{{ url_for('edit_formatted') }}">Edit Formatted Text</a><br /><br />
+      
+      <video width="200" height="auto" controls>
+        <source src="static/assets/asset_video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video><br />
+    
+    
+    
+    
+    
+    </div>
+
+    <div class="column">
+      <h2>Create Scrolling Text Background</h2>
+      <h3>Audio to Video Conversion</h3>
+      <form action="{{ url_for('convert') }}" method="POST" enctype="multipart/form-data">
+        <label for="audio_file">Audio MP3 or Wav:</label>
+        <input type="file" name="audio_file" accept=".mp3,.wav" required>
+        <br><br />
+        <label for="formatted_text_file">Formatted Text File:</label>
+        <input type="file" name="formatted_text_file" accept=".txt" required>
+        <br>
+        <input type="submit" value="Convert1280x720">
+      </form>
+      <br />
+      <hr><br />
+      <form action="{{ url_for('convert512') }}" method="POST" enctype="multipart/form-data">
+        <label for="audio_file">Audio MP3 or Wav:</label>
+        <input type="file" name="audio_file" accept=".mp3,.wav" required>
+        <br><br />
+        <label for="formatted_text_file">Formatted Text File:</label>
+        <input type="file" name="formatted_text_file" accept=".txt" required>
+        <br>
+        <input type="submit" value="Convert512x1024">
+      </form>
+      <hr><br />
+      <form method="post" action="/videos" enctype="multipart/form-data">
+        <label for="input_video">Select MP4 Video for Minterpolate Transitions :</label><br>
+        <input type="file" id="input_video" name="input_video"><br><br>
+        <input type="submit" value="Submit">
+      </form><br/>
+
+        <video width="200" height="auto" controls>
+        <source src="static/assets/Final_End_Dance.mp4" type="video/mp4">
+      </video><br />
+    </div>
+
+    <div class="column">
+      <h2>Create Left Side Animation</h2>
+      <a href="{{ url_for('mkblend_video') }}">Create Video of Blended images</a><br /><br />
+      <h2>Create Stacked Videos</h2>
+      <a href="{{ url_for('build_stackedvids') }}">Create Stacked Video</a><br /><br />
+      <button onclick="callFlaskFunction()">Generate Video</button>
+      <h1>Result Video Minterpolate Transitions</h1>
+      <video id="myVideo" width="200" height="auto" controls>
+        <source src="static/assets/Final_End.mp4" type="video/mp4">
+        </video>
+        Your browser does not support the video tag.
+
+    </div>
+  </div>
+  <script>
+    function callFlaskFunction() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/resize_and_overlay_videos', true);
+      xhr.responseType = 'blob';
+
+      xhr.onload = function (e) {
+        if (this.status == 200) {
+          var videoBlob = this.response;
+          var videoUrl = URL.createObjectURL(videoBlob);
+
+          var videoElement = document.getElementById('myVideo');
+          videoElement.src = videoUrl;
+        }
+      };
+
+      xhr.send();
+    }
+  </script>
+
+  </div>
+
+</body>
+
+</html>
+
+
+<footer class="footer">
+  <center>
+
+  </center>
+</footer>
+</body>
+
+</html>
