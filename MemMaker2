@@ -640,7 +640,7 @@ def make_text():
         return 'Text saved successfully!'
     else:
         return render_template('make_text.html')
-directories = ['static/images','static/images/squares', 'static/final_videos', 'static/Dreamlike_art', 'static/squares', 'static/images/uploads', 'static/BrightColors', 'static/final_images', 'static/thumbnails']
+directories = ['static/images','static/images/squares', 'static/final_videos', 'static/Dreamlike_art', 'static/squares', 'static/images/uploads', 'static/Final_Fantasy', 'static/final_images', 'static/thumbnails']
 # Route for the home page
 @app.route('/')
 def home():
@@ -1533,10 +1533,7 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-@app.route('/indexFLASK', methods=['POST','GET'])
-def indexFlask():
 
-    return render_template('indexFLASK.html')
 @app.route('/view_thumbs')
 def view_thumbs():
     # Define the directory where the images are located
@@ -1851,6 +1848,14 @@ def indexA():
     return render_template('indexA.html', random_image_file=random_image_file)
 
 
+@app.route('/index_FLASK')
+def index_FLASK():
+    image_dir = 'static/images'
+    image_files = [f for f in os.listdir(image_dir) if f.endswith('.jpg')]
+    random_image_file = random.choice(image_files)
+    app.logger.info(f"Random image file selected: {random_image_file}")
+
+    return render_template('index_FLASK.html')
 
 
 if __name__ == '__main__':
