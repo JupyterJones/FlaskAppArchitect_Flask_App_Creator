@@ -1,0 +1,1 @@
+ffmpeg -f x11grab -framerate 24 -video_size 1366x760 -i :0.0+0,0 -i static/music/Music.mp3 -c:v libx264 -preset ultrafast -pix_fmt yuv420p -maxrate 1000k -bufsize 1000k -c:a aac -shortest -f flv rtmp://a.rtmp.youtube.com/live2/k5u1-yffe-rt9a-312x-1zcx

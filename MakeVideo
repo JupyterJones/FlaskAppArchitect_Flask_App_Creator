@@ -1,0 +1,10 @@
+#!/bin/bash
+#/home/jack/Desktop/StoryMaker/env/bin/python3.8 /home/jack/Desktop/StoryMaker/inference.py --checkpoint_path "/home/jack/Desktop/StoryMaker/checkpoints/wav2lip_gan.pth" --face "/home/jack/Desktop/StoryMaker/sample_data/input_video.mp4" --audio "/home/jack/Desktop/StoryMaker/sample_data/input_audio.wav" --pads 0 10 0 0
+
+#env/bin/python3.8 inference.py --checkpoint_path checkpoints/wav2lip_gan.pth --face static/final_video_blinking.mp4" --audio "static/final_video_blinking.mp4" --pads 5 20 5 5
+#cp results/final_video_blinking.mp4 results/result_voice_01.mp4
+
+
+#env/bin/python3.8 inference.py --checkpoint_path checkpoints/wav2lip_gan.pth --face 'static/current_project/MP4/fly-faceshort.mp4' --audio "static/current_project/MP4/fly-faceshort.mp4" --pads 0 10 0 0
+
+/home/jack/Desktop/StoryMaker/env/bin/python3.8 /home/jack/Desktop/StoryMaker/inference.py --checkpoint_path "/home/jack/Desktop/StoryMaker/checkpoints/wav2lip_gan.pth" --face "/home/jack/Desktop/StoryMaker/sample_data/input_video.mp4" --audio "/home/jack/Desktop/StoryMaker/sample_data/input_video.mp4" --pads 0 10 0 0

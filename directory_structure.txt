@@ -1,0 +1,72 @@
+.
+├── animate
+├── back
+├── checkpoints
+├── clean_images
+│   └── __pycache__
+├── evaluation
+│   ├── scores_LSE
+│   └── test_filelists
+│       └── ReSyncED
+├── face_detection
+│   ├── detection
+│   │   ├── __pycache__
+│   │   └── sfd
+│   │       └── __pycache__
+│   └── __pycache__
+├── kdenlive
+├── Logs
+├── old
+├── __pycache__
+├── remarkable_journey
+├── results
+├── sample_data
+├── static
+│   ├── alice
+│   ├── animate
+│   ├── assets
+│   ├── audio_mp3
+│   ├── chat
+│   ├── css
+│   ├── current_project
+│   │   ├── Alice-Simulation
+│   │   ├── Audio
+│   │   ├── Borders
+│   │   ├── Images
+│   │   ├── junk
+│   │   │   └── leonardo.ai_files
+│   │   ├── Misc
+│   │   ├── MP4
+│   │   ├── Narrators
+│   │   ├── old_woman
+│   │   ├── quantum
+│   │   ├── remarkable_journey
+│   │   └── remarkable_journey2
+│   ├── examples
+│   ├── formatted_text
+│   ├── images
+│   │   ├── leonardo.ai_files
+│   │   └── uploads
+│   ├── leo
+│   ├── new_resources
+│   │   └── photo_NASA_textbook
+│   ├── output
+│   ├── result
+│   ├── squares
+│   ├── square_videos
+│   ├── square_vids
+│   ├── stacked_vids
+│   ├── text
+│   ├── text_video
+│   └── videos
+├── temp
+├── templates
+├── tmp
+├── video_converter
+│   ├── __pycache__
+│   ├── static
+│   │   └── videos
+│   └── templates
+└── VIDEOS
+
+69 directories

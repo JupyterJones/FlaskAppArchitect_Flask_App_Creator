@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Set the path to your virtual environment's activation script
+VENV_ACTIVATE_PATH="/home/jack/Desktop/content/env/bin/activate"
+
+# Check if the virtual environment activation script exists
+if [[ -f "$VENV_ACTIVATE_PATH" ]]; then
+    # Activate the virtual environment
+    source "$VENV_ACTIVATE_PATH"
+    echo "Virtual environment activated."
+else
+    echo "Virtual environment activation script not found at $VENV_ACTIVATE_PATH"
+fi
