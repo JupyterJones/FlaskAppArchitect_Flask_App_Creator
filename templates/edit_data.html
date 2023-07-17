@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Data</title>
+  <!-- Include any necessary CSS stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Edit Data</h1>
+  <form method="POST" action="{{ url_for('edit_data', rowid=data[0]) }}">
+    <label for="description">Description:</label>
+    <textarea id="description" name="description">{{ data[1] }}</textarea>
+    <label for="code">Code:</label>
+    <textarea id="code" name="code">{{ data[2] }}</textarea>
+    <label for="keywords">Keywords:</label>
+    <textarea id="keywords" name="keywords">{{ data[3] }}</textarea>
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>

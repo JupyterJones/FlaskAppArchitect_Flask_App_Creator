@@ -1492,27 +1492,6 @@ def close_connection(exception):
 def indexdb():
     return render_template('indexdb.html')
 
-@app.route('/edit_data/<int:rowid>', methods=['GET', 'POST'])
-def edit_data(rowid):
-    db = get_db()
-    cursor = db.cursor()
-
-    if request.method == 'POST':
-        description = request.form['description']
-        code = request.form['code']
-        keywords = request.form['keywords']
-
-        cursor.execute("UPDATE snippets SET description = ?, code = ?, keywords = ? WHERE rowid = ?",
-                       (description, code, keywords, rowid))
-        db.commit()
-
-        return redirect('/search_database')
-
-    cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (rowid,))
-    data = cursor.fetchone()
-    return render_template('edit_data.html', data=data)
-
-
 @app.route('/search_database', methods=['GET', 'POST'])
 def search_database():
     if request.method == 'POST':
@@ -1534,7 +1513,6 @@ def search_database():
         return render_template('db_results.html', results=results)
 
     return render_template('search_database.html')
-
 
 @app.route('/insert_data', methods=['POST','GET'])
 def insert_data():
