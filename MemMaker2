@@ -69,7 +69,7 @@ app.config['THUMBNAILS_FOLDER'] = 'static/images/thumbnails'
 app.config['CHECKPOINT_PATH'] = 'checkpoints/wav2lip_gan.pth'
 app.config['AUDIO_PATH'] = 'sample_data/input_audio.wav'
 app.config['video_PATH'] = 'sample_data/input_videio.mp4'
-app.config['DATABASE'] = 'database.db'  # SQLite database file
+app.config['DATABASE'] = 'code.db'  # SQLite database file
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
@@ -1480,17 +1480,40 @@ def get_db():
     if db is None:
         db = g._database = sqlite3.connect(app.config['DATABASE'])
     return db
+# Define the route for the form
+@app.route('/select_by_id_form', methods=['POST','GET'])
+def select_by_id_form():
+    return render_template('select_by_id_form.html')
 
+# Handle the form submission
+@app.route('/select_by_id', methods=['POST','GET'])
+def handle_select_by_id():
+    row_id = request.form['row_id']
 
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(app, '_database', None)
-    if db is not None:
-        db.close()
+    db = get_db()
+    cursor = db.cursor()
 
-@app.route('/indexdb')
-def indexdb():
-    return render_template('indexdb.html')
+    cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (row_id,))
+    data = cursor.fetchone()
+
+    if data is not None:
+        # Retrieve the individual data values
+        id_value = data[0]
+        description = data[1]
+        code = data[2]
+        keywords = data[3]
+    else:
+        # Set default values if no data found
+        id_value = row_id
+        description = ""
+        code = ""
+        keywords = ""
+
+    return render_template('display_data.html', id_value=id_value, description=description, code=code, keywords=keywords)
+
+@app.route('/search_by_rowid')
+def search_by_rowid():
+    return render_template('search_by_rowid.html')
 
 @app.route('/edit_data/<int:rowid>', methods=['GET', 'POST'])
 def edit_data(rowid):
@@ -1510,44 +1533,58 @@ def edit_data(rowid):
 
     cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (rowid,))
     data = cursor.fetchone()
+
     return render_template('edit_data.html', data=data)
 
 
-@app.route('/search_database', methods=['GET', 'POST'])
+
+
+@app.route('/search_database', methods=['POST','GET'])
 def search_database():
-    if request.method == 'POST':
-        search_term = request.form['search_term']
-        search_area = request.form['search_area']
-
-        db = get_db()
-        cursor = db.cursor()
-        if search_area == 'description':
-            cursor.execute("SELECT rowid, * FROM snippets WHERE description LIKE ?", ('%' + search_term + '%',))
-        elif search_area == 'code':
-            cursor.execute("SELECT rowid, * FROM snippets WHERE code LIKE ?", ('%' + search_term + '%',))
-        elif search_area == 'keywords':
-            cursor.execute("SELECT rowid, * FROM snippets WHERE keywords LIKE ?", ('%' + search_term + '%',))
-        else:
-            return redirect('/search_database')
-
-        results = cursor.fetchall()
-        return render_template('db_results.html', results=results)
-
-    return render_template('search_database.html')
-
-
-@app.route('/insert_data', methods=['POST','GET'])
-def insert_data():
-    description = request.form['description']
-    code = request.form['code']
-    keywords = request.form['keywords']
+    search_term = request.form['search_term']
+    search_area = request.form['search_area']
 
     db = get_db()
     cursor = db.cursor()
-    cursor.execute("INSERT INTO snippets (description, code, keywords) VALUES (?, ?, ?)", (description, code, keywords))
-    db.commit()
 
-    return redirect('/search_database')
+    if search_area == 'rowid':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE rowid = ?", (search_term,))
+    elif search_area == 'description':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE description LIKE ?", ('%' + search_term + '%',))
+    elif search_area == 'code':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE code LIKE ?", ('%' + search_term + '%',))
+    elif search_area == 'keywords':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE keywords LIKE ?", ('%' + search_term + '%',))
+    else:
+        return redirect('/search_database')
+
+    results = cursor.fetchall()
+    return render_template('db_results.html', results=results)
+
+#@app.route('/edit_data/<int:rowid>', methods=['GET', 'POST'])
+#def edit_data(rowid):
+
+@app.route('/insert_data', methods=['POST', 'GET'])
+def insert_data():
+    if request.method == 'POST':
+        description = request.form['description']
+        code = request.form['code']
+        keywords = request.form['keywords']
+
+        db = get_db()
+        cursor = db.cursor()
+
+        cursor.execute("INSERT INTO snippets (description, code, keywords) VALUES (?, ?, ?)",
+                       (description, code, keywords))
+        db.commit()
+
+        # Get the rowid of the newly inserted row
+        rowid = cursor.lastrowid
+
+        return redirect(url_for('edit_data', rowid=rowid))
+
+    return render_template('insert_data.html')
+
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -1860,6 +1897,33 @@ def add_title():
     app.logger.debug(f'videos: {videos}')
     app.logger.debug(f'title_pages: {title_pages}')
     return render_template('add_title.html', videos=videos, title_pages=title_pages)
+def get_rowid():
+    # Connect to the database
+    db = sqlite3.connect('code.db')
+    cursor = db.cursor()
+    row_id = request.form['row_id']
+    # Execute a query to retrieve the rowid
+    cursor.execute("SELECT rowid FROM snippets WHERE rowid = ?", (rowid,))
+
+
+    # Fetch the result
+    result = cursor.fetchone()
+
+    # Close the database connection
+    db.close()
+
+    # Check if a rowid was found
+    if result:
+        rowid = result[0]
+    else:
+        # Handle the case when no rowid is found
+        rowid = None
+
+    return rowid
+
+@app.route('/indexdb')
+def indexdb():
+    return render_template('indexdb.html')
 
 @app.route('/indexA')
 def indexA():
@@ -1878,6 +1942,109 @@ def index_FLASK():
     app.logger.info(f"Random image file selected: {random_image_file}")
 
     return render_template('index_FLASK.html')
+
+@app.route('/edit_data_page', methods=['GET', 'POST'])
+def edit_data_page():
+    if request.method == 'POST':
+        rowid = request.form['rowid']
+        return redirect(url_for('edit_data', rowid=rowid))
+
+    return render_template('edit_data_page.html')
+# Configuration
+app.config['DATABASE'] = 'code.db'
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect("code.db")
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+@app.before_first_request
+def create_table():
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS products (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT,
+            price REAL
+        )
+    ''')
+
+    db.commit()
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(app, '_database', None)
+    if db is not None:
+        db.close()
+
+
+@app.route('/indexD')
+def indexD():
+    return redirect('/products')
+
+
+@app.route('/products', methods=['GET', 'POST'])
+def products():
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("INSERT INTO products (name, description, price) VALUES (?, ?, ?)",
+                       (name, description, price))
+        db.commit()
+
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+
+    return render_template('products.html', products=products)
+
+
+@app.route('/edit/<int:product_id>', methods=['GET', 'POST'])
+def edit_product(product_id):
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("UPDATE products SET name=?, description=?, price=? WHERE id=?",
+                       (name, description, price, product_id))
+        db.commit()
+
+        return redirect('/products')
+
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM products WHERE id=?", (product_id,))
+    product = cursor.fetchone()
+
+    return render_template('edit_product.html', product=product)
+
+
+@app.route('/delete/<int:product_id>', methods=['POST'])
+def delete_product(product_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM products WHERE id=?", (product_id,))
+    db.commit()
+
+    return redirect('/products')
 
 
 if __name__ == '__main__':

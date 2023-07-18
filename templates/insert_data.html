@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enter Data</title>
+  <!-- Include any necessary CSS stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Enter Data</h1>
+  <form action="/insert_data" method="POST">
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="3" cols="90%"></textarea><br>
+
+    <label for="code">Code Snippet:</label>
+    <textarea id="code" name="code" rows="10" cols="90%"></textarea><br>
+
+    <label for="keywords">Keywords:</label>
+    <textarea id="keywords" name="keywords" rows="3" cols="90%"></textarea><br>
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

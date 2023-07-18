@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 app = Flask(__name__)
-app.config['DATABASE'] = 'database.db'  # SQLite database file
+app.config['DATABASE'] = 'code.db'  # SQLite database file
 
 def get_db():
     db = getattr(app, '_database', None)

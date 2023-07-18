@@ -1,42 +1,59 @@
-<html>
-<body><center>
-    <h1>Search</h1>
-    <form action="/search_database" method="POST">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Database Editor</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Include any necessary CSS stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="header">
+    <center>
+      <h1>Search</h1>
+      <form action="/search_database" method="POST">
         <label for="search_term">Search Term:</label>
         <input type="text" id="search_term" name="search_term"><br>
 
         <label for="search_area">Search Area:</label>
         <select id="search_area" name="search_area">
-            <option value="description">Description</option>
-            <option value="code">Code Snippet</option>
-            <option value="keywords">Keywords</option>
+          <option value="description">Description</option>
+          <option value="code">Code Snippet</option>
+          <option value="keywords">Keywords</option>
         </select><br>
 
         <input type="submit" value="Search">
-    </form>
+      </form>
+      <hr style="width:50%;">
+      <h1>Enter Data</h1>
+      <form action="/insert_data" method="POST">
+        <label for="description">Description:</label><br/>
+        <textarea id="description" name="description" rows="3" cols="90%"></textarea><br>
 
-    <html>
-        <body>
-            <h1>Enter Data</h1>
-            <form action="/insert_data" method="POST">
-                <label for="description">Description:</label>
-                <textarea id="description" name="description"></textarea><br>
-        
-                <label for="code">Code Snippet:</label>
-                <textarea id="code" name="code"></textarea><br>
-        
-                <label for="keywords">Keywords:</label>
-                <textarea id="keywords" name="keywords"></textarea><br>
-        
-                <input type="submit" value="Submit">
-            </form>
-        
-        </center>
-        </body>
-        </html>
-        
+        <label for="code">Code Snippet:</label><br/>
+        <textarea id="code" name="code" rows="10" cols="90%"></textarea><br>
 
+        <label for="keywords">Keywords:</label>
+        <textarea id="keywords" name="keywords" rows="3" cols="90%"></textarea><br>
 
-
+        <input type="submit" value="Submit">
+      </form>
+      <hr style="width:50%;">
+      <h1>Search by ROWID</h1>
+      <form action="/search_by_rowid" method="POST">
+        <label for="search_term">Enter ID:</label>
+        <input type="text" id="search_term" name="search_term"><br>
+      
+        <input type="submit" value="Search">
+      </form>
+       <hr style="width:50%;">
+       <h1>Edit Data</h1>
+       <form action="/edit_data_page" method="POST">
+         <label for="rowid">Enter Row ID:</label>
+         <input type="text" id="rowid" name="rowid">
+         <input type="submit" value="Edit">
+       </form>
+    </center>
+  </div>  
 </body>
 </html>

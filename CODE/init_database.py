@@ -5,3 +5,4 @@ cursor = db.cursor()
 
 cursor.execute("CREATE TABLE snippets (description TEXT, code TEXT, keywords TEXT)")
 db.commit()
+

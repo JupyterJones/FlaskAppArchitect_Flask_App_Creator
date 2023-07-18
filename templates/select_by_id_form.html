@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Select by ID Form</title>
+  <!-- Include any necessary CSS stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Select by ID</h1>
+  <form method="POST" action="{{ url_for('select_by_id_form') }}">
+    <label for="row_id">Enter Row ID:</label>
+    <input type="text" id="row_id" name="row_id">
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

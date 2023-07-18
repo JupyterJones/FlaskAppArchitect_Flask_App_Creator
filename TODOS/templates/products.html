@@ -1,0 +1,58 @@
+
+<style>td {width:20%;
+}
+th {width:20%;
+}
+tr {width:20%;
+}
+.two{width:5%;}
+.th_two{width:5%;padding-left: 2%;}
+.three{width:10%;}
+.th_three{width:10%;padding-left: 10%;}
+.th_four{width:10%;padding-left: 5%;}
+.th_five{width:10%;padding-left: 40%;}
+</style>
+
+{% extends 'index.html' %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+{% block content %}
+    <h1>Products</h1>
+    <table style ="width: 65%;">
+        <tr>
+            <th class="two">ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th class="two">Price (USD)</th>
+            <th>Actions</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td class="th_two">{{ product[0] }}</td>
+            <td class="th_three">{{ product[1] }}</td>
+            <td class="th_two">{{ product[2] }}</td>
+            <td class="th_four">{{ product[3] }}</td>
+            <td>
+                <a class="th_five" href="{{ url_for('edit_product', product_id=product[0]) }}">Edit</a>
+                <form action="{{ url_for('delete_product', product_id=product[0]) }}" method="post">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <h1>Add New Product</h1>
+    <form action="/products" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name"><br>
+        <label for="description">Description:</label>
+        <input type="text" name="description"><br>
+        <label for="price">Price:</label>
+        <input type="text" name="price"><br>
+        <input type="submit" value="Add Product">
+    </form>
+{% endblock %}

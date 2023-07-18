@@ -1,6 +1,6 @@
 import sqlite3
 
-db = sqlite3.connect('database.db')
+db = sqlite3.connect('code.db')
 cursor = db.cursor()
 
 rows = cursor.execute("Select ROWID, * from snippets")

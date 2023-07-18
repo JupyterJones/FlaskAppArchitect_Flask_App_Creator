@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enter Data</title>
+  <!-- Include any necessary CSS stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <h1>Enter Data</h1>
+  <form action="/insert_data" method="POST">
+
+    <form action="{{ url_for('edit_code', code_id=code[0]) }}" method="post">
+      <label for="name">Name:</label>
+      <input type="text" name="name" value="{{ code[1] }}"><br>
+      <label for="description">Description:</label>
+      <input type="text" name="description" value="{{ code[2] }}"><br>
+      <label for="price">Price:</label>
+      <input type="text" name="price" value="{{ code[3] }}"><br>
+      <input type="submit" value="Update code">
+  </form>
+
+</body>
+</html>

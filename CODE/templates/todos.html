@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TODO List</title>
+    <!-- Add any necessary CSS stylesheets here -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>TODO List</h1>
+    <ul>
+        {% for todo in todos %}
+        <li>
+            {{ todo.title }}
+            {% if todo.completed %}
+            - Completed
+            {% else %}
+            - Not Completed
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
