@@ -1,10 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
-from flask import render_template
-from flask import Blueprint
-
-code_blueprint = Blueprint('code', __name__)
 
 app = Flask(__name__, template_folder='templates')
 
@@ -16,12 +12,12 @@ def create_database():
     # ... rest of the code to create the table ...
 
 # ... existing routes and view functions ...
-@code_blueprint.route('/')
+@app.route('/')
 def index():
     return render_template('index.html')
 
 # Route to access the database using a link
-@code_blueprint.route('/access_database')
+@app.route('/access_database')
 def access_database():
     db_path = os.path.join(os.path.dirname(__file__), 'code.db')
     conn = sqlite3.connect(db_path)
@@ -51,7 +47,7 @@ def create_database():
     conn.close()
 
 # Route to display all code
-@code_blueprint.route('/code', methods=['GET'])
+@app.route('/code', methods=['GET'])
 def display_code():
     conn = sqlite3.connect('code.db')
     cursor = conn.cursor()
@@ -76,7 +72,7 @@ def display_code():
     return render_template('code.html', code=code, form_code=form_code)
     
 # Route to add a new code
-@code_blueprint.route('/code', methods=['POST'])
+@app.route('/code', methods=['POST'])
 def add_code():
     description = request.form['description']
     code = request.form['code']
@@ -91,7 +87,7 @@ def add_code():
     return redirect(url_for('display_code'))
 
 # Route to edit a code
-@code_blueprint.route('/edit_code/<int:code_id>', methods=['GET', 'POST'])
+@app.route('/edit_code/<int:code_id>', methods=['GET', 'POST'])
 def edit_code(code_id):
     conn = sqlite3.connect('code.db')
     cursor = conn.cursor()
@@ -113,7 +109,7 @@ def edit_code(code_id):
     return render_template('edit_code.html', code=code)
 
 # Route to delete a code
-@code_blueprint.route('/delete_code/<int:code_id>', methods=['POST'])
+@app.route('/delete_code/<int:code_id>', methods=['POST'])
 def delete_code(code_id):
     conn = sqlite3.connect('code.db')
     cursor = conn.cursor()
