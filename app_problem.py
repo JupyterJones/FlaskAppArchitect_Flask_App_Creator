@@ -1,6 +1,6 @@
 #!/home/jack/Desktop/StoryMaker/env/bin/python
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response,flash
-from flask import send_file, make_response,g
+from flask import send_file, make_response,g, jsonify
 import os
 import pygame
 from gtts import gTTS
@@ -25,16 +25,18 @@ import imageio
 import time
 from werkzeug.utils import secure_filename
 import shutil
+import json
+import sys
 import logging
-#from search import search
-#import clean_images
+#from . import search
+from . import clean_images
 from time import sleep
 from pydub import AudioSegment
 from PIL import Image, ImageDraw, ImageFont
 from logging.handlers import RotatingFileHandler
 import moviepy.editor as mp
 from flask import Flask
-import sys
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'CODE'))
 from CODE import code_blueprint
 app = Flask(__name__, template_folder='templates')
@@ -46,18 +48,11 @@ app.register_blueprint(code_blueprint, name='code_blueprint')
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-app = Flask(__name__)
-app.secret_key = os.urandom(24)
-
-# Create a logger object
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
 # Create a formatter for the log messages
 formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
 
 # Create a file handler to write log messages to a file
-file_handler = RotatingFileHandler('Logs/app.log', maxBytes=10000, backupCount=1)
+file_handler = RotatingFileHandler('/home/jack/Desktop/Project/StoryMaker/Logs/app.log', maxBytes=10000, backupCount=1)
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 
@@ -75,7 +70,7 @@ logger.debug('This is a debug message: %s', TExt)
 app.logger.addHandler(file_handler)
 # Create a logger object
 logging.basicConfig(level=logging.DEBUG)
-
+app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = 'static/images/uploads'
 app.config['RESULTS_FOLDER'] = 'static/videos/results'
 app.config['THUMBNAILS_FOLDER'] = 'static/images/thumbnails'
@@ -89,7 +84,25 @@ def favicon():
 
 # use the search function as a route
 app.add_url_rule('/search', 'search')
+# load the conversations JSON file
+with open('/home/jack/Desktop/Project/StoryMaker/static/chat/conversations.json', 'r') as f:
+    conversations = json.load(f)
 
+@app.route('/search')
+def search():
+    # get the search query from the request parameters
+    query = request.args.get('q')
+
+    # search the conversations for the query
+    results = []
+    for conversation in conversations:
+        if 'messages' in conversation:
+            for message in conversation['messages']:
+                if 'content' in message and query.lower() in message['content'].lower():
+                    results.append(message)
+
+    # return the search results as JSON
+    return jsonify(results)
 def zip_lists(list1, list2):
     return zip(list1, list2)
 
@@ -101,7 +114,8 @@ os.makedirs(directory_path, exist_ok=True)
 
 @app.route('/')
 def index():
-    image_dir = 'static/images'
+    image_dir = os.path.join(os.path.dirname(__file__), 'static', 'images')
+    #image_dir = 'static/images'
     image_files = [f for f in os.listdir(image_dir) if f.endswith('.jpg')]
     random_image_file = random.choice(image_files)
     return render_template('index.html', random_image_file="images/"+random_image_file)
@@ -113,8 +127,10 @@ def generate_output():
     # Execute the Bash script
     subprocess.run(['bash', bash_script_path])
     # Backup the result_videoxx.mp4 file
-    current_datetime = str(int(time.time())) 
-    backup_filename = f"static/{current_datetime}.mp4"
+    current_datetime = str(int(time.time()))
+    unique_id = str(uuid.uuid4().hex)  # Generate a unique identifier
+    #backup_filename = f"static/{current_datetime}_{unique_id}.mp4"
+    backup_filename = "static/{}_{}.mp4".format(current_datetime, unique_id)
     shutil.copyfile("results/result_voice.mp4", backup_filename)    
     redirect('/final_lipsync')
     return "Generated output"
@@ -409,7 +425,7 @@ def apply_text_to_video():
         return render_template("apply_text_to_video.html")
 
 # Get a list of existing subdirectories in the video resources directory
-existing_subdirectories = [subdir for subdir in os.listdir("static/current_project") if os.path.isdir(os.path.join("static/current_project", subdir))]
+existing_subdirectories = [subdir for subdir in os.listdir("/home/jack/Desktop/Project/StoryMaker/static/current_project") if os.path.isdir(os.path.join("/home/jack/Desktop/Project/StoryMaker/static/current_project", subdir))]
 
 @app.route('/uploads', methods=['GET', 'POST'])
 def upload_files():
@@ -1114,6 +1130,12 @@ def build_stackedvid():
     final_clip.write_videofile(video_filename)
     
     return render_template('/build_stackedvid.html', stackedvid_url=final_clip_path)
+
+@app.route('/clean_images', methods=['POST'])
+def clean_images_route():
+    clean_images()
+    app.logger.error('line 210 clean_images_route')
+    return redirect(url_for('index'))
 
 @app.route('/get_gallery')
 def get_gallery():
@@ -1999,6 +2021,7 @@ def close_connection(exception):
 def indexD():
     return redirect('/products')
 
+
 @app.route('/products', methods=['GET', 'POST'])
 def products():
     if request.method == 'POST':
@@ -2018,6 +2041,7 @@ def products():
     products = cursor.fetchall()
 
     return render_template('products.html', products=products)
+
 
 @app.route('/edit/<int:product_id>', methods=['GET', 'POST'])
 def edit_product(product_id):

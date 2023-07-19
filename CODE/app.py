@@ -9,7 +9,7 @@ code_blueprint = Blueprint('code', __name__)
 app = Flask(__name__, template_folder='templates')
 
 # Function to create the database and table
-def create_database():
+def create_databaseD():
     db_path = os.path.join(os.path.dirname(__file__), 'code.db')
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -35,7 +35,7 @@ def access_database():
 
 
 # Function to create the database and table
-def create_database():
+def create_databaseD():
     conn = sqlite3.connect('code.db')
     cursor = conn.cursor()
     #cursor.execute("CREATE TABLE snippets (description TEXT, code TEXT, keywords TEXT)")
@@ -123,6 +123,6 @@ def delete_code(code_id):
     return redirect(url_for('display_code'))
 
 if __name__ == '__main__':
-    create_database()  # Create the database and table before starting the app
+    create_databaseD()  # Create the database and table before starting the app
     app.run(debug=True)
 

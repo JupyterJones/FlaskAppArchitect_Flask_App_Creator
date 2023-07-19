@@ -34,18 +34,10 @@ from PIL import Image, ImageDraw, ImageFont
 from logging.handlers import RotatingFileHandler
 import moviepy.editor as mp
 from flask import Flask
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), 'CODE'))
-from CODE import code_blueprint
-app = Flask(__name__, template_folder='templates')
-app.secret_key = os.urandom(24)
-import uuid
-# Register the Blueprint
-app.register_blueprint(code_blueprint, name='code_blueprint')
-# Create a logger object
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+#from CODE import code_blueprint
 
+# Register the Blueprint
+#app.register_blueprint(code_blueprint)
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -89,7 +81,6 @@ def favicon():
 
 # use the search function as a route
 app.add_url_rule('/search', 'search')
-
 def zip_lists(list1, list2):
     return zip(list1, list2)
 
@@ -1114,6 +1105,12 @@ def build_stackedvid():
     final_clip.write_videofile(video_filename)
     
     return render_template('/build_stackedvid.html', stackedvid_url=final_clip_path)
+
+@app.route('/clean_images', methods=['POST'])
+def clean_images_route():
+    #clean_images()
+    app.logger.error('line 210 clean_images_route')
+    return redirect(url_for('index'))
 
 @app.route('/get_gallery')
 def get_gallery():

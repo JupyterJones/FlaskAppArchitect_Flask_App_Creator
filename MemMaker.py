@@ -1,6 +1,6 @@
 #!/home/jack/Desktop/StoryMaker/env/bin/python
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response,flash
-from flask import send_file, make_response,g
+from flask import send_file, make_response
 import os
 import pygame
 from gtts import gTTS
@@ -14,8 +14,6 @@ import moviepy.editor
 import subprocess 
 import shutil  
 import logging
-from io import BytesIO
-import sqlite3
 import random
 import glob
 import base64
@@ -26,26 +24,13 @@ import time
 from werkzeug.utils import secure_filename
 import shutil
 import logging
-#from search import search
-#import clean_images
+import search
+import clean_images
 from time import sleep
 from pydub import AudioSegment
 from PIL import Image, ImageDraw, ImageFont
 from logging.handlers import RotatingFileHandler
 import moviepy.editor as mp
-from flask import Flask
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), 'CODE'))
-from CODE import code_blueprint
-app = Flask(__name__, template_folder='templates')
-app.secret_key = os.urandom(24)
-import uuid
-# Register the Blueprint
-app.register_blueprint(code_blueprint, name='code_blueprint')
-# Create a logger object
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -82,13 +67,10 @@ app.config['THUMBNAILS_FOLDER'] = 'static/images/thumbnails'
 app.config['CHECKPOINT_PATH'] = 'checkpoints/wav2lip_gan.pth'
 app.config['AUDIO_PATH'] = 'sample_data/input_audio.wav'
 app.config['video_PATH'] = 'sample_data/input_videio.mp4'
-app.config['DATABASE'] = 'code.db'  # SQLite database file
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 
 # use the search function as a route
-app.add_url_rule('/search', 'search')
+app.add_url_rule('/search', 'search', search)
 
 def zip_lists(list1, list2):
     return zip(list1, list2)
@@ -653,7 +635,7 @@ def make_text():
         return 'Text saved successfully!'
     else:
         return render_template('make_text.html')
-directories = ['static/images','static/images/squares', 'static/final_videos', 'static/Dreamlike_art', 'static/squares', 'static/images/uploads', 'static/Final_Fantasy', 'static/final_images', 'static/thumbnails']
+directories = ['static/images','static/images/squares', 'static/final_videos', 'static/Dreamlike_art', 'static/squares', 'static/images/uploads', 'static/BrightColors', 'static/final_images', 'static/thumbnails']
 # Route for the home page
 @app.route('/')
 def home():
@@ -1115,6 +1097,12 @@ def build_stackedvid():
     
     return render_template('/build_stackedvid.html', stackedvid_url=final_clip_path)
 
+@app.route('/clean_images', methods=['POST'])
+def clean_images_route():
+    clean_images()
+    app.logger.error('line 210 clean_images_route')
+    return redirect(url_for('index'))
+
 @app.route('/get_gallery')
 def get_gallery():
     image_dir = '/mnt/HDD500/flask/FLASK/static/images/uploads'
@@ -1253,50 +1241,33 @@ def process_videos():
 @app.route('/large_video')
 def large_video():
     return render_template('large_video.html')
-@app.route('/add_border')
-def add_border():
-    images = [f for f in os.listdir('static/images/uploads/') if os.path.isfile(os.path.join('static/images/uploads/', f))]
-    thumbnails = []
-    for image in images:
-        with Image.open('static/images/uploads/'+image) as img:
-            img.thumbnail((200, 200))
-            thumbnail_name = 'thumbnail_'+image
-            img.save('static/thumbnails/'+thumbnail_name)
-            thumbnails.append(thumbnail_name)
-    return render_template('add_border.html', images=images, thumbnails=thumbnails)
+@app.route('/add_borders')
+def add_borders():
+    # Path to the step2.mp4 file
+    step2_path = 'static/new_video/step2.mp4'
+    
+    # Path to the Border.png file
+    border_path = 'static/new_video/output_image.png'
+    
+    # Open the step2.mp4 video file
+    step2_clip = VideoFileClip(step2_path)
+    
+    # Open the Border.png image file
+    border_image = ImageClip(border_path).set_duration(step2_clip.duration)
+    
+    # Overlay the border image on the video clip
+    final_clip = CompositeVideoClip([step2_clip, border_image])
+    
+    # Path to save the final video with the border
+    final_path = 'static/new_video/final_with_border.mp4'
+    
+    # Write the final video with the border to the file
+    final_clip.write_videofile(final_path, codec='libx264')
+    
+    # Render the add_border.html template and pass the final video path
+    return render_template('add_borders.html', final_path=final_path)
 
 
-@app.route('/select_border')
-def select_border():
-    borders = os.listdir('static/transparent_borders/')
-    return render_template('select_border.html', borders=borders)
-
-@app.route('/apply_border', methods=['POST', 'GET'])
-def apply_border():
-    selected_image = request.form['image']
-    selected_border = request.form['border']
-    try:
-        with Image.open('static/images/uploads/'+selected_image) as img:
-            with Image.open('static/transparent_borders/'+selected_border) as border:
-                img = img.resize(border.size)
-                img.paste(border, (0, 0), border)
-                final_image_name = 'final_'+selected_image
-                img.save('static/final_images/'+final_image_name)
-        return render_template('final_image.html', final_image=final_image_name, message='Border applied successfully.')
-    except Exception as e:
-        error_message = f'An error occurred: {str(e)}. Please try again.'
-        return render_template('apply_border.html', image=selected_image, border=selected_border, error_message=error_message)
-
-@app.route('/select_border_image', methods=['GET'])
-def select_border_image():
-    try:
-        image = request.args.get('image')
-        if not image:
-            raise ValueError('No image selected.')
-        return render_template('select_border.html', image=image, borders=os.listdir('static/transparent_borders/'))
-    except Exception as e:
-        error_message = f'An error occurred: {str(e)}. Please try again.'
-        return render_template('add_border.html', error_message=error_message)
 @app.route('/overlay_text', methods=['GET'])
 def overlay_text():
     # Load the blank image
@@ -1480,576 +1451,6 @@ def mkmoz():
         im.save(filename)
         Filename="images/ThumbNails.png"
     return render_template("mkmoz.html", filename=Filename)
-
-
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect(app.config['DATABASE'])
-    return db
-# Define the route for the form
-@app.route('/select_by_id_form', methods=['POST','GET'])
-def select_by_id_form():
-    return render_template('select_by_id_form.html')
-
-# Handle the form submission
-@app.route('/select_by_id', methods=['POST','GET'])
-def handle_select_by_id():
-    row_id = request.form['row_id']
-
-    db = get_db()
-    cursor = db.cursor()
-
-    cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (row_id,))
-    data = cursor.fetchone()
-
-    if data is not None:
-        # Retrieve the individual data values
-        id_value = data[0]
-        description = data[1]
-        code = data[2]
-        keywords = data[3]
-    else:
-        # Set default values if no data found
-        id_value = row_id
-        description = ""
-        code = ""
-        keywords = ""
-
-    return render_template('display_data.html', id_value=id_value, description=description, code=code, keywords=keywords)
-
-@app.route('/search_by_rowid')
-def search_by_rowid():
-    return render_template('search_by_rowid.html')
-
-@app.route('/edit_data/<int:rowid>', methods=['GET', 'POST'])
-def edit_data(rowid):
-    db = get_db()
-    cursor = db.cursor()
-
-    if request.method == 'POST':
-        description = request.form['description']
-        code = request.form['code']
-        keywords = request.form['keywords']
-
-        cursor.execute("UPDATE snippets SET description = ?, code = ?, keywords = ? WHERE rowid = ?",
-                       (description, code, keywords, rowid))
-        db.commit()
-
-        return redirect('/search_database')
-
-    cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (rowid,))
-    data = cursor.fetchone()
-
-    return render_template('edit_data.html', data=data)
-
-
-
-
-@app.route('/search_database', methods=['POST','GET'])
-def search_database():
-    search_term = request.form['search_term']
-    search_area = request.form['search_area']
-
-    db = get_db()
-    cursor = db.cursor()
-
-    if search_area == 'rowid':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE rowid = ?", (search_term,))
-    elif search_area == 'description':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE description LIKE ?", ('%' + search_term + '%',))
-    elif search_area == 'code':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE code LIKE ?", ('%' + search_term + '%',))
-    elif search_area == 'keywords':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE keywords LIKE ?", ('%' + search_term + '%',))
-    else:
-        return redirect('/search_database')
-
-    results = cursor.fetchall()
-    return render_template('db_results.html', results=results)
-
-#@app.route('/edit_data/<int:rowid>', methods=['GET', 'POST'])
-#def edit_data(rowid):
-
-@app.route('/insert_data', methods=['POST', 'GET'])
-def insert_data():
-    if request.method == 'POST':
-        description = request.form['description']
-        code = request.form['code']
-        keywords = request.form['keywords']
-
-        db = get_db()
-        cursor = db.cursor()
-
-        cursor.execute("INSERT INTO snippets (description, code, keywords) VALUES (?, ?, ?)",
-                       (description, code, keywords))
-        db.commit()
-
-        # Get the rowid of the newly inserted row
-        rowid = cursor.lastrowid
-
-        return redirect(url_for('edit_data', rowid=rowid))
-
-    return render_template('insert_data.html')
-
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
-
-@app.route('/view_thumbs')
-def view_thumbs():
-    # Define the directory where the images are located
-    image_directory = 'static/images/uploads'
-    # Get a list of all the image files in the directory
-    image_files = [f for f in os.listdir(image_directory) if f.endswith('.jpg') or f.endswith('.png')]
-    # Create a list of dictionaries containing the image file name and URL
-    image_list = [{'name': f, 'url': f'/images/uploads/{f}'} for f in image_files]
-    # Render the template with the list of images
-    return render_template('view_thumbs.html', image_list=image_list)
-
-@app.route('/add_text', methods=['GET', 'POST'])
-def add_text():
-    if request.method == 'POST':
-        text = request.form['text']
-        now = datetime.now()
-        timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
-        text = f'Text Entry: {timestamp} {text}'
-        with open('chat.txt', 'a') as file:
-            file.write(f'\n{text}')
-        return render_template('add_text.html', message='Text added successfully')
-    else:
-        return render_template('add_text.html')
-
-@app.route('/search_txt', methods=['GET', 'POST'])
-def search_txt():
-    if request.method == 'POST' and 'phrase' in request.form:
-        phrase = request.form['phrase']
-        with open('chat.txt', 'r') as file:
-            lines = file.readlines()
-        results = []
-        for i, line in enumerate(lines):
-            if phrase in line:
-                start = max(0, i-5)
-                end = min(len(lines), i+6)
-                context = lines[start:end]
-                for j, context_line in enumerate(context):
-                    if phrase in context_line:
-                        results.append(f'Line {start+j}: {context_line}')
-                    else:
-                        results.append(f'Line {start+j}: {context_line}')
-        return render_template('results.html', results=results)
-    return render_template('search_txt.html')
-
-@app.route('/blend_pil', methods=['POST', 'GET'])
-def blend_pil():
-    if request.method == 'POST':
-        # Get the uploaded images
-        img1 = request.files['img1']
-        img2 = request.files['img2']
-        img3 = request.files['img3']
-
-        # Open the images using PIL
-        img1_pil = Image.open(img1)
-        img2_pil = Image.open(img2)
-        img3_pil = Image.open(img3)
-
-        # Blend the images
-        blended_pil = Image.blend(img1_pil, img2_pil, 1/3)
-        blended_pil = Image.blend(blended_pil, img3_pil, 1/3)
-
-        # Return the blended image as a response
-        # Since we are not saving it to the server, we can use a BytesIO object to avoid creating a temporary file
-        img_io = BytesIO()
-        blended_pil.save(img_io, 'JPEG', quality=70)
-        current_datetime = datetime.now()
-        str_current_datetime = str(current_datetime)
-        file_name = "static/images/uploads/blended_pil"+str_current_datetime+"XXXX.jpg"
-        blended_pil.save(file_name, format='JPEG')
-        img_io.seek(0)
-        
-        # Generate the HTML for displaying the blended image in the template
-        blended_image_data = base64.b64encode(img_io.getvalue()).decode('utf-8')
-        blended_image_url = f"data:image/jpeg;base64,{blended_image_data}"
-        #blended_image_url = blended_image_url.resize(( blended_image_url.size[0]//2, blended_image_url.size[1]//2), Image.ANTIALIAS) 
-        # Pass the URL of the blended image to the template
-        return render_template('show_blend_pil.html', blended_image_url=blended_image_url)      
-    return render_template('blend_pil.html')
-
-@app.route('/process_images', methods=['POST', 'GET'])
-def process_images():
-    if request.method == 'POST':
-        # read the images from the request
-        img1 = Image.open(request.files['image1'].stream).convert('RGB')
-        img2 = Image.open(request.files['image2'].stream).convert('L')
-        img3 = Image.open(request.files['image3'].stream).convert('RGB')
-    
-        # resize the images to have the same shape
-        img1 = img1.resize((img2.width, img2.height))
-        img3 = img3.resize((img2.width, img2.height))
-    
-        # convert the mask to binary
-        threshold = 127
-        mask = Image.eval(img2, lambda px: 255 if px > threshold else 0)
-    
-        # apply the mask
-        img = Image.composite(img1, img3, mask)
-    
-        # save the image to a file
-        output = BytesIO()
-        current_datetime = datetime.now()
-        str_current_datetime = str(current_datetime)
-        file_name = "static/images/"+str_current_datetime+"XXXX.jpg"
-        img.save(file_name, format='JPEG')
-        img.save(output, format='JPEG')
-        output.seek(0)
-    
-        # encode the image to bytes
-        img_bytes = output.getvalue()
-    
-        # return the image as a response
-        return Response(img_bytes, mimetype='image/jpeg')
-    return render_template('process_images.html')
-
-@app.route('/image_directories', methods=['GET', 'POST'])
-def image_directories():
-    image_directories = ['static/Prodia_640x640', 'static/LineArt', 'static/Quantized', 'static/squares', 'static/BrightColors']
-    if request.method == 'POST':
-        # Rest of the code
-
-        directory = request.form['directory']
-        # Check that the directory parameter is not empty
-        if directory:
-            app.logger.info('Redirecting endpoint with directory: %s', directory)
-            # Check that the directory is a valid directory path
-            if os.path.isdir(directory):
-                # Pass the directory value to the square_video endpoint
-                app.logger.info('Redirecting to square_video endpoint with directory: %s', directory)
-                return redirect(url_for('square_video', directory=directory))
-            else:
-                # Render an error template if the directory parameter is not a valid directory path
-                app.logger.error('Invalid directory parameter: %s', directory)
-                return render_template('error.html', message='Please enter a valid directory path.')
-        else:
-            # Render an error template if the directory parameter is empty
-            app.logger.error('Directory parameter is empty')
-            return render_template('error.html', message='Please enter a directory path.')
-    else:
-        # Pass the list of image directories to the template
-        return render_template('image_directories.html', image_directories=image_directories)
-
-@app.route('/select_playmp3', methods=['GET', 'POST'])
-def select_playmp3():
-    # Get the list of mp3 files in the static/audio_mp3/ directory
-    mp3_files = [f for f in os.listdir('static/audio_mp3/') if f.endswith('.mp3')]
-    if request.method == 'POST':
-        # Get the selected MP3 file from the dropdown list
-        mp3_file = request.form['mp3_file']
-        # Play the selected mp3 file
-        pygame.mixer.init()
-        pygame.mixer.music.load('static/audio_mp3/' + mp3_file)
-        pygame.mixer.music.play()
-        # Wait for the audio to finish playing
-        while pygame.mixer.music.get_busy():
-            pygame.time.Clock().tick(10)
-        # Stop pygame and exit the program
-        pygame.mixer.quit()
-        pygame.quit()
-    # Render the template with the list of mp3 files
-    return render_template('select_playmp3.html', mp3_files=mp3_files)
-
-
-@app.route("/make_animation")
-def make_animation():
-    # Get a list of all files in the final_images directory
-    #image_files = os.listdir("static/final_images/")
-    #DIR = "/home/jack/Desktop/HDD500/collections/gypsy_files/"
-    #DIR = "/home/jack/Desktop/HDD500/collections/hippy_files/"
-    DIR = "/mnt/HDD500/collections/jungle/exotic_lithograph_prints-Playground_AI_files/512x768/"
-    image_files = os.listdir(DIR)
-    #image_files = os.listdir("/mnt/HDD500/collections/640x640-alien/")
-    # Select 20 random files from the list
-    selected_files = random.sample(image_files, 30)
-    
-    # Load each selected file, resize it to 400x600, and save it to a temporary directory
-    resized_images = []
-    for filename in selected_files:
-        with Image.open(DIR + filename) as img:
-            img = img.resize((400, 600))
-            temp_filename = "static/tmp/" + filename
-            img.save(temp_filename)
-            resized_images.append(temp_filename)
-    
-    # Create an animated GIF from the resized images
- 
-    gif_filename = "static/animated_gifs/animated.gif"
-    with imageio.get_writer(gif_filename, mode='I', duration=1) as writer:
-        for filename in resized_images:
-            image = imageio.imread(filename)
-            writer.append_data(image)
-    import shutil
-
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-
-  
-    src = 'static/animated_gifs/animated.gif'
-    dst = 'static/animated_gifs/animated' + timestr + '.gif'
-    # 2nd option
-    shutil.copy(src, dst) 
-    # Return a template that displays the GIF
-    return render_template("make_animation.html", gif_filename=gif_filename)
-
-@app.route('/title_page', methods=['GET', 'POST'])
-def title_page():
-    if request.method == 'POST':
-        # Get the text input and image file from the form data
-        text = request.form['text']
-        image = request.files['image']
-        
-        # Save the image to a temporary location
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename))
-        image.save(image_path)
-        
-        # Open the image file
-        image = Image.open(image_path)
-               
-        # Create a drawing context on the image
-        draw = ImageDraw.Draw(image)
-        
-        # Define the font and font size for the text
-        font = ImageFont.truetype('static/fonts/OpenSansBold.ttf', 50)
-        # Split the text by newline characters
-        lines = text.split("  ")
-
-
-        # Calculate the size of each line and get the maximum width
-        line_sizes = [draw.textsize(line, font) for line in lines]
-        max_line_width = max([size[0] for size in line_sizes])
-
-        # Calculate the total size of the text
-        text_width = max_line_width
-        text_height = sum([size[1] for size in line_sizes])
-
-        # Calculate the position of the text in the center of the image
-        x = (640 - text_width) / 2
-        y = (640 - text_height) / 2
-
-        # Calculate the size of the text
-        text_width, text_height = draw.textsize(text, font)
-        
-        # Calculate the position of the text in the center of the image
-        x = (640 - text_width) / 2
-        y = (640 - text_height) / 2
-        
-        # Add the text to the image
-        draw.text((x, y), text, font=font, fill=(0, 0, 0, 255))
-        
-        # Save the image to the static folder with a unique filename
-        inc = text.replace(" ","")
-        filenamex = os.path.join(app.static_folder, 'title_pages', f'{inc}_{hash(text)}.png')
-        image.save(filenamex)
-        filename = 'static/title_pages/title_page.png'
-        shutil.copy(filenamex , filename)
-        logging.error('filename: %s', filename)
-        
-        #print(inc[:5])
-        # Remove the temporary image file
-        #os.remove(image_path)
-        filenamev = 'title_pages/title_page.png'
-        # Return the rendered template with the image filename
-        return render_template('title_page.html', filename=filenamev)
-    filenamev = 'title_pages/title_page.png'    
-    return render_template('title_page.html', filename=filenamev)
-
-
-@app.route('/add_title', methods=['GET', 'POST'])
-def add_title():
-    # Create the final_videos directory if it does not exist
-    final_videos_dir = os.path.join(app.static_folder, 'final_videos')
-    if not os.path.exists(final_videos_dir):
-        os.makedirs(final_videos_dir)
-
-    if request.method == 'POST':
-        app.logger.debug('Entering POST request handler for /add_title')
-        # Get the paths of the selected video and title page
-        video_path = os.path.join(app.static_folder, 'videos', request.form['video'])
-        title_page_path = os.path.join(app.static_folder, 'title_pages', request.form['title_page'])
-        app.logger.debug(f'video_path: {video_path}')
-        app.logger.debug(f'title_page_path: {title_page_path}')
-
-        # Load the video and title page as clips
-        video_clip = VideoFileClip(video_path)
-        title_page_clip = ImageClip(title_page_path).set_duration(2)
-
-        # Add the title page to the video for the first 2 seconds
-        final_clip = concatenate_videoclips([title_page_clip, video_clip.subclip(2)])
-
-        # Save the final video to the final_videos directory
-        final_filename = f"{os.path.splitext(request.form['video'])[0]}_{os.path.splitext(request.form['title_page'])[0]}.mp4"
-        final_path = os.path.join(final_videos_dir, final_filename)
-        app.logger.debug(f'final_path: {final_path}')
-        final_clip.write_videofile(final_path)
-
-        # Return a response to the user indicating that the video with title page was created
-        message = f"The video with title page was created and saved to {final_path}"
-        return render_template('add_title.html', message=message)
-
-    # If the request method is GET, render the add_title.html template
-    app.logger.debug('Entering GET request handler for /add_title')
-    videos = os.listdir(os.path.join(app.static_folder, 'square_vids'))
-    title_pages = os.listdir(os.path.join(app.static_folder, 'title_pages'))
-    app.logger.debug(f'videos: {videos}')
-    app.logger.debug(f'title_pages: {title_pages}')
-    return render_template('add_title.html', videos=videos, title_pages=title_pages)
-def get_rowid():
-    # Connect to the database
-    db = sqlite3.connect('code.db')
-    cursor = db.cursor()
-    row_id = request.form['row_id']
-    # Execute a query to retrieve the rowid
-    cursor.execute("SELECT rowid FROM snippets WHERE rowid = ?", (rowid,))
-
-
-    # Fetch the result
-    result = cursor.fetchone()
-
-    # Close the database connection
-    db.close()
-
-    # Check if a rowid was found
-    if result:
-        rowid = result[0]
-    else:
-        # Handle the case when no rowid is found
-        rowid = None
-
-    return rowid
-
-@app.route('/indexdb')
-def indexdb():
-    return render_template('indexdb.html')
-
-@app.route('/indexA')
-def indexA():
-    image_dir = 'static/images'
-    image_files = [f for f in os.listdir(image_dir) if f.endswith('.jpg')]
-    random_image_file = random.choice(image_files)
-    app.logger.info(f"Random image file selected: {random_image_file}")
-    return render_template('indexA.html', random_image_file=random_image_file)
-
-
-@app.route('/index_FLASK')
-def index_FLASK():
-    image_dir = 'static/images'
-    image_files = [f for f in os.listdir(image_dir) if f.endswith('.jpg')]
-    random_image_file = random.choice(image_files)
-    app.logger.info(f"Random image file selected: {random_image_file}")
-
-    return render_template('index_FLASK.html')
-
-@app.route('/edit_data_page', methods=['GET', 'POST'])
-def edit_data_page():
-    if request.method == 'POST':
-        rowid = request.form['rowid']
-        return redirect(url_for('edit_data', rowid=rowid))
-
-    return render_template('edit_data_page.html')
-# Configuration
-app.config['DATABASE'] = 'code.db'
-
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect("code.db")
-    return db
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
-@app.before_first_request
-def create_table():
-    db = get_db()
-    cursor = db.cursor()
-
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS products (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            description TEXT,
-            price REAL
-        )
-    ''')
-
-    db.commit()
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(app, '_database', None)
-    if db is not None:
-        db.close()
-
-
-@app.route('/indexD')
-def indexD():
-    return redirect('/products')
-
-@app.route('/products', methods=['GET', 'POST'])
-def products():
-    if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        price = request.form['price']
-
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute("INSERT INTO products (name, description, price) VALUES (?, ?, ?)",
-                       (name, description, price))
-        db.commit()
-
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM products")
-    products = cursor.fetchall()
-
-    return render_template('products.html', products=products)
-
-@app.route('/edit/<int:product_id>', methods=['GET', 'POST'])
-def edit_product(product_id):
-    if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        price = request.form['price']
-
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute("UPDATE products SET name=?, description=?, price=? WHERE id=?",
-                       (name, description, price, product_id))
-        db.commit()
-
-        return redirect('/products')
-
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM products WHERE id=?", (product_id,))
-    product = cursor.fetchone()
-
-    return render_template('edit_product.html', product=product)
-
-
-@app.route('/delete/<int:product_id>', methods=['POST'])
-def delete_product(product_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute("DELETE FROM products WHERE id=?", (product_id,))
-    db.commit()
-
-    return redirect('/products')
 
 
 if __name__ == '__main__':
