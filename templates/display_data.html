@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Display Data</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Data</title>
 </head>
 <body>
-  <h1>Data Details</h1>
-  <label for="id">ID:</label>
-  <textarea id="id" name="id" rows="1" cols="50">{{ id_value }}</textarea><br>
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" rows="4" cols="50">{{ description }}</textarea><br>
-  <label for="code">Code:</label>
-  <textarea id="code" name="code" rows="10" cols="50">{{ code }}</textarea><br>
-  <label for="keywords">Keywords:</label>
-  <textarea id="keywords" name="keywords" rows="2" cols="50">{{ keywords }}</textarea><br>
+    <h1>Display Data</h1>
+    {% if id_value %}
+        <p>Row ID: {{ id_value }}</p>
+        <p>Description: {{ description }}</p>
+        <pre>Code: {{ code }}</pre>
+        <p>Keywords: {{ keywords }}</p>
+    {% else %}
+        <p>No data found for Row ID: {{ id_value }}</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('indexdb') }}">Go back to the Index Page</a>
 </body>
 </html>

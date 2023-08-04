@@ -19,6 +19,24 @@
     {% endif %}
 
     <br>
+    <h1>Upload Background and Foreground Images</h1>
+    <form action="/process_images" method="post" enctype="multipart/form-data">
+        <input type="file" name="bg_image" accept="image/*" required>
+        <input type="file" name="fg_image" accept="image/*" required>
+        <input type="submit" value="Create Video">
+    </form>
+
+    {% if video_url %}
+    <h2>Generated Video:</h2>
+    <video controls>
+        <source src="{{ video_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    {% endif %}
+
+
+
+    
     <p><a href="{{ url_for('index') }}">Return to index</a></p>
   </body>
 </html>

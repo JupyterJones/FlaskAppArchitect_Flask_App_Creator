@@ -9,6 +9,7 @@ from models import Wav2Lip
 import platform
 import logging
 import datetime
+import shutil
 logging.basicConfig(filename='logfile.log', level=logging.INFO)
 # create a logging object
 logger = logging.getLogger(__name__)
@@ -287,4 +288,13 @@ def main():
 	subprocess.call(command, shell=platform.system() != 'Windows')
 
 if __name__ == '__main__':
-	main()
+    filenames = "results/"+str(datetime.datetime.now())+"backup.mp4"
+    print(filenames)
+    try:
+       shutil.copy("results/result_voice.mp4",filenames)
+       print("results/result_voice.mp4"," Moved to: ",filenames)
+    except:
+    	print("results/result_voice.mp4 does not exist")
+    main()
+    filenames = "results/"+str(datetime.datetime.now())+"backupn.mp4"
+    shutil.copy("results/result_voice.mp4",filenames)

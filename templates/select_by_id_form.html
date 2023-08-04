@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Select by ID Form</title>
-  <!-- Include any necessary CSS stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select by ID Form</title>
 </head>
 <body>
-  <h1>Select by ID</h1>
-  <form method="POST" action="{{ url_for('select_by_id_form') }}">
-    <label for="row_id">Enter Row ID:</label>
-    <input type="text" id="row_id" name="row_id">
-    <button type="submit">Submit</button>
-  </form>
+    <h1>Select Data by ID</h1>
+    <form action="{{ url_for('handle_select_by_id') }}" method="post">
+        <label for="search_term">Enter Row ID:</label>
+        <input type="text" name="search_term" id="search_term" required>
+        <button type="submit">Search</button>
+    </form>
+    <br>
+    <p>Or</p>
+    <a href="{{ url_for('indexdb') }}">Go back to the Index Page</a>
 </body>
 </html>

@@ -13,6 +13,7 @@ from moviepy.editor import concatenate_videoclips, AudioFileClip, TextClip
 import moviepy.editor
 import subprocess 
 import shutil  
+from pathlib import Path as change_ext
 import logging
 from io import BytesIO
 import sqlite3
@@ -25,7 +26,6 @@ import imageio
 import time
 from werkzeug.utils import secure_filename
 import shutil
-import logging
 from search import search
 import clean_images
 from time import sleep
@@ -33,7 +33,11 @@ from pydub import AudioSegment
 from PIL import Image, ImageDraw, ImageFont
 from logging.handlers import RotatingFileHandler
 import moviepy.editor as mp
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+
+
 app = Flask(__name__)
+
 app.secret_key = os.urandom(24)
 
 # Create a logger object
@@ -461,7 +465,8 @@ def upload():
 @app.route("/mkblend_videos")
 def mkblend_videos():
     # Directory for image files
-    DIR = "static/current_project/junk/"
+    #DIR = "static/current_project/junk/"
+    DIR = "static/city_streets/leonardo.ai_files/"
     filelist = glob.glob('animate/*.jpg')  # Get a list of all *.jpg files in the animate/ directory
 
     for file_path in filelist:
@@ -904,7 +909,7 @@ def get_file_content(filename):
 
 @app.route("/mkblend_video", methods=['GET', 'POST'])
 def mkblend_video():
-    #directory = request.files.get('directory')
+    directory = request.files.get('directory')
     #print("XXXXXXdirectory", directory)
     #logger.debug('Selected directory: %s', directory)
 
@@ -915,13 +920,14 @@ def mkblend_video():
     logger.debug('Directory saved to: %s', directory_path)
     # Process the directory path as needed
     #image_list = glob.glob(directory_path + "/*.jpg")
-    directory = "leonardo_files/"
+    directory = "static/images/experiment/"
     print(directory)
     if directory:
             image_list = glob.glob(directory + "*.jpg")
+            logger.debug('IMAGE_LIST: %s', image_list)
             # Shuffle and select a subset of images
-            random.shuffle(image_list)
-            image_list = random.sample(image_list, 50)
+            #random.shuffle(image_list)
+            image_list = sorted(image_list)
             logger.debug('Selected image filenames: %s', image_list)
             # Print the number of selected images
             print(len(image_list))
@@ -1480,97 +1486,9 @@ def get_db():
     if db is None:
         db = g._database = sqlite3.connect(app.config['DATABASE'])
     return db
-# Define the route for the form
-@app.route('/select_by_id_form', methods=['POST','GET'])
-def select_by_id_form():
-    return render_template('select_by_id_form.html')
-
-# Handle the form submission
-@app.route('/select_by_id', methods=['POST','GET'])
-def handle_select_by_id():
-    row_id = request.form['row_id']
-
-    db = get_db()
-    cursor = db.cursor()
-
-    cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (row_id,))
-    data = cursor.fetchone()
-
-    if data is not None:
-        # Retrieve the individual data values
-        id_value = data[0]
-        description = data[1]
-        code = data[2]
-        keywords = data[3]
-    else:
-        # Set default values if no data found
-        id_value = row_id
-        description = ""
-        code = ""
-        keywords = ""
-
-    return render_template('display_data.html', id_value=id_value, description=description, code=code, keywords=keywords)
-
-@app.route('/edit_data/<int:rowid>', methods=['GET', 'POST'])
-def edit_data(rowid):
-    db = get_db()
-    cursor = db.cursor()
-
-    if request.method == 'POST':
-        description = request.form['description']
-        code = request.form['code']
-        keywords = request.form['keywords']
-
-        cursor.execute("UPDATE snippets SET description = ?, code = ?, keywords = ? WHERE rowid = ?",
-                       (description, code, keywords, rowid))
-        db.commit()
-
-        return redirect('/search_database')
-
-    cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (rowid,))
-    data = cursor.fetchone()
-
-    return render_template('edit_data.html', data=data)
 
 
-
-@app.route('/search_database', methods=['POST'])
-def search_database():
-    search_term = request.form['search_term']
-    search_area = request.form['search_area']
-
-    db = get_db()
-    cursor = db.cursor()
-
-    if search_area == 'rowid':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE rowid = ?", (search_term,))
-    elif search_area == 'description':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE description LIKE ?", ('%' + search_term + '%',))
-    elif search_area == 'code':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE code LIKE ?", ('%' + search_term + '%',))
-    elif search_area == 'keywords':
-        cursor.execute("SELECT rowid, * FROM snippets WHERE keywords LIKE ?", ('%' + search_term + '%',))
-    else:
-        return redirect('/search_database')
-
-    results = cursor.fetchall()
-    return render_template('db_results.html', results=results)
-
-
-
-@app.route('/insert_data', methods=['POST','GET'])
-def insert_data():
-    description = request.form['description']
-    code = request.form['code']
-    keywords = request.form['keywords']
-
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute("INSERT INTO snippets (description, code, keywords) VALUES (?, ?, ?)", (description, code, keywords))
-    db.commit()
-
-    return redirect('/search_database')
-
+  
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -1906,9 +1824,6 @@ def get_rowid():
 
     return rowid
 
-@app.route('/indexdb')
-def indexdb():
-    return render_template('indexdb.html')
 @app.route('/indexA')
 def indexA():
     image_dir = 'static/images'
@@ -1928,6 +1843,667 @@ def index_FLASK():
     return render_template('index_FLASK.html')
 
 
+# Configuration
+app.config['DATABASE'] = 'code.db'
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect("code.db")
+    return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+@app.before_first_request
+def create_table():
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS products (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT,
+            price REAL
+        )
+    ''')
+
+    db.commit()
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(app, '_database', None)
+    if db is not None:
+        db.close()
+
+
+@app.route('/indexD')
+def indexD():
+    return redirect('/products')
+
+@app.route('/products', methods=['GET', 'POST'])
+def products():
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("INSERT INTO products (name, description, price) VALUES (?, ?, ?)",
+                       (name, description, price))
+        db.commit()
+
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+
+    return render_template('products.html', products=products)
+
+@app.route('/edit/<int:product_id>', methods=['GET', 'POST'])
+def edit_product(product_id):
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("UPDATE products SET name=?, description=?, price=? WHERE id=?",
+                       (name, description, price, product_id))
+        db.commit()
+
+        return redirect('/products')
+
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM products WHERE id=?", (product_id,))
+    product = cursor.fetchone()
+
+    return render_template('edit_product.html', product=product)
+
+
+@app.route('/delete/<int:product_id>', methods=['POST'])
+def delete_product(product_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM products WHERE id=?", (product_id,))
+    db.commit()
+
+    return redirect('/products')
+# Function to create the database and table
+def create_databaseD():
+    db_path = os.path.join(os.path.dirname(__file__), 'code.db')
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    # ... rest of the code to create the table ...
+
+# ... existing routes and view functions ...
+#@app.route('/')
+#def index():
+#    return render_template('index.html')
+
+# Route to access the database using a link
+@app.route('/access_database')
+def access_database():
+    db_path = os.path.join(os.path.dirname(__file__), 'code.db')
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM snippets')
+    code = cursor.fetchall()
+    conn.close()
+    return render_template('database.html', code=code)
+
+
+
+
+# Function to create the database and table
+def create_databaseD():
+    conn = sqlite3.connect('code.db')
+    cursor = conn.cursor()
+    #cursor.execute("CREATE TABLE snippets (description TEXT, code TEXT, keywords TEXT)")
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS snippets (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            description TEXT NOT NULL,
+            code TEXT,
+            keywords TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Route to display all code
+@app.route('/code', methods=['GET'])
+def display_code():
+    conn = sqlite3.connect('code.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM snippets')
+    code = cursor.fetchall()
+    conn.close()
+    
+    # Define the HTML code for the form
+    form_code = """
+    <h1>Add New code</h1>
+    <form action="/code" method="post">
+        <label for="description">Description:</label>
+        <textarea type="description" name="description" rows="8" cols="90%"></textarea><br />
+        <label for="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code:</label>
+        <textarea type="text" name="code" rows="8" cols="90%"></textarea><br>
+        <label for="keywords">Keywords:</label>
+        <input style="width:53%;height: 25px;" type="keywords" name="keywords"><br>
+        <input type="submit" value="Add code">
+    </form>
+    """
+
+    return render_template('code.html', code=code, form_code=form_code)
+    
+# Route to add a new code
+@app.route('/code', methods=['POST'])
+def add_code():
+    description = request.form['description']
+    code = request.form['code']
+    keywords = request.form['keywords']
+    
+    conn = sqlite3.connect('code.db')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO snippets (description, code, keywords) VALUES (?, ?, ?)',
+                   (description, code, keywords))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('display_code'))
+
+# Route to edit a code
+@app.route('/edit_code/<int:code_id>', methods=['GET', 'POST'])
+def edit_code(code_id):
+    conn = sqlite3.connect('code.db')
+    cursor = conn.cursor()
+
+    if request.method == 'POST':
+        description = request.form['description']
+        code = request.form['code']
+        keywords = request.form['keywords']
+        
+        cursor.execute('UPDATE snippets SET description=?, code=?, keywords=? WHERE id=?',
+                       (description, code, keywords, code_id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('display_code'))
+    
+    cursor.execute('SELECT * FROM snippets WHERE id = ?', (code_id,))
+    code = cursor.fetchone()
+    conn.close()
+    return render_template('edit_code.html', code=code)
+
+# Route to delete a code
+@app.route('/delete_code/<int:code_id>', methods=['POST'])
+def delete_code(code_id):
+    conn = sqlite3.connect('code.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM snippets WHERE id = ?', (code_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('display_code'))
+@app.route('/indexE')
+def indexE():
+    # Get a list of directories within static/images
+    image_directories = os.listdir(os.path.join(app.static_folder, 'images'))
+
+    # Create a dropdown menu with the list of directories
+    dropdown_menu = ""
+    for directory in image_directories:
+        dropdown_menu += f'<option value="{directory}">{directory}</option>'
+
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <body>
+        <h2>Upload a file</h2>
+        <form action="/uploadN" method="post" enctype="multipart/form-data">
+            <select name="directory">
+                {dropdown_menu}
+            </select>
+            <input type="file" name="file">
+            <input type="submit" value="Upload">
+        </form>
+    </body>
+    </html>
+    """
+@app.route('/uploadN', methods=['POST'])
+def upload_fileN():
+    # Check if a file was submitted in the request
+    if 'file' not in request.files:
+        return redirect(url_for('indexD'))
+
+    file = request.files['file']
+
+    # Check if the file is not empty
+    if file.filename == '':
+        return redirect(url_for('indexE'))
+
+    # Save the file to the desired directory
+    save_path = os.path.join('static', 'temp_images', file.filename)
+    file.save(save_path)
+
+    return f'The file {file.filename} has been uploaded successfully!'
+
+def FilenameByTime(directory):
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    filename = directory+"/"+timestr+"_.png"
+    return filename    
+def change_extension(orig_file,new_extension):
+    p = change_ext(orig_file)
+    new_name = p.rename(p.with_suffix(new_extension))
+    return new_name  
+def auto_canny(image, sigma=0.33):
+    # compute the median of the single channel pixel intensities
+    v = np.median(image)
+    # apply automatic Canny edge detection using the computed median
+    lower = int(max(0, (1.0 - sigma) * v))
+    upper = int(min(255, (1.0 + sigma) * v))
+    edged = cv2.Canny(image, lower, upper)
+    # return the edged image
+    return edged
+
+#image = cv2.imread('mahotastest/orig-color.png')
+def change_extension(orig_file,new_extension):
+    p = change_ext(orig_file)
+    new_name = p.rename(p.with_suffix(new_extension))
+    return new_name
+    
+def outlineJ(filename1,outfile_jpg,sigma=0.33):
+    """
+    USE:
+    filename1 = '/home/jack/Desktop/Imagedata/0-original-images/07082orig.jpg' 
+    outfile_jpg = '/home/jack/Desktop/dockercommands/images/useresult.png'
+    outlineJ(filename1,outfile_jpg)
+    """
+    image = cv2.imread(filename1)
+    edged = auto_canny(image, sigma=0.33)
+    inverted = cv2.bitwise_not(edged)
+    cv2.imwrite("static/outlines/temp2.png", inverted)
+    cv2.imwrite(FilenameByTime("static/outlines/"), inverted)
+    # Open Front Image
+    #frontimage = Image.open('mahotastest/inverted-bitwise-note3_6.png').convert("1")
+    frontimage = Image.open('static/outlines/temp2.png').convert("1")
+    frontImage = frontimage.convert("RGBA")
+    datas = frontImage.getdata()
+    newData = []
+    for item in datas:
+        if item[0] == 255 and item[1] == 255 and item[2] == 255:
+            newData.append((255, 255, 255, 0))
+        else:
+            newData.append(item)
+
+    frontImage.putdata(newData)
+    # Open Background Image
+    background = Image.open(filename1)
+    # Calculate width to be at the center
+    width = (frontimage.width - frontimage.width) // 2
+    # Calculate height to be at the center
+    height = (frontimage.height - frontimage.height) // 2
+    # Paste the frontImage at (width, height)
+    background.paste(frontImage, (width, height), frontImage)
+    # Save this image
+    background.save(outfile_jpg)
+    savefile = FilenameByTime("static/outlines/")
+    background.save(savefile)
+    #background = background.convert("RGB")
+    return background
+def outlineP(filename1,outfile_png):
+    """
+    USE:
+    filename1 = '/home/jack/Desktop/Imagedata/0-original-images/07082orig.jpg' 
+    outfile_jpg = '/home/jack/Desktop/dockercommands/images/useresult.png'
+    outlineP(filename1,outfile_png)
+    """    
+    image = cv2.imread(filename1)
+    edged = auto_canny(image, sigma=0.33)
+    inverted = cv2.bitwise_not(edged)
+    cv2.imwrite("static/outlines/temp2.png", inverted)
+    cv2.imwrite(FilenameByTime("static/outlines/"), inverted)
+    # Open Front Image
+    #frontimage = Image.open('mahotastest/inverted-bitwise-note3_6.png').convert("1")
+    frontimage = Image.open('static/outlines/temp2.png').convert("1")
+    frontImage = frontimage.convert("RGBA")
+    datas = frontImage.getdata()
+    newData = []
+    for item in datas:
+        if item[0] == 255 and item[1] == 255 and item[2] == 255:
+            newData.append((255, 255, 255, 0))
+        else:
+            newData.append(item)
+
+    frontImage.putdata(newData)
+    # Open Background Image
+    background = Image.open(filename1)
+    # Calculate width to be at the center
+    width = (frontimage.width - frontimage.width) // 2
+    # Calculate height to be at the center
+    height = (frontimage.height - frontimage.height) // 2
+    # Paste the frontImage at (width, height)
+    background.paste(frontImage, (width, height), frontImage)
+    # Save this image
+    background.save(outfile_png, format="png")
+    savefile = FilenameByTime("static/outlines/")
+    background.save(savefile, format="png")
+    #background = background.convert("RGB")
+    return background  
+    
+    
+    
+    
+@app.route('/outline_j', methods=['POST'])
+def outline_j():
+    if request.method == 'POST':
+        # Get the uploaded image file from the form data
+        file = request.files['file']
+
+        # Save the uploaded file to a temporary location
+
+        temp_path = 'static/outlines/temp_image.jpg'
+        file.save(temp_path)
+
+        # Process the image using outlineJ function
+        output_path = 'static/outlines/outlined_image_j.jpg'
+        outlineJ(temp_path, output_path)
+        output_path2 ="static/outlines/temp2.png"
+        # Return the path to the processed image to display it on a page
+        return render_template('outlined_image.html',  image_orig=temp_path, image_path=output_path, image_path2=output_path2)
+
+@app.route('/outline_p', methods=['POST'])
+def outline_p():
+    if request.method == 'POST':
+        # Get the uploaded image file from the form data
+        file = request.files['file']
+
+        # Save the uploaded file to a temporary location
+        temp_path = 'static/temp_image.jpg'
+        image_orig = temp_path
+        file.save(temp_path)
+
+        # Process the image using outlineP function
+        output_path = 'static/outlines/outlined_image_p.png'
+        outlineP(temp_path, output_path)
+        output_path2 ="static/outlines/temp2.png"
+        # Return the path to the processed image to display it on a page
+        return render_template('outlined_image.html', image_orig=temp_path, image_path=output_path, image_path2=output_path2)
+
+def zoom_effect(bg_file, fg_file):
+    bg = Image.open(bg_file).convert('RGBA')
+    SIZE = bg.size
+    bg = bg.resize((SIZE), Image.BICUBIC)
+    fg = Image.open(fg_file).convert('RGBA')
+    fg = fg.resize((SIZE), Image.BICUBIC)
+    fg_copy = fg.copy()
+    fg_copy = fg_copy.resize((int(fg_copy.width), int(fg_copy.height)))
+    result_images = []
+    for i in range(200):
+        size = (int(fg_copy.width * (i+1)/200), int(fg_copy.height * (i+1)/200))
+        fg_copy_resized = fg_copy.resize(size)
+        fg_copy_resized.putalpha(int((i+1)*255/200))
+        fg_copy_resized = fg_copy_resized.convert('RGBA')
+        fg_copy_resized.putalpha(int((i+1)*255/200))
+        result = bg.copy()
+        x = int((bg.width - fg_copy_resized.width)/2)
+        y = int((bg.height - fg_copy_resized.height)/2)
+        result.alpha_composite(fg_copy_resized, (x, y))
+        #result.save("gifs/_"+str(i)+".png")
+        result_images.append(result)
+    
+    return result_images  # Move the return statement outside the for loop
+
+def create_mp4_from_images(images_list, output_file, fps):
+    # Convert PIL Image objects to NumPy arrays
+    image_arrays = [np.array(image) for image in images_list]
+    
+    # Create the video clip from the NumPy arrays
+    clip = ImageSequenceClip(image_arrays, fps=fps)
+    
+    # Write the video to the output file
+    clip.write_videofile(output_file, codec="libx264", fps=fps)
+
+@app.route('/upload_form')
+def upload_form():
+    return render_template('upload_form.html')
+
+@app.route('/process_imagez', methods=['POST','GET'])
+def process_imagez():
+    if 'bg_image' not in request.files or 'fg_image' not in request.files:
+        return redirect(url_for('upload_form'))
+
+    bg_image = request.files['bg_image']
+    fg_image = request.files['fg_image']
+
+    if bg_image.filename == '' or fg_image.filename == '':
+        return redirect(url_for('upload_form'))
+
+    bg_filename = 'background.png'
+    fg_filename = 'foreground.png'
+
+    bg_image.save(bg_filename)
+    fg_image.save(fg_filename)
+
+    bg_file_path = os.path.abspath(bg_filename)
+    fg_file_path = os.path.abspath(fg_filename)
+
+    images_list = zoom_effect(bg_file_path, fg_file_path)
+
+    output_mp4_file = 'static/overlay_zooms/imagez_video.mp4'
+    frames_per_second = 30
+    create_mp4_from_images(images_list, output_mp4_file, frames_per_second)
+
+    # Clean up temporary files
+    #os.remove(bg_filename)
+    #os.remove(fg_filename)
+    file_bytime = time.strftime("%Y%m%d-%H%M%S")+".mp4"
+    
+    shutil.copy('static/overlay_zooms/imagez_video.mp4', 'static/overlay_zooms/'+file_bytime)
+    video_url = url_for('static', filename=output_mp4_file)
+    return render_template('upload.html', video_url=video_url)
+
+app.config['DATABASE'] = 'code.db'
+
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(app.config['DATABASE'])
+    return db
+
+@app.route('/indexdb')
+def indexdb():
+    logger.debug("Accessing indexdb route")
+    return render_template('indexdb.html')
+
+@app.route('/select_by_id_form', methods=['POST', 'GET'])
+def select_by_id_form():
+    logger.debug("Accessing select_by_id_form route")
+    return render_template('select_by_id_form.html')
+
+@app.route('/search_by_rowid', methods=['GET', 'POST'])
+def search_by_rowid():
+    logger.debug("Accessing search_by_rowid route")
+    return render_template('search_by_rowid.html')
+
+# ...
+
+# ...
+# ...
+
+# ...
+# ...
+
+# ...
+
+@app.route('/edit_data_page', methods=['GET', 'POST'])
+@app.route('/edit_data_page/<int:rowid>', methods=['GET', 'POST'])
+def edit_data_page(rowid=None):
+    db = get_db()
+    cursor = db.cursor()
+
+    if request.method == 'POST':
+        description = request.form['description']
+        code = request.form['code']
+        keywords = request.form['keywords']
+
+        if rowid is not None:
+            # Update the data in the database for the given rowid
+            cursor.execute("UPDATE snippets SET description = ?, code = ?, keywords = ? WHERE rowid = ?",
+                           (description, code, keywords, rowid))
+        else:
+            # Insert the data into the database as a new row
+            cursor.execute("INSERT INTO snippets (description, code, keywords) VALUES (?, ?, ?)",
+                           (description, code, keywords))
+
+        db.commit()
+
+        # Close the database connection
+        cursor.close()
+        db.close()
+
+        return redirect(url_for('indexdb'))
+
+    if rowid is not None:
+        # If a rowid is provided, retrieve the data from the database
+        # based on the provided rowid and render the edit_data.html template
+        cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (rowid,))
+        data = cursor.fetchone()
+
+        if data is None:
+            # If no data is found for the given rowid, return an error message
+            return "Error: Data not found for the provided Row ID."
+
+        # Convert the fetched data to a dictionary for easier access in the template
+        data = {
+            'rowid': data[0],
+            'description': data[1],
+            'code': data[2],
+            'keywords': data[3]
+        }
+
+    else:
+        # If no rowid is provided, create an empty data dictionary
+        data = {}
+
+    # Close the database connection
+    cursor.close()
+    db.close()
+
+    return render_template('edit_data.html', data=data)
+
+# ...
+@app.route('/get_rowid_form', methods=['GET', 'POST'])
+def get_rowid_form():
+    if request.method == 'POST':
+        rowid = request.form['rowid']
+        return redirect(url_for('edit_data_page', rowid=rowid))
+    return render_template('get_rowid_form.html')
+
+# ...
+
+
+
+@app.route('/search_database', methods=['POST', 'GET'])
+def search_database():
+    logger.debug("Accessing search_database route")
+    if request.method == 'POST':
+        search_term = request.form['search_term']
+        search_area = request.form['search_area']
+    else:
+        # For GET requests, get the search_term and search_area from the query string
+        search_term = request.args.get('search_term')
+        search_area = request.args.get('search_area')
+
+    if not search_term or not search_area:
+        logger.debug("Redirecting to indexdb due to missing search_term or search_area")
+        return redirect('/indexdb')  # Redirect to the main index page if search_term or search_area is missing
+
+    db = get_db()
+    cursor = db.cursor()
+
+    if search_area == 'rowid':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE rowid = ?", (search_term,))
+    elif search_area == 'description':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE description LIKE ?", ('%' + search_term + '%',))
+    elif search_area == 'code':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE code LIKE ?", ('%' + search_term + '%',))
+    elif search_area == 'keywords':
+        cursor.execute("SELECT rowid, * FROM snippets WHERE keywords LIKE ?", ('%' + search_term + '%',))
+    else:
+        logger.debug("Redirecting to indexdb due to invalid search area")
+        return redirect('/indexdb')  # Redirect to the main index page if an invalid search area is provided
+
+    results = cursor.fetchall()
+    logger.debug("Rendering db_results.html template with search results")
+    return render_template('db_results.html', results=results)
+
+@app.route('/insert_data', methods=['POST','GET'])
+def insert_data():
+    logger.debug("Accessing insert_data route")
+    if request.method == 'POST':
+        description = request.form['description']
+        code = request.form['code']
+        keywords = request.form['keywords']
+
+        # Assuming you have the database connection and cursor defined
+        db = get_db()
+        cursor = db.cursor()
+
+        cursor.execute("INSERT INTO snippets (description, code, keywords) VALUES (?, ?, ?)",
+                       (description, code, keywords))
+        db.commit()
+
+        # Close the database connection
+        cursor.close()
+        db.close()
+
+        logger.debug("Redirecting to indexdb after inserting data")
+        return redirect(url_for('indexdb'))
+
+    # If the request method is not POST (e.g., GET), render the insert_data.html template
+    logger.debug("Rendering insert_data.html template")
+    return render_template('insert_data.html')
+
+@app.route('/select_by_id', methods=['POST', 'GET'])
+def handle_select_by_id():
+    logger.debug("Accessing select_by_id route")
+    if request.method == 'POST':
+        row_id = request.form['search_term']
+    else:
+        row_id = request.args.get('search_term')
+
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute("SELECT * FROM snippets WHERE rowid = ?", (row_id,))
+    data = cursor.fetchone()
+
+    cursor.close()
+    db.close()
+
+    if data is not None:
+        id_value = data[0]
+        description = data[1]
+        code = data[2]
+        keywords = data[3]
+
+        logger.debug("Rendering display_data.html template with selected data")
+        return render_template('display_data.html', id_value=id_value, description=description, code=code, keywords=keywords)
+    else:
+        logger.debug("Rendering display_data.html template with no data found")
+        return render_template('display_data.html', id_value=row_id, description="", code="", keywords="")
+
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5100)
+    create_databaseD()  # Create the database and table before starting the app
+    app.run(debug=True, host='0.0.0.0', port=5000)
 

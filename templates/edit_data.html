@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Edit Data</title>
-  <!-- Include any necessary CSS stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Data</title>
 </head>
 <body>
-  <h1>Edit Data</h1>
-  <form method="POST" action="{{ url_for('edit_data', rowid=data[0]) }}">
-    <label for="description">Description:</label>
-    <textarea id="description" name="description">{{ data[1] if data else '' }}</textarea>
-    <label for="code">Code:</label>
-    <textarea id="code" name="code">{{ data[2] if data else '' }}</textarea>
-    <label for="keywords">Keywords:</label>
-    <textarea id="keywords" name="keywords">{{ data[3] if data else '' }}</textarea>
-    <button type="submit">Update</button>
-  </form>
+    <h1>Edit Data</h1>
+    <form action="{{ url_for('edit_data_page', rowid=data.rowid) }}" method="post">
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" value="{{ data.description }}" required>
+        <br>
+        <label for="code">Code:</label>
+        <textarea name="code" id="code" rows="8" cols="50" required>{{ data.code }}</textarea>
+        <br>
+        <label for="keywords">Keywords:</label>
+        <input type="text" name="keywords" id="keywords" value="{{ data.keywords }}" required>
+        <br>
+        <button type="submit">Save Changes</button>
+    </form>
+    <br>
+    <a href="{{ url_for('indexdb') }}">Go back to the Index Page</a>
 </body>
 </html>

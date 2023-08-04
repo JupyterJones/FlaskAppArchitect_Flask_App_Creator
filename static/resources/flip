@@ -1,0 +1,24 @@
+
+
+ffmpeg -i Train_Ride_Through_AI_Land_Post3.mp4 -vf reverse -af areverse v-s_reverse-Train_Ride_Through_AI_Land_Post3.mp4
+
+
+ffmpeg -i Train_Ride_Through_AI_Land_Post3.mp4 -vf reverse reverse-Train_Ride_Through_AI_Land_Post3.mp4
+
+
+
+
+
+
+
+
+:'
+instances = (ffmpeg .input("Train_Ride_Through_AI_Land_Post3.mp4").filter_multi_output(filter_name="split", outputs=2))
+ordered_edits = []
+for i in range(2):
+    if i%2 == 0:
+        ordered_edits.append(instances[i])
+    else:
+        ordered_edits.append(instances[i].filter(filter_name="reverse"))
+(ffmpeg .concat(*ordered_edits, a=0, v=1).output('reverse-Train_Ride_Through_AI_Land_Post3.mp4').run(overwrite_output=True))
+'

@@ -1,20 +1,15 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Search Results</title>
-    <style>
-        pre {
-            white-space: pre-wrap;
-            word-break: break-all;
-            padding: 5px;
-            background-color: #f8f6e1;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Search Results</title>
 </head>
 <body>
     <h1>Search Results</h1>
-    <table>
+    <table border="1">
         <tr>
-            <th>ROWID</th>
+            <th>Row ID</th>
             <th>Description</th>
             <th>Code</th>
             <th>Keywords</th>
@@ -23,10 +18,12 @@
         <tr>
             <td>{{ result[0] }}</td>
             <td>{{ result[1] }}</td>
-            <td><pre>{{ result[2] }}</pre></td>
+            <td>{{ result[2] }}</td>
             <td>{{ result[3] }}</td>
         </tr>
         {% endfor %}
     </table>
+    <br>
+    <a href="{{ url_for('indexdb') }}">Go back to the Index Page</a>
 </body>
 </html>

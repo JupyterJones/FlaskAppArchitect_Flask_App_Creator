@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Enter Data</title>
-  <!-- Include any necessary CSS stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Data</title>
 </head>
 <body>
-  <h1>Enter Data</h1>
-  <form action="/insert_data" method="POST">
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" rows="3" cols="90%"></textarea><br>
-
-    <label for="code">Code Snippet:</label>
-    <textarea id="code" name="code" rows="10" cols="90%"></textarea><br>
-
-    <label for="keywords">Keywords:</label>
-    <textarea id="keywords" name="keywords" rows="3" cols="90%"></textarea><br>
-
-    <input type="submit" value="Submit">
-  </form>
+    <h1>Insert Data</h1>
+    <form action="{{ url_for('insert_data') }}" method="post">
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" required>
+        <br>
+        <label for="code">Code:</label>
+        <textarea name="code" id="code" rows="8" cols="50" required></textarea>
+        <br>
+        <label for="keywords">Keywords:</label>
+        <input type="text" name="keywords" id="keywords" required>
+        <br>
+        <button type="submit">Insert Data</button>
+    </form>
+    <br>
+    <a href="{{ url_for('indexdb') }}">Go back to the Index Page</a>
 </body>
 </html>

@@ -102,8 +102,29 @@
 
     <div class="column">
       <h2>Create Left Side Animation</h2>
-      <a href="{{ url_for('mkblend_video') }}">Create Video of Blended images</a><br /><br />
-      <h2>Create Stacked Videos</h2>
+      <h1>Choose a Directory</h1>
+      <form id="directoryForm" method="post" action="/mkblend_videos">
+          <select name="selected_directory" id="directoryInput">
+              <option value="" disabled selected>Select a directory</option>
+              <option value="static/images/512x1536-woman">512x1536-woman</option>
+              <option value="static/images/abstract_beauty">abstract_beauty</option>
+              <option value="static/images/beautiful_girl">beautiful_girl</option>
+              <option value="static/images/Beautiful_Warrior">Beautiful_Warrior</option>
+          </select>
+          <button type="submit">Submit</button>
+      </form>
+      <h1>Select Directory</h1>
+      <form action="/mkblend_videos" method="post">
+        <label for="directory">Choose a directory make a short mp4:</label>
+        <select name="directory" id="directory">
+          {% for directory in directories %}
+          <option value="{{ directory }}">{{ directory }}</option>
+          {% endfor %}
+        </select>
+        <br><br>
+        <input type="submit" value="Generate Video">
+      </form>
+        <h2>Create Stacked Videos</h2>
       <a href="{{ url_for('build_stackedvids') }}">Create Stacked Video</a><br /><br />
       <button onclick="callFlaskFunction()">Generate Video</button>
       <h1>Result Video Minterpolate Transitions</h1>
@@ -113,7 +134,9 @@
         Your browser does not support the video tag.
 
     </div>
-  </div>
+  <div>
+    <a style="font-size: large;color: bisque;" href="{{ url_for('process_imagez') }}">Zooms and Zoom</a><br /><br />
+
   <script>
     function callFlaskFunction() {
       var xhr = new XMLHttpRequest();
@@ -134,18 +157,25 @@
     }
   </script>
 
+  <center>
+  
+<h1>Outline Jpeg</h1>
+      <form action="/outline_j" method="post" enctype="multipart/form-data">
+          <label for="file">Select Image:</label>
+          <input type="file" name="file" id="file" accept="image/*">
+          <input type="submit" value="Outline J">
+      </form>
+
+      <h1>Outline Png</h1>
+      <form action="/outline_p" method="post" enctype="multipart/form-data">
+          <label for="file">Select Image:</label>
+          <input type="file" name="file" id="file" accept="image/*">
+          <input type="submit" value="Outline p">
+      </form>
+  </center>
   </div>
 
 </body>
-
-</html>
-
-
-<footer class="footer">
-  <center>
-
-  </center>
-</footer>
 </body>
 
 </html>
