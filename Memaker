@@ -466,7 +466,7 @@ def upload():
 def mkblend_videos():
     # Directory for image files
     #DIR = "static/current_project/junk/"
-    DIR = "static/city_streets/leonardo.ai_files/"
+    DIR = "static/images/Starfire/"
     filelist = glob.glob('animate/*.jpg')  # Get a list of all *.jpg files in the animate/ directory
 
     for file_path in filelist:
@@ -920,7 +920,7 @@ def mkblend_video():
     logger.debug('Directory saved to: %s', directory_path)
     # Process the directory path as needed
     #image_list = glob.glob(directory_path + "/*.jpg")
-    directory = "static/images/experiment/"
+    directory = "static/images/Starfire/"
     print(directory)
     if directory:
             image_list = glob.glob(directory + "*.jpg")
@@ -1715,7 +1715,7 @@ def process_images():
 
 @app.route('/image_directories', methods=['GET', 'POST'])
 def image_directories():
-    image_directories = ['static/Prodia_640x640', 'static/LineArt', 'static/Quantized', 'static/squares', 'static/BrightColors']
+    image_directories = ['static/images/Starfire', 'static/LineArt', 'static/Quantized', 'static/squares', 'static/BrightColors']
     if request.method == 'POST':
         # Rest of the code
 

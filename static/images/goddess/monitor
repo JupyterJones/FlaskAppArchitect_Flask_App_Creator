@@ -1,0 +1,13 @@
+#! /bin/bash
+
+folder=/home/jack/Desktop/StoryMaker/static/goddess
+
+cdate=1080-$(date +"%Y-%m-%d-%H:%M%s").jpg
+echo cdate
+inotifywait -m -q -e create -r --format '%:e %w%f' $folder | while read file
+sleep 3 
+cdate=1080_$(date +"%Y-%m-%d-%H:%M%s").jpg
+  do
+    mv /home/jack/Desktop/StoryMaker/static/goddess/Untitled.jpeg /home/jack/Desktop/StoryMaker/static/goddess/${cdate}
+  done
+#date +%s%3N

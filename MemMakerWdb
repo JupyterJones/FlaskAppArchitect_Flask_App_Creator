@@ -474,7 +474,7 @@ def mkblend_video():
     logger.debug('Directory saved to: %s', directory_path)
     # Process the directory path as needed
     #image_list = glob.glob(directory_path + "/*.jpg")
-    directory = "static/images/tensor_art/"
+    directory = "static/images/Starfire/"
     logger.debug('Selected directory: %s', directory)
     print(directory)
     if directory:
