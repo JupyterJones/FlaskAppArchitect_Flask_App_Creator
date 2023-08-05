@@ -56,9 +56,9 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 # Now you can use the logger to log messages
-TExt = "TEXT TEST 12345"
+#TExt = "TEXT TEST 12345"
 logger.debug('This is a debug message: %s', TExt)
-TExt = "TEXT TEST 6789"
+#TExt = "TEXT TEST 6789"
 logger.debug('This is a debug message: %s', TExt)
 TExt = "TEXT TEST abcd"
 logger.debug('This is a debug message: %s', TExt)
@@ -66,7 +66,10 @@ logger.debug('This is a debug message: %s', TExt)
 app.logger.addHandler(file_handler)
 # Create a logger object
 logging.basicConfig(level=logging.DEBUG)
+directory_path = "static/current_project"
 
+if not os.path.exists(directory_path):
+    os.makedirs(directory_path)
 app.config['UPLOAD_FOLDER'] = 'static/images/uploads'
 app.config['RESULTS_FOLDER'] = 'static/videos/results'
 app.config['THUMBNAILS_FOLDER'] = 'static/images/thumbnails'
