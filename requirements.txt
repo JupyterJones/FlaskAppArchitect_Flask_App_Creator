@@ -17,4 +17,4 @@ dlib==19.24.2
 pydub==0.25.1
 bs4
 flask_cors==4.0.0
-flake==8-6.1.0
+flake8==6.1.0

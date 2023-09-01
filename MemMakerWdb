@@ -1,4 +1,4 @@
-#!/home/jack/Desktop/Story-Maker/env/bin/python
+#!/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/env/bin/python
 from moviepy.editor import *
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response, flash, request, session,jsonify
 from flask import send_file, g
@@ -1137,7 +1137,8 @@ def edit_file():
     for filename in os.listdir(text_files_dir):
         if filename.endswith('.txt'):
             text_files.append(filename)
-    return render_template('edit_file.html', text_files=text_files)
+    fvideo = findvideos()        
+    return render_template('edit_file.html', text_files=text_files, video=fvideo)
 
 
 @app.route('/edit_formatted', methods=['GET', 'POST'])
