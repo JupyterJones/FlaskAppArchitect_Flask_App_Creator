@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
  <title>My Flask App</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
@@ -90,6 +90,8 @@
       <a href="{{ url_for('add_border') }}">Add a border to an image.</a><br />
       <a href="{{ url_for('process_images') }}">Process Images With Mask</a><br />
       <a href="{{ url_for('text_mp3') }}">Create an mp3 from aText Entry</a><br />
+      <a style="color: brown;" href="{{ url_for('view_log') }}">View Log/app.log</a><br />
+      <a style="color: brown;" href="{{ url_for('self_check') }}">flake8 check and view Log/flake.info</a><br />
     </div>
     <div class="content">
       <a href="{{ url_for('generate_video') }}">Create an mp4 from video_resources</a><br />

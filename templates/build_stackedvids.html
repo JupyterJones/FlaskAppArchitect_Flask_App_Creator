@@ -4,6 +4,12 @@
 <html>
 <head>
     <title>Build Stacked Videos</title>
+    <style>
+        .resizedvideo {
+          width: 200px;
+          height: 200px;
+        }
+    </style>    
 </head>
 <body>
     <h1>Build Stacked Videos</h1>
@@ -24,5 +30,12 @@
         <br><br>
         <input type="submit" value="Generate Stacked Videos">
     </form>
+
+    <video controls class="resizedvideo">
+        <source src="static/stacked_vids/stacked_videos.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video><br />
+
+    
 </body>
 </html>

@@ -1,4 +1,4 @@
-#!/home/jack/Desktop/StoryMaker/env/bin/python
+#!/home/jack/Desktop/Story-Maker/env/bin/python
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response,flash
 from flask import send_file, make_response,g
 import os
@@ -36,12 +36,9 @@ import moviepy.editor as mp
 from flask import Flask
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'CODE'))
-from CODE import code_blueprint
 app = Flask(__name__, template_folder='templates')
 app.secret_key = os.urandom(24)
 import uuid
-# Register the Blueprint
-app.register_blueprint(code_blueprint, name='code_blueprint')
 # Create a logger object
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -409,6 +406,9 @@ def apply_text_to_video():
         return render_template("apply_text_to_video.html")
 
 # Get a list of existing subdirectories in the video resources directory
+# if static/current_project not exist make it
+if not os.path.exists("static/current_project"):
+    os.makedirs("static/current_project")
 existing_subdirectories = [subdir for subdir in os.listdir("static/current_project") if os.path.isdir(os.path.join("static/current_project", subdir))]
 
 @app.route('/uploads', methods=['GET', 'POST'])

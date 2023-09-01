@@ -1,33 +1,84 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Text to Speech</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-    <body>
+
+<head>
+    <title>Text to Speech</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flask.css') }}">
+    <style>
+        a {
+            font-size: 20px;
+            margin-left: 10%;
+            color: #053b68;
+        }
+
+        pre {
+            font-size: 20px;
+            margin-left: 10%;
+            text-align: left;
+            color: #010f1a;
+            white-space: pre-wrap;
+            /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;
+            /* Mozilla, since 1999 */
+            white-space: -pre-wrap;
+            /* Opera 4-6 */
+            white-space: -o-pre-wrap;
+            /* Opera 7 */
+            word-wrap: break-word;
+            /* Internet Explorer 5.5+ */
+        }
+        p{
+            font-size: 25px;
+            margin: 10px,auto;
+            text-align: center;
+            color: #010f1a; 
+        }
+        textarea{
+            font-size: 20px;
+            margin-left: 10%;
+            text-align: left;
+            color: #010f1a;
+            white-space: pre-wrap;
+            /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap;
+            /* Mozilla, since 1999 */
+            white-space: -pre-wrap;
+            /* Opera 4-6 */
+            white-space: -o-pre-wrap;
+            /* Opera 7 */
+            word-wrap: break-word;
+            /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
         <h1>Text to Speech</h1>
         <p>Enter some text and click submit to hear it spoken aloud.</p>
         <a href="{{ url_for('indeX') }}">home</a><br />
         <form method="post">
-            <textarea name="text" rows="5" cols="30"></textarea>
+            <textarea name="text" rows="15" cols="50"></textarea>
             <br><br>
             <input type="submit" value="Submit">
         </form>
         {% if filename %}
-            <p>Text: {{ text }}</p>
-            <audio controls>
-                <source src="{{ filename }}" type="audio/mpeg">
-            </audio>
+        <p>Text: {{ text }}</p>
+        <audio controls>
+            <source src="{{ filename }}" type="audio/mpeg">
+        </audio>
         {% endif %}
 
         <audio controls id="audio-player">
             <source src="{{ filename }}" type="audio/mpeg">
-          </audio>
-          
-          <button onclick="document.getElementById('audio-player').play()">Play</button>
-    <br /><br />
-     <a href="{{ url_for('indeX') }}">If you are finished click here to return <span style="color:rgb(250, 5, 5);">HOME</span></a><br /><br />
-     <pre style="color:navy;">
+        </audio>
+
+        <button onclick="document.getElementById('audio-player').play()">Play</button>
+        <br /><br />
+        <a href="{{ url_for('indeX') }}">When Finished click home to return: <span
+                style="color:rgb(250, 5, 5);font-size: large;">&nbsp;&nbsp;&nbsp;HOME</span></a><br /><br />
+        <pre>
 Notice in the example text below, 'have' is spelled 'hav' so it is pronounced correctly.
 Also mp3 is spelled out  M P 3 so it is also pronounced correctly.
 -------------------------------------------------------------------------- 
@@ -62,6 +113,7 @@ Set back and relax it will take some time to generate.
 If it is too much for your computer, you will find a link to Jupyter Co lab notebook.
 Co Lab provides a free G P U service and is much faster.
 --------------------------------------------------------------------------  
-     </pre>     
-    </body>
+     </pre>
+</body>
+
 </html>

@@ -1,8 +1,28 @@
+<!-- index.html-->
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Choose a Directory</title>
+    <title>My Flask App</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('../static/assets/MemMaker_background.png');
+            background-repeat: repeat-y;
+            background-size: cover;
+            /* Use 'cover' to make the image cover the entire body */
+            background-position: top;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Choose a Directory</h1>
     <form method="post">
@@ -14,7 +34,7 @@
         <input type="submit" value="Get Image List">
     </form>
 
-      {% if video %}
+    {% if video %}
     <h2>Generated Video:</h2>
     <video controls>
         <source src="{{ video }}" type="video/mp4">
@@ -23,4 +43,5 @@
     {% endif %}
 
 </body>
+
 </html>

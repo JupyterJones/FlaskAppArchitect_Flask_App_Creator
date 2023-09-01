@@ -2,9 +2,16 @@
 <html>
 <head>
     <title>Image Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Style.css') }}">
+    <style>
+        .resizedvideo {
+          width: 400px;
+          height: auto;
+        }
+        </style>
 </head>
 <body>
-    <a style ="font-size: 24px;color: brown;" href="{{ url_for('index') }}">HOME</a>
+    <a style ="font-size: 24px;color: rgb(255, 238, 0);" href="{{ url_for('index') }}">HOME</a>
     <h1>Upload Background and Foreground Images</h1>
     <form action="/process_imagez" method="post" enctype="multipart/form-data">
         <label for="bg_image">Background Image:</label>
@@ -18,7 +25,7 @@
 
     {% if video_url %}
     <h2>Generated Video:</h2>
-    <video controls>
+    <video class="resizedvideo" controls>
         <source src="static/overlay_zooms/imagez_video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
