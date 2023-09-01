@@ -3285,7 +3285,8 @@ def edit_and_save_template_file(filename, content):
 def edit_template():
     filenames = [f for f in os.listdir(template_dir) if f.endswith('.html')]
     filenames = sorted(filenames)
-    return render_template('edit_template.html', filenames=filenames)
+    fvideo = findvideos()
+    return render_template('edit_template.html', filenames=filenames, video=fvideo)
 
 @app.route('/edit_template_page')
 def edit_template_page():

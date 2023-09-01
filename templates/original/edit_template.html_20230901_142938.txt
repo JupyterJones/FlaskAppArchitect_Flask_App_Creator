@@ -6,15 +6,7 @@
      <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flask.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <style>
-    video {
-        margin: 10px, auto;
-        width: 250px;
-        height: auto;
-    }
-</style>
-</head>
-    <body>
+<body>
         <div class="wrapper">
         <div class="header">
             <h1>Edit Template Files</h1>
@@ -52,10 +44,6 @@
 </div>
 <div class="column">
     <h2>Random Video</h2>
-    <video controls>
-        <source src="{{ video }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
 </div>
 </div>    
 </body>
