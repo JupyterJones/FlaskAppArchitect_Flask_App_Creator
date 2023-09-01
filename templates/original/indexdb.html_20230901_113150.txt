@@ -67,9 +67,8 @@
     </style>
 </head>
 <body>
-
-        <div class="header">   <h1>Welcome to the indexdb</h1></div>
     <div class="columns">
+        <div class="header">   <h1>Welcome to the indexdb</h1></div>
 <div class="column left">
  
     <p>Choose an option below:</p>
@@ -84,8 +83,7 @@
     <a style ="font-size: 24px;color: brown;" href="{{ url_for('index') }}">HOME</a>
 </div>
 <div class="column right">
-                <h2>Random Video</h2>
-<p>This Video will eventually be instructions on info on creation/using this page</p>
+                <h2>Right Column</h2>
                 <video controls>
                     <source src="{{ video }}" type="video/mp4">
                     Your browser does not support the video tag.

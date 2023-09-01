@@ -1,0 +1,360 @@
+MemMakerWdb:2:1: F403 'from moviepy.editor import *' used; unable to detect undefined names
+MemMakerWdb:3:1: F811 redefinition of unused 'request' from line 3
+MemMakerWdb:3:80: E501 line too long (132 > 79 characters)
+MemMakerWdb:3:125: E231 missing whitespace after ','
+MemMakerWdb:45:10: W291 trailing whitespace
+MemMakerWdb:72:39: E231 missing whitespace after ','
+MemMakerWdb:74:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:97:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:99:80: E501 line too long (121 > 79 characters)
+MemMakerWdb:100:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:118:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:161:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:167:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:171:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:176:80: E501 line too long (99 > 79 characters)
+MemMakerWdb:196:80: E501 line too long (98 > 79 characters)
+MemMakerWdb:314:80: E501 line too long (88 > 79 characters)
+MemMakerWdb:351:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:357:80: E501 line too long (81 > 79 characters)
+MemMakerWdb:407:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:429:80: E501 line too long (86 > 79 characters)
+MemMakerWdb:453:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:467:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:474:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:498:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:505:80: E501 line too long (95 > 79 characters)
+MemMakerWdb:526:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:532:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:577:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:586:80: E501 line too long (103 > 79 characters)
+MemMakerWdb:587:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:594:1: W293 blank line contains whitespace
+MemMakerWdb:642:80: E501 line too long (88 > 79 characters)
+MemMakerWdb:669:80: E501 line too long (110 > 79 characters)
+MemMakerWdb:674:80: E501 line too long (110 > 79 characters)
+MemMakerWdb:762:80: E501 line too long (106 > 79 characters)
+MemMakerWdb:763:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:764:80: E501 line too long (104 > 79 characters)
+MemMakerWdb:766:80: E501 line too long (176 > 79 characters)
+MemMakerWdb:787:80: E501 line too long (117 > 79 characters)
+MemMakerWdb:799:80: E501 line too long (94 > 79 characters)
+MemMakerWdb:802:80: E501 line too long (123 > 79 characters)
+MemMakerWdb:834:80: E501 line too long (95 > 79 characters)
+MemMakerWdb:888:80: E501 line too long (105 > 79 characters)
+MemMakerWdb:889:80: E501 line too long (125 > 79 characters)
+MemMakerWdb:913:80: E501 line too long (81 > 79 characters)
+MemMakerWdb:929:80: E501 line too long (96 > 79 characters)
+MemMakerWdb:955:80: E501 line too long (83 > 79 characters)
+MemMakerWdb:956:80: E501 line too long (96 > 79 characters)
+MemMakerWdb:958:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:960:80: E501 line too long (92 > 79 characters)
+MemMakerWdb:975:80: E501 line too long (94 > 79 characters)
+MemMakerWdb:979:80: E501 line too long (83 > 79 characters)
+MemMakerWdb:983:80: E501 line too long (103 > 79 characters)
+MemMakerWdb:988:23: F541 f-string is missing placeholders
+MemMakerWdb:989:80: E501 line too long (178 > 79 characters)
+MemMakerWdb:997:13: F841 local variable 'video' is assigned to but never used
+MemMakerWdb:999:9: F841 local variable '_' is assigned to but never used
+MemMakerWdb:1001:80: E501 line too long (102 > 79 characters)
+MemMakerWdb:1016:80: E501 line too long (128 > 79 characters)
+MemMakerWdb:1023:80: E501 line too long (94 > 79 characters)
+MemMakerWdb:1027:80: E501 line too long (83 > 79 characters)
+MemMakerWdb:1031:80: E501 line too long (103 > 79 characters)
+MemMakerWdb:1037:23: F541 f-string is missing placeholders
+MemMakerWdb:1038:80: E501 line too long (177 > 79 characters)
+MemMakerWdb:1045:13: F841 local variable 'video' is assigned to but never used
+MemMakerWdb:1047:9: F841 local variable 'e' is assigned to but never used
+MemMakerWdb:1049:80: E501 line too long (102 > 79 characters)
+MemMakerWdb:1063:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:1085:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:1097:80: E501 line too long (103 > 79 characters)
+MemMakerWdb:1123:80: E501 line too long (96 > 79 characters)
+MemMakerWdb:1187:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:1191:80: E501 line too long (124 > 79 characters)
+MemMakerWdb:1204:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:1217:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:1225:18: F405 'ColorClip' may be undefined, or defined from star imports: moviepy.editor
+MemMakerWdb:1242:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:1255:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:1263:18: F405 'ColorClip' may be undefined, or defined from star imports: moviepy.editor
+MemMakerWdb:1280:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:1332:80: E501 line too long (192 > 79 characters)
+MemMakerWdb:1337:80: E501 line too long (159 > 79 characters)
+MemMakerWdb:1343:16: F541 f-string is missing placeholders
+MemMakerWdb:1343:80: E501 line too long (276 > 79 characters)
+MemMakerWdb:1351:80: E501 line too long (392 > 79 characters)
+MemMakerWdb:1394:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:1397:80: E501 line too long (101 > 79 characters)
+MemMakerWdb:1406:80: E501 line too long (91 > 79 characters)
+MemMakerWdb:1407:80: E501 line too long (102 > 79 characters)
+MemMakerWdb:1422:80: E501 line too long (200 > 79 characters)
+MemMakerWdb:1426:80: E501 line too long (191 > 79 characters)
+MemMakerWdb:1430:80: E501 line too long (190 > 79 characters)
+MemMakerWdb:1436:80: E501 line too long (500 > 79 characters)
+MemMakerWdb:1437:80: E501 line too long (479 > 79 characters)
+MemMakerWdb:1440:80: E501 line too long (171 > 79 characters)
+MemMakerWdb:1459:80: E501 line too long (95 > 79 characters)
+MemMakerWdb:1467:80: E501 line too long (83 > 79 characters)
+MemMakerWdb:1482:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:1487:80: E501 line too long (120 > 79 characters)
+MemMakerWdb:1490:80: E501 line too long (126 > 79 characters)
+MemMakerWdb:1499:80: E501 line too long (116 > 79 characters)
+MemMakerWdb:1525:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:1541:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:1557:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:1573:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:1581:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:1586:80: E501 line too long (106 > 79 characters)
+MemMakerWdb:1588:80: E501 line too long (91 > 79 characters)
+MemMakerWdb:1635:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:1636:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:1650:80: E501 line too long (92 > 79 characters)
+MemMakerWdb:1667:80: E501 line too long (91 > 79 characters)
+MemMakerWdb:1668:80: E501 line too long (117 > 79 characters)
+MemMakerWdb:1675:9: F841 local variable 'number' is assigned to but never used
+MemMakerWdb:1720:5: F841 local variable 'Filename' is assigned to but never used
+MemMakerWdb:1721:5: F841 local variable 'Video_file' is assigned to but never used
+MemMakerWdb:1725:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:1743:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:1783:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:1827:80: E501 line too long (114 > 79 characters)
+MemMakerWdb:1841:80: E501 line too long (134 > 79 characters)
+MemMakerWdb:1843:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:1884:1: F811 redefinition of unused 'image_directories' from line 575
+MemMakerWdb:1886:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:1899:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:1902:80: E501 line too long (99 > 79 characters)
+MemMakerWdb:1904:80: E501 line too long (100 > 79 characters)
+MemMakerWdb:1908:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:1911:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:1914:1: E265 block comment should start with '# '
+MemMakerWdb:1914:80: E501 line too long (81 > 79 characters)
+MemMakerWdb:1915:1: E265 block comment should start with '# '
+MemMakerWdb:1920:80: E501 line too long (106 > 79 characters)
+MemMakerWdb:1921:80: E501 line too long (94 > 79 characters)
+MemMakerWdb:1922:1: W293 blank line contains whitespace
+MemMakerWdb:1925:1: W293 blank line contains whitespace
+MemMakerWdb:1930:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:1931:1: W293 blank line contains whitespace
+MemMakerWdb:1934:1: W293 blank line contains whitespace
+MemMakerWdb:1938:1: W293 blank line contains whitespace
+MemMakerWdb:1941:1: W293 blank line contains whitespace
+MemMakerWdb:1944:1: W293 blank line contains whitespace
+MemMakerWdb:1946:80: E501 line too long (148 > 79 characters)
+MemMakerWdb:1950:1: E303 too many blank lines (3)
+MemMakerWdb:1956:5: E265 block comment should start with '# '
+MemMakerWdb:1956:80: E501 line too long (97 > 79 characters)
+MemMakerWdb:1960:5: E265 block comment should start with '# '
+MemMakerWdb:1963:5: E265 block comment should start with '# '
+MemMakerWdb:1965:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:2085:80: E501 line too long (126 > 79 characters)
+MemMakerWdb:2090:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:2091:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:2100:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:2107:5: F841 local variable 'row_id' is assigned to but never used
+MemMakerWdb:2109:67: F405 'rowid' may be undefined, or defined from star imports: moviepy.editor
+MemMakerWdb:2150:1: F811 redefinition of unused 'get_db' from line 1746
+MemMakerWdb:2158:1: F811 redefinition of unused 'close_connection' from line 1754
+MemMakerWdb:2182:1: F811 redefinition of unused 'close_connection' from line 2158
+MemMakerWdb:2202:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:2223:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:2246:1: W293 blank line contains whitespace
+MemMakerWdb:2247:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:2262:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:2289:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:2290:80: E501 line too long (99 > 79 characters)
+MemMakerWdb:2293:80: E501 line too long (83 > 79 characters)
+MemMakerWdb:2310:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:2328:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:2421:1: F811 redefinition of unused 'change_extension' from line 2403
+MemMakerWdb:2430:79: W291 trailing whitespace
+MemMakerWdb:2440:80: E501 line too long (86 > 79 characters)
+MemMakerWdb:2481:80: E501 line too long (86 > 79 characters)
+MemMakerWdb:2525:80: E501 line too long (125 > 79 characters)
+MemMakerWdb:2536:9: F841 local variable 'image_orig' is assigned to but never used
+MemMakerWdb:2544:80: E501 line too long (125 > 79 characters)
+MemMakerWdb:2578:12: F405 'ImageSequenceClip' may be undefined, or defined from star imports: moviepy.editor
+MemMakerWdb:2633:1: F811 redefinition of unused 'get_db' from line 2150
+MemMakerWdb:2666:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:2707:80: E501 line too long (105 > 79 characters)
+MemMakerWdb:2711:80: E501 line too long (97 > 79 characters)
+MemMakerWdb:2732:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:2769:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:2776:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:2787:80: E501 line too long (97 > 79 characters)
+MemMakerWdb:2790:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:2793:80: E501 line too long (94 > 79 characters)
+MemMakerWdb:2816:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:2827:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:2856:80: E501 line too long (125 > 79 characters)
+MemMakerWdb:2859:80: E501 line too long (106 > 79 characters)
+MemMakerWdb:2860:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:2865:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:2868:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:2873:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:2875:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:2878:80: E501 line too long (84 > 79 characters)
+MemMakerWdb:2880:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:2887:1: W293 blank line contains whitespace
+MemMakerWdb:2894:1: W293 blank line contains whitespace
+MemMakerWdb:2898:1: W293 blank line contains whitespace
+MemMakerWdb:2901:80: E501 line too long (109 > 79 characters)
+MemMakerWdb:2902:1: W293 blank line contains whitespace
+MemMakerWdb:2907:1: E303 too many blank lines (3)
+MemMakerWdb:2911:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:2913:45: W291 trailing whitespace
+MemMakerWdb:2922:80: E501 line too long (86 > 79 characters)
+MemMakerWdb:2932:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:2942:80: E501 line too long (146 > 79 characters)
+MemMakerWdb:2944:80: E501 line too long (94 > 79 characters)
+MemMakerWdb:2950:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:2951:9: F541 f-string is missing placeholders
+MemMakerWdb:2952:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:2960:80: E501 line too long (86 > 79 characters)
+MemMakerWdb:2961:9: F541 f-string is missing placeholders
+MemMakerWdb:2962:80: E501 line too long (87 > 79 characters)
+MemMakerWdb:2969:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:3002:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:3003:80: E501 line too long (95 > 79 characters)
+MemMakerWdb:3021:1: W293 blank line contains whitespace
+MemMakerWdb:3023:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:3024:1: W293 blank line contains whitespace
+MemMakerWdb:3027:1: W293 blank line contains whitespace
+MemMakerWdb:3032:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3037:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3042:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3045:1: W293 blank line contains whitespace
+MemMakerWdb:3052:1: W293 blank line contains whitespace
+MemMakerWdb:3058:80: E501 line too long (88 > 79 characters)
+MemMakerWdb:3060:1: W293 blank line contains whitespace
+MemMakerWdb:3065:1: W293 blank line contains whitespace
+MemMakerWdb:3068:80: E501 line too long (86 > 79 characters)
+MemMakerWdb:3076:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3079:80: E501 line too long (110 > 79 characters)
+MemMakerWdb:3082:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:3083:80: E501 line too long (152 > 79 characters)
+MemMakerWdb:3084:1: W293 blank line contains whitespace
+MemMakerWdb:3087:80: E501 line too long (119 > 79 characters)
+MemMakerWdb:3088:80: E501 line too long (93 > 79 characters)
+MemMakerWdb:3090:80: E501 line too long (248 > 79 characters)
+MemMakerWdb:3091:1: W293 blank line contains whitespace
+MemMakerWdb:3092:80: E501 line too long (85 > 79 characters)
+MemMakerWdb:3093:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3104:1: E305 expected 2 blank lines after class or function definition, found 0
+MemMakerWdb:3109:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3114:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3121:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3127:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3132:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3136:80: E501 line too long (121 > 79 characters)
+MemMakerWdb:3138:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3145:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3149:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3152:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3158:34: E231 missing whitespace after ','
+MemMakerWdb:3169:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3172:1: W293 blank line contains whitespace
+MemMakerWdb:3181:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3187:5: F841 local variable 'result' is assigned to but never used
+MemMakerWdb:3205:80: E501 line too long (81 > 79 characters)
+MemMakerWdb:3207:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3208:1: F811 redefinition of unused 'list_functions' from line 3169
+MemMakerWdb:3212:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3215:80: E501 line too long (114 > 79 characters)
+MemMakerWdb:3217:80: E501 line too long (105 > 79 characters)
+MemMakerWdb:3222:1: E305 expected 2 blank lines after class or function definition, found 1
+MemMakerWdb:3226:1: W293 blank line contains whitespace
+MemMakerWdb:3227:1: W293 blank line contains whitespace
+MemMakerWdb:3229:18: W291 trailing whitespace
+MemMakerWdb:3230:9: E117 over-indented
+MemMakerWdb:3231:1: W293 blank line contains whitespace
+MemMakerWdb:3232:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3238:80: E501 line too long (80 > 79 characters)
+MemMakerWdb:3239:1: W293 blank line contains whitespace
+MemMakerWdb:3240:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3245:80: E501 line too long (89 > 79 characters)
+MemMakerWdb:3251:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3255:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3260:1: E305 expected 2 blank lines after class or function definition, found 1
+MemMakerWdb:3264:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3269:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3276:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3282:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3288:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3292:80: E501 line too long (125 > 79 characters)
+MemMakerWdb:3294:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3300:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3307:80: E501 line too long (83 > 79 characters)
+MemMakerWdb:3311:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3313:1: W293 blank line contains whitespace
+MemMakerWdb:3316:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3318:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:3319:80: E501 line too long (94 > 79 characters)
+MemMakerWdb:3327:1: E305 expected 2 blank lines after class or function definition, found 1
+MemMakerWdb:3329:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3332:1: W293 blank line contains whitespace
+MemMakerWdb:3335:1: W293 blank line contains whitespace
+MemMakerWdb:3338:1: W293 blank line contains whitespace
+MemMakerWdb:3341:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3344:1: W293 blank line contains whitespace
+MemMakerWdb:3353:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3357:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3371:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3374:1: W293 blank line contains whitespace
+MemMakerWdb:3376:80: E501 line too long (103 > 79 characters)
+MemMakerWdb:3381:1: E305 expected 2 blank lines after class or function definition, found 0
+MemMakerWdb:3385:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3390:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3397:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3403:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3407:5: E265 block comment should start with '# '
+MemMakerWdb:3408:27: E211 whitespace before '('
+MemMakerWdb:3410:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3414:80: E501 line too long (120 > 79 characters)
+MemMakerWdb:3416:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3422:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3426:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3430:80: E501 line too long (98 > 79 characters)
+MemMakerWdb:3435:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3439:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3443:1: E305 expected 2 blank lines after class or function definition, found 1
+MemMakerWdb:3446:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3455:26: W291 trailing whitespace
+MemMakerWdb:3458:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3470:80: E501 line too long (82 > 79 characters)
+MemMakerWdb:3473:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3496:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3500:9: F841 local variable 'source_path' is assigned to but never used
+MemMakerWdb:3501:17: E225 missing whitespace around operator
+MemMakerWdb:3502:80: E501 line too long (90 > 79 characters)
+MemMakerWdb:3506:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3509:52: E231 missing whitespace after ','
+MemMakerWdb:3511:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3513:80: E501 line too long (86 > 79 characters)
+MemMakerWdb:3515:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3518:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3535:80: E501 line too long (112 > 79 characters)
+MemMakerWdb:3540:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3553:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3570:80: E501 line too long (140 > 79 characters)
+MemMakerWdb:3572:80: E501 line too long (100 > 79 characters)
+MemMakerWdb:3573:1: E302 expected 2 blank lines, found 0
+MemMakerWdb:3577:1: W293 blank line contains whitespace
+MemMakerWdb:3578:80: E501 line too long (340 > 79 characters)
+MemMakerWdb:3579:1: W293 blank line contains whitespace
+MemMakerWdb:3580:5: E265 block comment should start with '# '
+MemMakerWdb:3580:80: E501 line too long (363 > 79 characters)
+MemMakerWdb:3581:1: W293 blank line contains whitespace
+MemMakerWdb:3582:75: W291 trailing whitespace
+MemMakerWdb:3589:1: W293 blank line contains whitespace
+MemMakerWdb:3590:1: E302 expected 2 blank lines, found 1
+MemMakerWdb:3594:1: W293 blank line contains whitespace
+MemMakerWdb:3595:80: E501 line too long (381 > 79 characters)
+MemMakerWdb:3596:1: E124 closing bracket does not match visual indentation
+MemMakerWdb:3598:1: W293 blank line contains whitespace
+MemMakerWdb:3599:5: E303 too many blank lines (2)
+MemMakerWdb:3599:76: W291 trailing whitespace
+MemMakerWdb:3605:50: W291 trailing whitespace
+MemMakerWdb:3606:1: W293 blank line contains whitespace
+MemMakerWdb:3607:1: W293 blank line contains whitespace

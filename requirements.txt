@@ -5,11 +5,9 @@ pip==22.0.4
 requests==2.27.1
 scipy==1.8.0
 setuptools==65.5.1
-spacy==3.2.4
 pygame
 moviepy
 gtts
-sumy==0.9.0
 urllib3==1.26.9
 waitress==2.1.2
 werkzeug==2.2.3
@@ -18,3 +16,5 @@ opencv-python==4.8.0.74
 dlib==19.24.2
 pydub==0.25.1
 bs4
+flask_cors==4.0.0
+flake==8-6.1.0

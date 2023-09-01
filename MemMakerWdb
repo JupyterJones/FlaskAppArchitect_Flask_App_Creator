@@ -109,14 +109,14 @@ def favicon():
     draw = ImageDraw.Draw(favicon)
 
     # Draw a yellow square
-    square_color = (255, 255, 0)
+    square_color = (255, 0, 255)
     draw.rectangle([(0, 0), size], fill=square_color)
 
     # Draw a red circle
     circle_center = (size[0] // 2, size[1] // 2)
     circle_radius = size[0] // 3
     app.logger.info(f'circle_center, circle_radius:,{circle_center} {circle_radius}')
-    circle_color = (255, 0, 255)
+    circle_color = (255, 255, 0)
     draw.ellipse(
         [(circle_center[0] - circle_radius, circle_center[1] - circle_radius),
          (circle_center[0] + circle_radius, circle_center[1] + circle_radius)],
@@ -2640,7 +2640,8 @@ def get_db():
 @app.route('/indexdb')
 def indexdb():
     logger.debug("Accessing indexdb route")
-    return render_template('indexdb.html')
+    video = findvideos()
+    return render_template('indexdb.html',video=video)
 
 
 @app.route('/select_by_id_form', methods=['POST', 'GET'])
@@ -3014,15 +3015,15 @@ def view_log():
 @app.route('/self_check')
 def self_check():
     try:
-        if os.path.exists('Logs/flake.info'):
+        if os.path.exists('Logs'):
             timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
             new_filename = f'Logs/{timestamp}.info'
-            shutil.move('Logs/flake.info', new_filename)
+            shutil.copy('Logs/flake8.info', new_filename)
             
         result = subprocess.run(['flake8', '-v', 'MemMakerWdb'],
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         
-        with open('Logs/flake.info', 'w') as flake_file:
+        with open('Logs/flake8.info', 'w') as flake_file:
             flake_file.write(result.stdout)
         
         return redirect(url_for('view_flake8'))
@@ -3031,7 +3032,7 @@ def self_check():
 
 @app.route('/view_flake8')
 def view_flake8():
-    with open('Logs/flake.info', 'r') as flake_file:
+    with open('Logs/flake8.info', 'r') as flake_file:
         flake_content = flake_file.read()
     return render_template('flake8_viewer.html', flake_content=flake_content)
 def get_image_directories():
