@@ -1,0 +1,267 @@
+html, body {
+  margin: 0;
+  width: 100%; 
+  background-color: #f8f8f8;
+  
+  -webkit-box-sizing: border-box; /* Safari/Crome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+body {
+  padding: 20px;
+  font-family: "Helvetica Neue", "Arial", "Lucida Grande", "Lucida Sans Unicode", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-width: 440px;
+} 
+
+h1, h2, h3 {
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
+  margin: 0;
+  line-height: 1;
+}
+
+h1 {
+  font-size: 40px;
+  text-transform: uppercase; 
+}
+
+h2 {
+  text-transform: uppercase;  
+}
+
+dl:nth-child(even) {
+  background-color: #eee;
+}
+
+dt, dd {
+  display: inline; 
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  font-weight: bold;  
+}
+
+dd {
+  color: #555;  
+}
+
+dd:before {
+  content: '\2014\00a0';
+}
+
+#items h2 {
+  color: #333;
+  padding: 5px 0;
+  text-transform: uppercase;
+  font-size: 20px;
+  border-bottom: 2px solid #999;
+  font-weight: bold;
+}
+
+#items h3 {
+  margin-top: 10px;
+  color: #333;
+  font-size: 16px;
+
+}
+
+ul, ol, li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+/* ================================== */
+
+#header {
+  background-color: #222;
+  width: 100%;  
+  border-radius: 3px;
+  padding: 2px;
+  
+  -webkit-box-sizing: border-box; /* Safari/Crome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#logo {
+  float: left;
+  font-size: 32px;
+  color: #ddd;
+  text-decoration: none;
+  text-transform: uppercase;
+  /*
+  background-image: url("../img/cheat-sheet-brain.png");
+  background-repeat: no-repeat;
+  */
+
+  display: inline-block;
+  /*padding-left: 110px;*/
+  padding: 20px;
+  overflow: hidden;
+  
+  -webkit-box-sizing: border-box; /* Safari/Crome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#headerAd {
+  float: right;
+  display: inline-block;
+  height: 90px;  
+}
+
+.crumbs {
+  margin-top: 10px;
+}
+.crumbs li {
+  float: left;
+}
+
+.crumbs a {
+  text-decoration: underline;
+  color: #888;
+}
+
+.crumbs li {
+  text-decoration: none;
+  color: #888;
+}
+
+.crumbs a:hover {
+  color: #333;
+}
+
+.crumbs li:before {
+  content: '\0000a0>\0000a0';
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+#items pre.prettyprint {
+  background-color: #eee;
+  border: 0;
+  margin: 10px 0 10px 0;
+}
+
+#items {
+  margin-top: 20px;
+}
+
+.item {
+  width: 360px;
+  background-color: #f8f8f8;
+  margin-bottom: 20px;
+}
+
+/*
+.item h3:before {
+  content: '\2022\00a0'
+}
+
+*/
+
+.item a {
+  text-decoration: underline;
+  color: #333;  
+}
+
+.item img {
+  border-radius: 3px;
+}
+
+#edit {
+  height: 80px;
+  background-image: url('../img/edit.png');
+  background-repeat: no-repeat;
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 34px;
+  padding: 5px 0 0 90px;
+  opacity: 0.75;
+}
+
+#socialContainer {
+  display: inline-block;
+  float: right;
+  margin-top: 8px;
+  opacity: 0;
+  
+  -webkit-transition: all ease-out 0.5s;
+     -moz-transition: all ease-out 0.5s;
+       -o-transition: all ease-out 0.5s;
+          transition: all ease-out 0.5s;
+}
+#socialContainer li {
+  float: left;
+  margin-right: 10px;
+}
+
+#twitterContainer {
+  min-width: 56px;
+}
+#facebookContainer {
+  min-width: 47px;
+}
+#googleContainer {
+  min-width: 50px;
+}
+
+#intro {
+  max-width: 960px;
+}
+
+#moreCheatSheets {
+  background-color: #eee;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+}
+#moreCheatSheets h2 {
+  font-size: 30px;
+}
+
+#moreCheatSheets ul {
+  margin-top: 10px;
+}
+
+#moreCheatSheets li {
+  display: inline-block;
+  float: left;
+  border: 2px solid #bbb;
+  padding: 4px;
+  background-color: white;
+  opacity: 0.9;
+  margin: 0 10px 10px 0;
+}
+
+#moreCheatSheets li:hover {
+  opacity: 1
+}
+
+#moreCheatSheets img {
+  float: left;
+}
+
+@media (max-width: 768px) {
+  #headerAd {
+    display: none;
+  }
+}

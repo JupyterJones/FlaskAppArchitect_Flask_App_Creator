@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flask.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>JavaScript Script Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <style>
+        .resizedvideo {
+            width: 300px;
+            height: auto;
+            border: 1px solid black;
+        }
+
+        .section {
+            margin-top: 50px;
+            width: 95%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .sectionl {
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
+            height: 100vh;
+        }
+
+        .sectionr {
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            align-items: right;
+            justify-content: right;
+            height: 100vh;
+        }
+
+        html {
+            font-family: sans-serif;
+            background-color: black;
+        }
+
+        body {
+            width: 95%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgb(167, 196, 189);
+            color: black;
+        }
+
+        h1 {
+            color: rgb(255, 255, 255);
+        }
+
+        #wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: teal;
+        }
+    </style>
+
+
+</head>
+
+<body>
+<div class="wrapper>
+<div class="container">
+    <h2>JavaScript Script Editor</h2>
+    <form action="/preview" method="POST">
+        <textarea id="editor" name="script"></textarea>
+        <br>
+        <input type="submit" value="Preview">
+    </form><br />
+
+    <a href="/edit_script">Edit Script</a><br />
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/javascript");
+    </script>
+
+
+<audio id="audioPlayer" controls>
+    <source src="{{ url_for('static', filename='MUSIC/Blue_Mood-Robert_Munzinger.mp3') }}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<button id="captureButton">capture_video</button><br />
+<script>
+    var audioPlayer = document.getElementById('audioPlayer');
+    var playButton = document.getElementById('playButton');
+
+    playButton.addEventListener('click', function() {
+        audioPlayer.play();
+    });
+</script>
+    <video class="resizedvideo " controls>
+        <source src="{{ url_for('static', filename='LIVE2.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+    <script>
+        document.getElementById("captureButton").addEventListener("click", function () {
+            fetch('/capture_video')  // Replace with the correct route to capture video
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);  // Print the response from the server
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+
+<button id="capture_square">capture_square</button><br />
+<script>
+    document.getElementById("capture_square").addEventListener("click", function () {
+        fetch('/capture_square')  // Replace with the correct route to capture video
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);  // Print the response from the server
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
+/div>
+</body>
+
+</html>

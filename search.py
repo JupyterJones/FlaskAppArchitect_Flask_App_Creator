@@ -18,6 +18,7 @@ def search():
         if 'messages' in conversation:
             for message in conversation['messages']:
                 if 'content' in message and query.lower() in message['content'].lower():
+                    message = message.replace('\n','')
                     results.append(message)
 
     # return the search results as JSON

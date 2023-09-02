@@ -1,0 +1,289 @@
+--Code Start:
+Sun_27_Aug_2023 11:43:33
+@app.route('/mkvid2')
+def mkvid2():
+    reprocessed = "static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4"
+    final = 'static/images/assets/long_512-768.mp4'  
+    command2 = [
+    'ffmpeg', '-hide_banner',
+    '-i', f'{reprocessed}',
+    '-vf', 'scale=512:768,setsar=1/1',
+    '-c:a', 'copy', '-y', f'{final}'
+    ]
+    app.logger.info("FINAL_FILE",f'{final}')
+    subprocess.run(command2)
+    Filenamez = "images/assets/ThumbNails_Background.png"
+    Video_filez = "images/assets/long_512-768.mp4" 
+    Video_filel = "images/assets/Good_ThumbNails_Background_FFmpeg.mp4" 
+    uid = str(uuid.uuid4())
+    shutil.copy("static/images/assets/ThumbNails_Background.png", f"static/images/assets/{uid}.png")
+    shutil.copy("static/images/assets/long_512-768.mp4", f"static/images/assets/{uid}long_512-768.mp4")
+    shutil.copy("static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4", f"static/images/assets/{uid}Good_ThumbNails_Background_FFmpeg.mp4") 
+    return render_template("mkvid2.html", filename=Filenamez, video=Video_filez,video2=Video_filel)
+--Code End:
+
+--Code Start:
+Sun_27_Aug_2023 13:01:10
+Make mosaic:
+@app.route('/mkmoz', methods=['GET', 'POST'])
+def mkmoz():
+    im = Image.new("RGB", (2048,2048), (0,0,0))
+    for i in range(0, 1000):
+        if i > 500:
+            DIR = "static/images/small/*.jpg"
+        else:
+            DIR = "static/images/medium/*.jpg"
+        thumb = random.choice(glob.glob(DIR))       
+        print("THUMB:",thumb)
+        Thum = Image.open(thumb)            
+        im.paste(Thum,((randint(0,im.size[0])),randint(0,im.size[1])-50))
+        filename = "static/images/assets/ThumbNails.png"
+        im.save(filename)
+        Filename="images/assets/ThumbNails.png"
+    return render_template("mkmoz.html", filename=Filename)
+--Code End:
+
+--Code Start:
+Sun_27_Aug_2023 13:14:13
+To preserve the formatting of the code when displaying it in the search results, you can use the pre HTML tag to render the code block within a preformatted text block. This will maintain line breaks and indentation as they appear in the original code.
+Here's how you can update the search_results.html template to achieve this:
+
+html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results for "{{ keyword }}"</h1>
+    
+    {% if code_blocks %}
+        <ul>
+            {% for block in code_blocks %}
+                <li>
+                    <strong>Timestamp:</strong> {{ block.datetime }}<br>
+                    <strong>Code Block:</strong><br>
+                    <pre>{{ block.code_block }}</pre>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matching code blocks found.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('search_code') }}">Back to Search</a>
+</body>
+</html>
+
+By wrapping the block.code_block within the pre tag, you're indicating to the browser that the content should be displayed as preformatted text. This will maintain the line breaks and indentation, preserving the original formatting of the code.
+
+Make sure to replace the content of your search_results.html file with the above code snippet.
+
+If you have any further questions or need more assistance, feel free to ask!
+--Code End:
+
+--Code Start:
+Sun_27_Aug_2023 13:17:30
+make background images from the thumbnail cache
+@app.route('/mk_background', methods=['GET', 'POST'])
+def mk_background():
+    #im = Image.new("RGB", (8000, 512), (127, 255, 127)) 
+    im = Image.new("RGB", (8000, 512), (0, 0, 0))
+    for i in range(0, 1000):
+        if i > 500:
+            DIR = "static/images/small/*.jpg"
+        else:
+            DIR = "static/images/medium/*.jpg"
+        thumb = random.choice(glob.glob(DIR))
+        logger.debug('This is a debug message: %s', thumb)
+        print("THUMB:", thumb)
+        Thum = Image.open(thumb)
+        im.paste(Thum, ((randint(0, im.size[0])), randint(0, im.size[1]) - 50))
+        filename = "static/images/assets/ThumbNails_Background.png"
+        im.save(filename)
+    uid = str(uuid.uuid4())  # Generate a unique ID using uuid
+    # static/images/assets/UNIQUE_ID.mp4
+    png_bak = os.path.join("static", "images/assets", f"{uid}.png")
+    shutil.copy("static/images/assets/ThumbNails_Background.png", png_bak)
+    return redirect('/mkvid')
+
+
+@app.route('/mkvid')
+def mkvid():
+    Filename = "static/images/ThumbNails_Background.png"
+    Video_file = "static/images/ThumbNails_Background_FFmpeg.mp4"
+    command = [
+        'FFmpeg', '-hide_banner',
+        '-loop', '1', '-i', f'{Filename}',
+        '-vf', 'scale=8000:512,scroll=horizontal=0.0001,crop=768:512:0:0,format=yuv420p',
+        '-t', '240', '-y', f'{Video_file}'
+    ]
+    subprocess.run(command)
+    reprocess = "static/images/assets/ThumbNails_Background_FFmpeg.mp4" 
+    reprocessed = "static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4"   
+    command2 = [
+    'ffmpeg', '-hide_banner',
+    '-i', f'{reprocess}',
+    '-c:a', 'copy', '-y', f'{reprocessed}'
+    ]
+    subprocess.run(command2)      
+    
+    
+    return redirect('/mkvid2')
+
+@app.route('/mkvid2')
+def mkvid2():
+    reprocessed = "static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4"
+    final = 'static/images/assets/long_512-768.mp4'  
+    command2 = [
+    'ffmpeg', '-hide_banner',
+    '-i', f'{reprocessed}',
+    '-vf', 'scale=512:768,setsar=1/1',
+    '-c:a', 'copy', '-y', f'{final}'
+    ]
+    app.logger.info("FINAL_FILE",f'{final}')
+    subprocess.run(command2)
+    Filenamez = "images/assets/ThumbNails_Background.png"
+    Video_filez = "images/assets/long_512-768.mp4" 
+    Video_filel = "images/assets/Good_ThumbNails_Background_FFmpeg.mp4" 
+    uid = str(uuid.uuid4())
+    shutil.copy("static/images/assets/ThumbNails_Background.png", f"static/images/assets/{uid}.png")
+    shutil.copy("static/images/assets/long_512-768.mp4", f"static/images/assets/{uid}long_512-768.mp4")
+    shutil.copy("static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4", f"static/images/assets/{uid}Good_ThumbNails_Background_FFmpeg.mp4") 
+    return render_template("mkvid2.html", filename=Filenamez, video=Video_filez,video2=Video_filel)
+@app.route('/mkmoz', methods=['GET', 'POST'])
+--Code End:
+
+--Code Start:
+Sun_27_Aug_2023 13:31:45
+make background images from the thumbnail cache
+@app.route('/mk_background', methods=['GET', 'POST'])
+def mk_background():
+    #im = Image.new("RGB", (8000, 512), (127, 255, 127)) 
+    im = Image.new("RGB", (8000, 512), (0, 0, 0))
+    for i in range(0, 1000):
+        if i > 500:
+            DIR = "static/images/small/*.jpg"
+        else:
+            DIR = "static/images/medium/*.jpg"
+        thumb = random.choice(glob.glob(DIR))
+        logger.debug('This is a debug message: %s', thumb)
+        print("THUMB:", thumb)
+        Thum = Image.open(thumb)
+        im.paste(Thum, ((randint(0, im.size[0])), randint(0, im.size[1]) - 50))
+        filename = "static/images/assets/ThumbNails_Background.png"
+        im.save(filename)
+    uid = str(uuid.uuid4())  # Generate a unique ID using uuid
+    # static/images/assets/UNIQUE_ID.mp4
+    png_bak = os.path.join("static", "images/assets", f"{uid}.png")
+    shutil.copy("static/images/assets/ThumbNails_Background.png", png_bak)
+    return redirect('/mkvid')
+
+
+@app.route('/mkvid')
+def mkvid():
+    Filename = "static/images/ThumbNails_Background.png"
+    Video_file = "static/images/ThumbNails_Background_FFmpeg.mp4"
+    command = [
+        'FFmpeg', '-hide_banner',
+        '-loop', '1', '-i', f'{Filename}',
+        '-vf', 'scale=8000:512,scroll=horizontal=0.0001,crop=768:512:0:0,format=yuv420p',
+        '-t', '240', '-y', f'{Video_file}'
+    ]
+    subprocess.run(command)
+    reprocess = "static/images/assets/ThumbNails_Background_FFmpeg.mp4" 
+    reprocessed = "static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4"   
+    command2 = [
+    'ffmpeg', '-hide_banner',
+    '-i', f'{reprocess}',
+    '-c:a', 'copy', '-y', f'{reprocessed}'
+    ]
+    subprocess.run(command2)      
+    
+    
+    return redirect('/mkvid2')
+
+@app.route('/mkvid2')
+def mkvid2():
+    reprocessed = "static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4"
+    final = 'static/images/assets/long_512-768.mp4'  
+    command2 = [
+    'ffmpeg', '-hide_banner',
+    '-i', f'{reprocessed}',
+    '-vf', 'scale=512:768,setsar=1/1',
+    '-c:a', 'copy', '-y', f'{final}'
+    ]
+    app.logger.info("FINAL_FILE",f'{final}')
+    subprocess.run(command2)
+    Filenamez = "images/assets/ThumbNails_Background.png"
+    Video_filez = "images/assets/long_512-768.mp4" 
+    Video_filel = "images/assets/Good_ThumbNails_Background_FFmpeg.mp4" 
+    uid = str(uuid.uuid4())
+    shutil.copy("static/images/assets/ThumbNails_Background.png", f"static/images/assets/{uid}.png")
+    shutil.copy("static/images/assets/long_512-768.mp4", f"static/images/assets/{uid}long_512-768.mp4")
+    shutil.copy("static/images/assets/Good_ThumbNails_Background_FFmpeg.mp4", f"static/images/assets/{uid}Good_ThumbNails_Background_FFmpeg.mp4") 
+    return render_template("mkvid2.html", filename=Filenamez, video=Video_filez,video2=Video_filel)
+@app.route('/mkmoz', methods=['GET', 'POST'])
+--Code End:
+
+--Code Start:
+Sun_27_Aug_2023 19:24:31
+<!-- search_data.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Code Snippets</title>
+ 
+    <link rel="stylesheet" href="static/css/flask.css">
+
+</head>
+<body>
+    <h2>Search Code Snippets</h2>
+    <form method="POST">
+        <label for="keyword">Enter Keyword:</label>
+        <input type="text" name="keyword">
+        <input type="submit" value="Search">
+    </form>
+<ul>
+   <li><a style="font-size: 24px;color: brown;" href="{{ url_for('index') }}">HOME</a></li><br />
+    <li><a style="font-size: 24px;color: brown;" href="{{ url_for('data_page') }}">Data Page</a></li><br />
+</ul>
+
+</body>
+</html>
+--Code End:
+
+--Code Start:
+Sun_27_Aug_2023 19:26:42
+<!-- search_data.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Code Snippets</title>
+ 
+    <link rel="stylesheet" href="static/css/flask.css">
+
+</head>
+<body>
+    <h2>Search Code Snippets</h2>
+    <form method="POST">
+        <label for="keyword">Enter Keyword:</label>
+        <input type="text" name="keyword">
+        <input type="submit" value="Search">
+    </form>
+<ul>
+   <li><a style="font-size: 24px;color: brown;" href="{{ url_for('index') }}">HOME</a></li><br />
+    <li><a style="font-size: 24px;color: brown;" href="{{ url_for('data_page') }}">Data Page</a></li><br />
+</ul>
+
+</body>
+</html>
+--Code End:
+

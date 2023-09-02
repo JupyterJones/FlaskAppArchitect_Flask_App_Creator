@@ -1,0 +1,208 @@
+2023-09-02 12:11:34,911 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-09-02 12:11:34,912 - INFO - [33mPress CTRL+C to quit[0m
+2023-09-02 12:11:34,912 - INFO -  * Restarting with stat
+2023-09-02 12:11:35,093 - WARNING -  * Debugger is active!
+2023-09-02 12:11:35,094 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:11:51,348 - INFO - 127.0.0.1 - - [02/Sep/2023 12:11:51] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:11:51,544 - INFO - 127.0.0.1 - - [02/Sep/2023 12:11:51] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:15:59,081 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5300
+2023-09-02 12:15:59,081 - INFO - [33mPress CTRL+C to quit[0m
+2023-09-02 12:15:59,086 - INFO -  * Restarting with stat
+2023-09-02 12:15:59,300 - WARNING -  * Debugger is active!
+2023-09-02 12:15:59,301 - INFO -  * Debugger PIN: 105-002-354
+2023-09-02 12:16:08,811 - INFO - 127.0.0.1 - - [02/Sep/2023 12:16:08] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:16:08,911 - INFO - 127.0.0.1 - - [02/Sep/2023 12:16:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:21:22,186 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5300
+2023-09-02 12:21:22,187 - INFO - [33mPress CTRL+C to quit[0m
+2023-09-02 12:21:22,188 - INFO -  * Restarting with stat
+2023-09-02 12:21:22,366 - WARNING -  * Debugger is active!
+2023-09-02 12:21:22,367 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:21:28,464 - INFO - 127.0.0.1 - - [02/Sep/2023 12:21:28] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:21:28,553 - INFO - 127.0.0.1 - - [02/Sep/2023 12:21:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:26:59,641 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/searchchat.py', reloading
+2023-09-02 12:26:59,705 - INFO -  * Restarting with stat
+2023-09-02 12:27:00,398 - WARNING -  * Debugger is active!
+2023-09-02 12:27:00,405 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:27:06,162 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:06] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:27:06,260 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:27:08,089 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:08] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:27:08,139 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:27:09,112 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:09] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:27:09,153 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:27:09,952 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:09] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:27:09,996 - INFO - 127.0.0.1 - - [02/Sep/2023 12:27:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:28:54,639 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/searchchat.py', reloading
+2023-09-02 12:28:54,889 - INFO -  * Restarting with stat
+2023-09-02 12:28:55,494 - WARNING -  * Debugger is active!
+2023-09-02 12:28:55,495 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:28:58,800 - INFO - 127.0.0.1 - - [02/Sep/2023 12:28:58] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:28:58,974 - INFO - 127.0.0.1 - - [02/Sep/2023 12:28:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:29:01,098 - INFO - 127.0.0.1 - - [02/Sep/2023 12:29:01] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:29:01,226 - INFO - 127.0.0.1 - - [02/Sep/2023 12:29:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-02 12:31:34,133 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/searchchat.py', reloading
+2023-09-02 12:31:34,386 - INFO -  * Restarting with stat
+2023-09-02 12:31:34,758 - WARNING -  * Debugger is active!
+2023-09-02 12:31:34,760 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:31:37,805 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:37] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:31:37,918 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:37] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:31:39,422 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:39] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:31:39,563 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:39] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:31:39,857 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:39] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:31:39,990 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:39] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:31:40,342 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:40] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:31:40,435 - INFO - 127.0.0.1 - - [02/Sep/2023 12:31:40] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:32:11,172 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/searchchat.py', reloading
+2023-09-02 12:32:11,357 - INFO -  * Restarting with stat
+2023-09-02 12:32:11,846 - WARNING -  * Debugger is active!
+2023-09-02 12:32:11,848 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:32:15,560 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:15] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:32:15,738 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:15] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:32:16,789 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:16] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:32:16,836 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:16] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:32:17,012 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:17] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:32:17,053 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:17] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:32:51,319 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/searchchat.py', reloading
+2023-09-02 12:32:51,458 - INFO -  * Restarting with stat
+2023-09-02 12:32:51,787 - WARNING -  * Debugger is active!
+2023-09-02 12:32:51,794 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:32:58,301 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:58] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:32:58,344 - INFO - circle_center, circle_radius:,(8, 8) 5
+2023-09-02 12:32:58,348 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:58] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:32:59,546 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:59] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:32:59,587 - INFO - circle_center, circle_radius:,(8, 8) 5
+2023-09-02 12:32:59,590 - INFO - 127.0.0.1 - - [02/Sep/2023 12:32:59] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:33:44,285 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/searchchat.py', reloading
+2023-09-02 12:33:44,519 - INFO -  * Restarting with stat
+2023-09-02 12:34:46,481 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5300
+2023-09-02 12:34:46,481 - INFO - [33mPress CTRL+C to quit[0m
+2023-09-02 12:34:46,482 - INFO -  * Restarting with stat
+2023-09-02 12:34:46,687 - WARNING -  * Debugger is active!
+2023-09-02 12:34:46,688 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:34:51,833 - INFO - 127.0.0.1 - - [02/Sep/2023 12:34:51] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:34:51,982 - INFO - circle_center, circle_radius:,(8, 8) 5
+2023-09-02 12:34:51,988 - DEBUG - Importing BlpImagePlugin
+2023-09-02 12:34:51,990 - DEBUG - Importing BmpImagePlugin
+2023-09-02 12:34:51,990 - DEBUG - Importing BufrStubImagePlugin
+2023-09-02 12:34:51,990 - DEBUG - Importing CurImagePlugin
+2023-09-02 12:34:51,991 - DEBUG - Importing DcxImagePlugin
+2023-09-02 12:34:51,991 - DEBUG - Importing DdsImagePlugin
+2023-09-02 12:34:51,992 - DEBUG - Importing EpsImagePlugin
+2023-09-02 12:34:51,993 - DEBUG - Importing FitsImagePlugin
+2023-09-02 12:34:51,994 - DEBUG - Importing FliImagePlugin
+2023-09-02 12:34:51,994 - DEBUG - Importing FpxImagePlugin
+2023-09-02 12:34:51,995 - DEBUG - Image: failed to import FpxImagePlugin: No module named 'olefile'
+2023-09-02 12:34:51,995 - DEBUG - Importing FtexImagePlugin
+2023-09-02 12:34:51,996 - DEBUG - Importing GbrImagePlugin
+2023-09-02 12:34:51,997 - DEBUG - Importing GifImagePlugin
+2023-09-02 12:34:51,997 - DEBUG - Importing GribStubImagePlugin
+2023-09-02 12:34:51,997 - DEBUG - Importing Hdf5StubImagePlugin
+2023-09-02 12:34:51,998 - DEBUG - Importing IcnsImagePlugin
+2023-09-02 12:34:51,999 - DEBUG - Importing IcoImagePlugin
+2023-09-02 12:34:52,000 - DEBUG - Importing ImImagePlugin
+2023-09-02 12:34:52,001 - DEBUG - Importing ImtImagePlugin
+2023-09-02 12:34:52,001 - DEBUG - Importing IptcImagePlugin
+2023-09-02 12:34:52,002 - DEBUG - Importing JpegImagePlugin
+2023-09-02 12:34:52,002 - DEBUG - Importing Jpeg2KImagePlugin
+2023-09-02 12:34:52,002 - DEBUG - Importing McIdasImagePlugin
+2023-09-02 12:34:52,003 - DEBUG - Importing MicImagePlugin
+2023-09-02 12:34:52,003 - DEBUG - Image: failed to import MicImagePlugin: No module named 'olefile'
+2023-09-02 12:34:52,004 - DEBUG - Importing MpegImagePlugin
+2023-09-02 12:34:52,004 - DEBUG - Importing MpoImagePlugin
+2023-09-02 12:34:52,008 - DEBUG - Importing MspImagePlugin
+2023-09-02 12:34:52,008 - DEBUG - Importing PalmImagePlugin
+2023-09-02 12:34:52,010 - DEBUG - Importing PcdImagePlugin
+2023-09-02 12:34:52,010 - DEBUG - Importing PcxImagePlugin
+2023-09-02 12:34:52,010 - DEBUG - Importing PdfImagePlugin
+2023-09-02 12:34:52,017 - DEBUG - Importing PixarImagePlugin
+2023-09-02 12:34:52,018 - DEBUG - Importing PngImagePlugin
+2023-09-02 12:34:52,018 - DEBUG - Importing PpmImagePlugin
+2023-09-02 12:34:52,018 - DEBUG - Importing PsdImagePlugin
+2023-09-02 12:34:52,018 - DEBUG - Importing QoiImagePlugin
+2023-09-02 12:34:52,019 - DEBUG - Importing SgiImagePlugin
+2023-09-02 12:34:52,022 - DEBUG - Importing SpiderImagePlugin
+2023-09-02 12:34:52,022 - DEBUG - Importing SunImagePlugin
+2023-09-02 12:34:52,022 - DEBUG - Importing TgaImagePlugin
+2023-09-02 12:34:52,023 - DEBUG - Importing TiffImagePlugin
+2023-09-02 12:34:52,023 - DEBUG - Importing WebPImagePlugin
+2023-09-02 12:34:52,029 - DEBUG - Importing WmfImagePlugin
+2023-09-02 12:34:52,030 - DEBUG - Importing XbmImagePlugin
+2023-09-02 12:34:52,031 - DEBUG - Importing XpmImagePlugin
+2023-09-02 12:34:52,032 - DEBUG - Importing XVThumbImagePlugin
+2023-09-02 12:34:52,036 - INFO - 127.0.0.1 - - [02/Sep/2023 12:34:52] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2023-09-02 12:35:18,016 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/searchchat.py', reloading
+2023-09-02 12:35:18,066 - INFO -  * Restarting with stat
+2023-09-02 12:35:18,353 - WARNING -  * Debugger is active!
+2023-09-02 12:35:18,354 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:35:21,413 - INFO - 127.0.0.1 - - [02/Sep/2023 12:35:21] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:35:21,513 - INFO - circle_center, circle_radius:,(8, 8) 5
+2023-09-02 12:35:21,524 - DEBUG - Importing BlpImagePlugin
+2023-09-02 12:35:21,525 - DEBUG - Importing BmpImagePlugin
+2023-09-02 12:35:21,525 - DEBUG - Importing BufrStubImagePlugin
+2023-09-02 12:35:21,526 - DEBUG - Importing CurImagePlugin
+2023-09-02 12:35:21,526 - DEBUG - Importing DcxImagePlugin
+2023-09-02 12:35:21,526 - DEBUG - Importing DdsImagePlugin
+2023-09-02 12:35:21,534 - DEBUG - Importing EpsImagePlugin
+2023-09-02 12:35:21,536 - DEBUG - Importing FitsImagePlugin
+2023-09-02 12:35:21,537 - DEBUG - Importing FliImagePlugin
+2023-09-02 12:35:21,538 - DEBUG - Importing FpxImagePlugin
+2023-09-02 12:35:21,540 - DEBUG - Image: failed to import FpxImagePlugin: No module named 'olefile'
+2023-09-02 12:35:21,541 - DEBUG - Importing FtexImagePlugin
+2023-09-02 12:35:21,541 - DEBUG - Importing GbrImagePlugin
+2023-09-02 12:35:21,542 - DEBUG - Importing GifImagePlugin
+2023-09-02 12:35:21,542 - DEBUG - Importing GribStubImagePlugin
+2023-09-02 12:35:21,542 - DEBUG - Importing Hdf5StubImagePlugin
+2023-09-02 12:35:21,543 - DEBUG - Importing IcnsImagePlugin
+2023-09-02 12:35:21,544 - DEBUG - Importing IcoImagePlugin
+2023-09-02 12:35:21,544 - DEBUG - Importing ImImagePlugin
+2023-09-02 12:35:21,545 - DEBUG - Importing ImtImagePlugin
+2023-09-02 12:35:21,546 - DEBUG - Importing IptcImagePlugin
+2023-09-02 12:35:21,546 - DEBUG - Importing JpegImagePlugin
+2023-09-02 12:35:21,546 - DEBUG - Importing Jpeg2KImagePlugin
+2023-09-02 12:35:21,546 - DEBUG - Importing McIdasImagePlugin
+2023-09-02 12:35:21,547 - DEBUG - Importing MicImagePlugin
+2023-09-02 12:35:21,547 - DEBUG - Image: failed to import MicImagePlugin: No module named 'olefile'
+2023-09-02 12:35:21,547 - DEBUG - Importing MpegImagePlugin
+2023-09-02 12:35:21,547 - DEBUG - Importing MpoImagePlugin
+2023-09-02 12:35:21,550 - DEBUG - Importing MspImagePlugin
+2023-09-02 12:35:21,550 - DEBUG - Importing PalmImagePlugin
+2023-09-02 12:35:21,551 - DEBUG - Importing PcdImagePlugin
+2023-09-02 12:35:21,552 - DEBUG - Importing PcxImagePlugin
+2023-09-02 12:35:21,552 - DEBUG - Importing PdfImagePlugin
+2023-09-02 12:35:21,558 - DEBUG - Importing PixarImagePlugin
+2023-09-02 12:35:21,559 - DEBUG - Importing PngImagePlugin
+2023-09-02 12:35:21,559 - DEBUG - Importing PpmImagePlugin
+2023-09-02 12:35:21,559 - DEBUG - Importing PsdImagePlugin
+2023-09-02 12:35:21,560 - DEBUG - Importing QoiImagePlugin
+2023-09-02 12:35:21,560 - DEBUG - Importing SgiImagePlugin
+2023-09-02 12:35:21,564 - DEBUG - Importing SpiderImagePlugin
+2023-09-02 12:35:21,564 - DEBUG - Importing SunImagePlugin
+2023-09-02 12:35:21,564 - DEBUG - Importing TgaImagePlugin
+2023-09-02 12:35:21,565 - DEBUG - Importing TiffImagePlugin
+2023-09-02 12:35:21,565 - DEBUG - Importing WebPImagePlugin
+2023-09-02 12:35:21,565 - DEBUG - Importing WmfImagePlugin
+2023-09-02 12:35:21,566 - DEBUG - Importing XbmImagePlugin
+2023-09-02 12:35:21,567 - DEBUG - Importing XpmImagePlugin
+2023-09-02 12:35:21,573 - DEBUG - Importing XVThumbImagePlugin
+2023-09-02 12:35:21,585 - INFO - 127.0.0.1 - - [02/Sep/2023 12:35:21] "GET /favicon.ico HTTP/1.1" 200 -
+2023-09-02 12:39:54,740 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5300
+2023-09-02 12:39:54,744 - INFO - [33mPress CTRL+C to quit[0m
+2023-09-02 12:39:54,746 - INFO -  * Restarting with stat
+2023-09-02 12:39:55,029 - WARNING -  * Debugger is active!
+2023-09-02 12:39:55,030 - INFO -  * Debugger PIN: 253-571-677
+2023-09-02 12:40:17,941 - INFO - 127.0.0.1 - - [02/Sep/2023 12:40:17] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:40:19,285 - INFO - 127.0.0.1 - - [02/Sep/2023 12:40:19] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:40:19,607 - INFO - 127.0.0.1 - - [02/Sep/2023 12:40:19] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:40:19,871 - INFO - 127.0.0.1 - - [02/Sep/2023 12:40:19] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:40:20,362 - INFO - 127.0.0.1 - - [02/Sep/2023 12:40:20] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:48:46,689 - INFO - 127.0.0.1 - - [02/Sep/2023 12:48:46] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 12:48:47,720 - INFO - 127.0.0.1 - - [02/Sep/2023 12:48:47] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 19:06:38,393 - INFO - 127.0.0.1 - - [02/Sep/2023 19:06:38] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-02 22:46:53,451 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/search.py', reloading
+2023-09-02 22:46:53,735 - INFO -  * Restarting with stat
+2023-09-02 22:46:54,237 - WARNING -  * Debugger is active!
+2023-09-02 22:46:54,237 - INFO -  * Debugger PIN: 253-571-677
