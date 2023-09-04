@@ -206,3 +206,54 @@
 2023-09-02 22:46:53,735 - INFO -  * Restarting with stat
 2023-09-02 22:46:54,237 - WARNING -  * Debugger is active!
 2023-09-02 22:46:54,237 - INFO -  * Debugger PIN: 253-571-677
+2023-09-03 18:57:40,637 - INFO - 127.0.0.1 - - [03/Sep/2023 18:57:40] "[33mGET / HTTP/1.1[0m" 404 -
+2023-09-03 18:57:40,746 - INFO - circle_center, circle_radius:,(8, 8) 5
+2023-09-03 18:57:40,768 - DEBUG - Importing BlpImagePlugin
+2023-09-03 18:57:40,769 - DEBUG - Importing BmpImagePlugin
+2023-09-03 18:57:40,770 - DEBUG - Importing BufrStubImagePlugin
+2023-09-03 18:57:40,770 - DEBUG - Importing CurImagePlugin
+2023-09-03 18:57:40,771 - DEBUG - Importing DcxImagePlugin
+2023-09-03 18:57:40,771 - DEBUG - Importing DdsImagePlugin
+2023-09-03 18:57:40,773 - DEBUG - Importing EpsImagePlugin
+2023-09-03 18:57:40,784 - DEBUG - Importing FitsImagePlugin
+2023-09-03 18:57:40,785 - DEBUG - Importing FliImagePlugin
+2023-09-03 18:57:40,786 - DEBUG - Importing FpxImagePlugin
+2023-09-03 18:57:40,788 - DEBUG - Image: failed to import FpxImagePlugin: No module named 'olefile'
+2023-09-03 18:57:40,788 - DEBUG - Importing FtexImagePlugin
+2023-09-03 18:57:40,788 - DEBUG - Importing GbrImagePlugin
+2023-09-03 18:57:40,789 - DEBUG - Importing GifImagePlugin
+2023-09-03 18:57:40,789 - DEBUG - Importing GribStubImagePlugin
+2023-09-03 18:57:40,789 - DEBUG - Importing Hdf5StubImagePlugin
+2023-09-03 18:57:40,790 - DEBUG - Importing IcnsImagePlugin
+2023-09-03 18:57:40,791 - DEBUG - Importing IcoImagePlugin
+2023-09-03 18:57:40,791 - DEBUG - Importing ImImagePlugin
+2023-09-03 18:57:40,792 - DEBUG - Importing ImtImagePlugin
+2023-09-03 18:57:40,793 - DEBUG - Importing IptcImagePlugin
+2023-09-03 18:57:40,793 - DEBUG - Importing JpegImagePlugin
+2023-09-03 18:57:40,793 - DEBUG - Importing Jpeg2KImagePlugin
+2023-09-03 18:57:40,793 - DEBUG - Importing McIdasImagePlugin
+2023-09-03 18:57:40,796 - DEBUG - Importing MicImagePlugin
+2023-09-03 18:57:40,800 - DEBUG - Image: failed to import MicImagePlugin: No module named 'olefile'
+2023-09-03 18:57:40,801 - DEBUG - Importing MpegImagePlugin
+2023-09-03 18:57:40,801 - DEBUG - Importing MpoImagePlugin
+2023-09-03 18:57:40,804 - DEBUG - Importing MspImagePlugin
+2023-09-03 18:57:40,805 - DEBUG - Importing PalmImagePlugin
+2023-09-03 18:57:40,806 - DEBUG - Importing PcdImagePlugin
+2023-09-03 18:57:40,806 - DEBUG - Importing PcxImagePlugin
+2023-09-03 18:57:40,806 - DEBUG - Importing PdfImagePlugin
+2023-09-03 18:57:40,813 - DEBUG - Importing PixarImagePlugin
+2023-09-03 18:57:40,813 - DEBUG - Importing PngImagePlugin
+2023-09-03 18:57:40,814 - DEBUG - Importing PpmImagePlugin
+2023-09-03 18:57:40,814 - DEBUG - Importing PsdImagePlugin
+2023-09-03 18:57:40,814 - DEBUG - Importing QoiImagePlugin
+2023-09-03 18:57:40,814 - DEBUG - Importing SgiImagePlugin
+2023-09-03 18:57:40,815 - DEBUG - Importing SpiderImagePlugin
+2023-09-03 18:57:40,815 - DEBUG - Importing SunImagePlugin
+2023-09-03 18:57:40,815 - DEBUG - Importing TgaImagePlugin
+2023-09-03 18:57:40,816 - DEBUG - Importing TiffImagePlugin
+2023-09-03 18:57:40,816 - DEBUG - Importing WebPImagePlugin
+2023-09-03 18:57:40,817 - DEBUG - Importing WmfImagePlugin
+2023-09-03 18:57:40,817 - DEBUG - Importing XbmImagePlugin
+2023-09-03 18:57:40,818 - DEBUG - Importing XpmImagePlugin
+2023-09-03 18:57:40,819 - DEBUG - Importing XVThumbImagePlugin
+2023-09-03 18:57:40,820 - INFO - 127.0.0.1 - - [03/Sep/2023 18:57:40] "GET /favicon.ico HTTP/1.1" 200 -

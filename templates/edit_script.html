@@ -21,8 +21,10 @@
         </style>
 </head>
 <body>
-    <h1>Edit Script</h1>
-    <form method="POST" action="{{ url_for('edit_script') }}">
+    <h1>Edit JavaScript</h1>
+    <a href="{{ url_for('index') }}">Home</a><br />
+    <p>Experiment With Javascript Imagery</p>
+        <form method="POST" action="{{ url_for('edit_script') }}">
         <label for="script_file">Select a JavaScript file:</label>
         <select name="script_file" id="script_file">
             {% for script_file in script_files %}
