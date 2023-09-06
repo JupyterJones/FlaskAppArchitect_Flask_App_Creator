@@ -1,0 +1,41 @@
+2023-09-05 11:29:26,345 - WARNING -  * Debugger is active!
+2023-09-05 11:29:26,347 - INFO -  * Debugger PIN: 530-211-290
+2023-09-05 11:29:28,980 - INFO - 127.0.0.1 - - [05/Sep/2023 11:29:28] "GET / HTTP/1.1" 200 -
+2023-09-05 11:29:29,149 - INFO - 127.0.0.1 - - [05/Sep/2023 11:29:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:29:56,356 - ERROR - An error occurred: [Errno 2] No such file or directory: 'Final_End_Publish.mp4'
+2023-09-05 11:29:56,357 - INFO - 127.0.0.1 - - [05/Sep/2023 11:29:56] "POST /generate_video HTTP/1.1" 200 -
+2023-09-05 11:29:56,473 - INFO - 127.0.0.1 - - [05/Sep/2023 11:29:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:29:59,140 - INFO - 127.0.0.1 - - [05/Sep/2023 11:29:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:32:01,049 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FadeImagesToVideo.py', reloading
+2023-09-05 11:32:01,910 - WARNING -  * Debugger is active!
+2023-09-05 11:32:01,913 - INFO -  * Debugger PIN: 530-211-290
+2023-09-05 11:32:05,068 - INFO - 127.0.0.1 - - [05/Sep/2023 11:32:05] "GET / HTTP/1.1" 200 -
+2023-09-05 11:32:05,254 - INFO - 127.0.0.1 - - [05/Sep/2023 11:32:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:32:09,903 - INFO - 127.0.0.1 - - [05/Sep/2023 11:32:09] "GET / HTTP/1.1" 200 -
+2023-09-05 11:32:10,003 - INFO - 127.0.0.1 - - [05/Sep/2023 11:32:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:33:58,229 - INFO - 127.0.0.1 - - [05/Sep/2023 11:33:58] "GET / HTTP/1.1" 200 -
+2023-09-05 11:33:58,318 - INFO - 127.0.0.1 - - [05/Sep/2023 11:33:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:34:31,998 - ERROR - An error occurred: [Errno 2] No such file or directory: 'Final_End_Publish.mp4'
+2023-09-05 11:34:31,998 - INFO - 127.0.0.1 - - [05/Sep/2023 11:34:31] "POST /generate_video HTTP/1.1" 200 -
+2023-09-05 11:34:32,106 - INFO - 127.0.0.1 - - [05/Sep/2023 11:34:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:34:34,313 - INFO - 127.0.0.1 - - [05/Sep/2023 11:34:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:37:37,286 - INFO - 127.0.0.1 - - [05/Sep/2023 11:37:37] "GET / HTTP/1.1" 200 -
+2023-09-05 11:37:37,339 - INFO - 127.0.0.1 - - [05/Sep/2023 11:37:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 11:49:24,797 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FadeImagesToVideo.py', reloading
+2023-09-05 11:58:26,748 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5500
+2023-09-05 11:58:26,749 - INFO - [33mPress CTRL+C to quit[0m
+2023-09-05 11:58:26,750 - INFO -  * Restarting with stat
+2023-09-05 11:58:27,198 - WARNING -  * Debugger is active!
+2023-09-05 11:58:27,199 - INFO -  * Debugger PIN: 530-211-290
+2023-09-05 11:58:31,960 - INFO - 127.0.0.1 - - [05/Sep/2023 11:58:31] "GET / HTTP/1.1" 200 -
+2023-09-05 11:58:32,082 - INFO - 127.0.0.1 - - [05/Sep/2023 11:58:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 12:01:20,023 - INFO - 127.0.0.1 - - [05/Sep/2023 12:01:20] "GET / HTTP/1.1" 200 -
+2023-09-05 12:01:20,075 - INFO - 127.0.0.1 - - [05/Sep/2023 12:01:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-09-05 12:05:21,984 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FadeImagesToVideo.py', reloading
+2023-09-05 12:05:22,167 - INFO -  * Restarting with stat
+2023-09-05 12:05:22,901 - WARNING -  * Debugger is active!
+2023-09-05 12:05:22,905 - INFO -  * Debugger PIN: 530-211-290
+2023-09-05 12:05:27,979 - INFO -  * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FadeImagesToVideo.py', reloading
+2023-09-05 12:05:28,133 - INFO -  * Restarting with stat
+2023-09-05 12:09:11,256 - INFO -  * Restarting with stat

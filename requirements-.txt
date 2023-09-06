@@ -1,0 +1,6 @@
+flask==2.1.1
+moviepy
+werkzeug==2.2.3
+wheel==0.38.1
+opencv-python==4.8.0.74
+

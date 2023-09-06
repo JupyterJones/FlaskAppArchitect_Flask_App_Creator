@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Video with Fade Transitions</title>
+</head>
+<body>
+    <h1>Create Video with Fade Transitions</h1>
+    <form method="POST" action="{{ url_for('generate_video') }}">
+        <label for="selected_directory">Select an image directory:</label>
+        <select id="selected_directory" name="selected_directory" required>
+            {% for directory in image_directories %}
+                <option value="{{ directory }}">{{ directory }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Generate Video">
+    </form>
+
+    {% if video %}
+    <h2>Generated Video:</h2>
+    <video width="320" height="240" controls>
+        <source src="{{ url_for('static', filename=video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <video width="320" height="240" controls>
+        <source src="{{ url_for('static', filename=video2) }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    {% endif %}<br /><br />
+    <a href="{{ url_for('frame_final_output') }}">frame_final_output</a><br />
+</body>
+</html>
+
