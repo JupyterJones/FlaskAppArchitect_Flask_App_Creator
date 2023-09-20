@@ -25,7 +25,7 @@ class Particle {
   }
   draw() {
     ctx.beginPath();
-    ctx.fillStyle = "orange";
+    ctx.fillStyle = "purple";
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.closePath();
     ctx.fill();
@@ -60,7 +60,7 @@ const particle = new Particle();
 particle.draw();
 
 const particlesArray = [];
-const totalNumOfParticles = 1500;
+const totalNumOfParticles = 2000;
 
 for (let i = 0; i < totalNumOfParticles; i++) {
   let x = Math.random() * canvas.width;

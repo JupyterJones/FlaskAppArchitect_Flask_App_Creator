@@ -14,6 +14,20 @@ html{
             font-family: Arial, sans-serif;
   background-blend-mode: difference;
               font-family: Arial, sans-serif;
+
+/* Image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+  
+  /* Makes the image fixed in the viewport so that it doesn't move when 
+     the content height is greater than the image height */
+  background-attachment: fixed;
+
+
+
+
         }
 
         .pre-wrap-50 {

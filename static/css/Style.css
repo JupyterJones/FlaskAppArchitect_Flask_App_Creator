@@ -1,4 +1,3 @@
-
     .resizedvideo {
       width: 200px;
       height: 200px;
@@ -17,6 +16,17 @@
       padding-left: 20%;
       padding-right: 20%;
       background-color: darkred;
+
+/* Image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+  
+  /* Makes the image fixed in the viewport so that it doesn't move when 
+     the content height is greater than the image height */
+  background-attachment: fixed;
+
     }
 
     /* Style the header */
