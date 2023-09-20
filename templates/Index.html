@@ -7,19 +7,20 @@
     <style>
         html,
         body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
             background-image: url('../static/assets/MemMaker_background.png');
             background-repeat: repeat-y;
             background-size: cover;
             /* Use 'cover' to make the image cover the entire body */
             background-position: top;
-        }
+            /* Image is centered vertically and horizontally at all times */
+            background-position: center center;
+            /* Image doesn't repeat */
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            /* Makes the image fixed in the viewport so that it doesn't move when 
+            the content height is greater than the image height */
+            background-attachment: fixed;
+            }
     </style>
 </head>
 

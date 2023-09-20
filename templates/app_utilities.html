@@ -28,10 +28,11 @@ height:auto;
                 <a href="{{ url_for('edit_description') }}">Edit FlaskAppArchitect Description</a><br /><br />
                 <a href="{{ url_for('enter_code') }}">Enter Code in codehints.txt</a><br />
                 <a href="{{ url_for('search_code') }}">Search Code Hints</a><br /><br />
-
+                <!-- Link to the api_search route -->
+                <a href="/api_search/">Search Internet (Record Results)</a><br />
                 <a href="{{ url_for('access_database') }}">Acess Sqlite3 Database</a><br /><br />
                 <a href="{{ url_for('products') }}">Add to Sqlite3 Database</a><br /><br />
-                <a href="{{ url_for('view_flake8') }}">View Errors in App</a><br />
+                <a href="{{ url_for('self_check') }}">View Errors in App</a><br />
                 <a href="{{ url_for('view_log') }}">View App Log</a><br />
                 <a href="{{ url_for('capture_html') }}">Capture Screen _ Video</a><br />
                 <a href="{{ url_for('edit_css') }}">Edit Css Files</a><br />

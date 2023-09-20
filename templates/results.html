@@ -6,11 +6,9 @@
 <body>
     <h1>Search Results</h1>
     <ul>
-        <pre>
-            {% for result in results %}
-                {{ result.strip() }}
-            {% endfor %}
-        </pre>
+        {% for result in results %}
+            <pre>{{ result }}</pre>
+        {% endfor %}
     </ul>
 </body>
 </html>

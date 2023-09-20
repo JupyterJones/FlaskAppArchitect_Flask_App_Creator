@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Thumbnails</title>
+</head>
+<body>
+    <h1>Video Thumbnails</h1>
+    <ul>
+        {% for video in videos %}
+        <li>
+            <h3>{{ video['name'] }}</h3>
+ 
+            <video width="200" height="auto" controls>
+                <source src="{{ url_for('view_archive_videos.play_video', video_name=video['name']) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+
+
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

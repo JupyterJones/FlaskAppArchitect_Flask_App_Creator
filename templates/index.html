@@ -5,21 +5,22 @@
 <head>
     <title>Home Flask App Builder</title>
     <style>
-        html,
-        body {
-            margin: 0;
-            padding: 1%;
-            height: 100%;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
+        html,body{
             background-image: url('../static/assets/MemMaker_background.png');
             background-repeat: repeat-y;
             background-size: cover;
             /* Use 'cover' to make the image cover the entire body */
             background-position: top;
+            /* Image is centered vertically and horizontally at all times */
+            background-position: center center;
+            /* Image doesn't repeat */
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            /* Makes the image fixed in the viewport so that it doesn't move when
+            the content height is greater than the image height */
+            background-attachment: fixed;
         }
+        font-family: Arial, sans-serif;
         video {
             margin: 10px, auto;
             width: 250px;
@@ -37,29 +38,31 @@
 
         .header {
             width: 100%;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
         }
 
         .columns {
             display: flex;
-            width: 80%;
-            margin-top: 20px;
+            width: 95%;
+            margin-top: 10px;
         }
 
         .column {
-            padding: 20px;
+            padding: 5px;
+            margin-left: 10px;
+            margin-right: 10px;
             box-sizing: border-box;
         }
 
         .column.left {
-            width: 30%;
+            width: 50%;
             border:    1px solid #000;
         }
 
         .column.right {
         margin: 0 auto; /* Center horizontally */
-        width: 60%;
+        width: 50%;
         border: 1px solid #000;
         text-align: center; /* Center video vertically */
     }
@@ -68,21 +71,35 @@
         max-width: 100%;
         height: auto;
     }
+    .note{
+       color:darkgreen;
+       font-size:26px;
+    }
+    p{
+       padding-top: -20px;
+    }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="header">
-            <h1>HOME index.html</h1>
+            <h1 style = color:darkgreen;" >HOME index.html</h1>
+            <a class="note" href="{{ url_for('edit_template_page', filename='index.html') }}">Edit This Page</a></li><br />
         </div>
         <div class="columns">
             <div class="column left">
-                <h3>Create Text</h3><br />
+                <h3>Links</h3>
+                
                 <a href="{{ url_for('app_utilities') }}">Application Utilities</a><br />
                 <a href="{{ url_for('image_video') }}">Image and Video Processing Links</a><br />
+                <a href="{{ url_for('view_gallery.gallery_index') }}">View Gallery for Image Directories</a><br />
+                <a href="{{ url_for('create_comic.create_comic_index') }}">Create Comic Border</a><br />
                 <a href="{{ url_for('index_canvas') }}">Project Canvas</a><br /><br />
-                <a href="{{ url_for('edit_script') }}">Project JavaScript</a><br /><br />
-                <a href="{{ url_for('edit_template') }}">Edit Template HTML Files</a><br /><br />
+                <a href="{{ url_for('edit_javascript') }}">Project JavaScript</a><br /><br />
+                <a href="{{ url_for('edit_template') }}">Edit Links Listed Below</a>
+                <p>Edit Index - Edit CSS Files - Edit Canvas JS - Edit Formatted Text - Edit FlaskAppArchitect Description - Edit Formatted Text</p>
+                
+                <a href="{{ url_for('data_page') }}">Data Page - Snippets,Search ChatGPT,Sqlite3</a><br /><br />
                 <a href="{{ url_for('edit_file') }}">Edit File</a><br />
                 <a href="{{ url_for('edit_formatted') }}">Edit Formatted Text</a><br />
                 <a href="{{ url_for('edit_description') }}">Edit Description</a><br />
