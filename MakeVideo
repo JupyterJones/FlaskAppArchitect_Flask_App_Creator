@@ -7,7 +7,7 @@
 
 #env/bin/python3.8 inference.py --checkpoint_path checkpoints/wav2lip_gan.pth --face 'static/current_project/MP4/fly-faceshort.mp4' --audio "static/current_project/MP4/fly-faceshort.mp4" --pads 0 10 0 0
 
-/home/jack/Desktop/StoryMaker/env/bin/python3.8 /home/jack/Desktop/StoryMaker/inference.py --checkpoint_path "/home/jack/Desktop/StoryMaker/checkpoints/wav2lip_gan.pth" --face "/home/jack/Desktop/StoryMaker/sample_data/use3.mp4" --audio "/home/jack/Desktop/StoryMaker/sample_data/use3.mp4" --pads 0 10 0 0
+/home/jack/Desktop/StoryMaker/env/bin/python3.8 /home/jack/Desktop/StoryMaker/inference.py --checkpoint_path "/home/jack/Desktop/StoryMaker/checkpoints/wav2lip_gan.pth" --face "/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/sample_data/use3.mp4" --audio "/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/sample_data/use3.mp4" --pads 0 10 0 0
 
 #/home/jack/Desktop/StoryMaker/env/bin/python3.8 /home/jack/Desktop/StoryMaker/inference.py --checkpoint_path "/home/jack/Desktop/StoryMaker/checkpoints/wav2lip_gan.pth" --face "/home/jack/Desktop/StoryMaker/sample_data/use.mp4" --audio "/home/jack/Desktop/StoryMaker/sample_data/use.mp4" --pads 0 10 0 0
 

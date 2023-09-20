@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Directory containing JPEG files
+image_dir="static/images/gothic_lolita"
+
+# Loop through a range of numbers and check if corresponding JPEG files exist
+for ((i = 1; i <= 32; i++)); do
+    # Create the filename with leading zeros
+    filename=$(printf "%05d.jpg" $i)
+
+    # Check if the file exists in the directory
+    if [ ! -f "$image_dir/$filename" ]; then
+        echo "File $filename does not exist."
+    fi
+done
+
+echo "Verification complete."

@@ -1,8 +1,11 @@
+/store/
+/GUI
+/GUI.py
 /Imports_moviepy-ffmpeg.ipynb
 /static/long.mp3
 /Imports_moviepy-ffmpeg.ipynb
 /shape_predictor_68_face_landmarks.dat
-/static/woman/
+/static/
 /static/videos/
 /static/transparent_borders/
 /static/thumbnails/
@@ -16,6 +19,7 @@
 /static/squares/
 /static/space_indian/
 /static/result/
+/static/MUSIC/Music.mp3
 /static/output/
 /static/new_video/
 /static/new_resources/
@@ -82,6 +86,7 @@
 /static/audio_mp3/
 /static/animate/
 /static/alice/
+/electron-flask/
 /.ipynb_checkpoints/
 /newvid/
 /misc_uploads/
@@ -107,4 +112,4 @@
 /back/
 /tmp/
 /node_modules/
-
+/static/current_project/
