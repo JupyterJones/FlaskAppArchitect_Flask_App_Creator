@@ -2907,9 +2907,9 @@ def search_code():
 
 
 
-@app.route('/indexM')
-def indexM():
-    return render_template('indexM.html')
+@app.route('/tube_index')
+def tube_index():
+    return render_template('tube_index.html')
 
 @app.route('/data_page')
 def data_page():

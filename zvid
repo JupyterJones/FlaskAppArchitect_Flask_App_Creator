@@ -1,0 +1,22 @@
+
+#ffmpeg -framerate 24 -i static/images/gothic_lolita/%05d.jpg -vf "zoompan=z='zoom+0.001':d=10:s=512x768" -c:v libx264 -pix_fmt yuv420p -y zoomout.mp4
+
+
+
+#ffmpeg -framerate 24 -i static/images/gothic_lolita/%05d.jpg -vf "zoompan=z='if(lte(zoom,1.0),1.5,max(1.001,1.0+0.0015*zoom)):d=10',scale=512:768,setsar=1:1" -c:v libx264 -pix_fmt yuv420p -y zoomout.mp4
+
+#ffmpeg -framerate 4 -i static/images/gothic_lolita/%05d.jpg -vf "zoompan=z='zoom+0.0005':d=30:s=512x768" -c:v libx264 -pix_fmt yuv420p -y zoomout.mp4
+
+#ffmpeg -framerate 4 -i static/images/gothic_lolita/%05d.jpg -vf "zoompan=z='zoom+0.001':d=30:s=512x768" -c:v libx264 -pix_fmt yuv420p -y zoomout.mp4
+
+#ffmpeg -framerate 4 -i static/images/gothic_lolita/%05d.jpg -vf "zoompan=z='zoom+0.006':d=30:s=512x768" -c:v libx264 -pix_fmt yuv420p -y zoomout.mp4
+
+#ffmpeg -framerate 4 -i static/images/gothic_lolita/%05d.jpg -vf "zoompan=z='if(lte(zoom,1.0),1.5,max(1.001,1.0+0.005*zoom))':d=30:s=512x768, crop=512:768:0:256" -c:v libx264 -pix_fmt yuv420p -y zoomout.mp4
+
+ffmpeg -framerate 4 -i static/images/yoda/%05d.jpg -vf "zoompan=z='min(zoom+0.005,1.5)':x='iw/2':y='ih/2-400':d=35:s=512x768, crop=512:768:0:256" -c:v libx264 -pix_fmt yuv420p -y zoomout_yoda.mp4
+
+#ffmpeg -framerate 4 -i static/images/gothic_lolita/%05d.jpg -vf "zoompan=z='if(lte(zoom,1.0),1.5,max(1.001,1.0+0.005*zoom))':d=30:s=512x768, crop=512:768:0:256, zoompan=z='min(zoom+0.005,1.5)':x='iw/2':y='ih/2+200':d=30:s=512x768" -c:v libx264 -pix_fmt yuv420p -y zoomout.mp4
+
+
+
+vlc zoomout_yoda.mp4

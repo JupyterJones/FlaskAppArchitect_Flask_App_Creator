@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Info Json Page</title>
+</head>
+<body>
+    <h1>Data</h1>
+    {% for item in data %}
+        {% if 'href' in item %}
+            <a href="{{ item.href }}">{{ item.text }}</a>
+        {% else %}
+            <p>{{ item.text }}</p>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>

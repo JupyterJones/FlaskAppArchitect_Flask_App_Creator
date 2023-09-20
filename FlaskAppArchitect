@@ -1,6 +1,6 @@
 #!/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/env/bin/python
 from moviepy.editor import *
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response, flash, request, session,jsonify
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response, flash, request, session, jsonify
 from flask import send_file, g
 import os
 import pygame
@@ -40,12 +40,17 @@ from flask_cors import CORS
 import json
 import logging
 from logging.handlers import RotatingFileHandler
+from view_gallery import view_gallery_bp
+from create_comic import create_comic_bp
 # Initialize Flask app
 app = Flask(__name__)
+
+# Register the Blueprint from view_gallery.py with the main app
+app.register_blueprint(view_gallery_bp)
+app.register_blueprint(create_comic_bp)
+
 # allow CORS
-CORS(app) 
-
-
+CORS(app)
 app.secret_key = os.urandom(24)
 # Create a logger object
 logger = logging.getLogger(__name__)
@@ -64,13 +69,10 @@ file_handler.setFormatter(formatter)
 # Add the file handler to the logger
 logger.addHandler(file_handler)
 
-# Set up logging for the Flask app
-logger.addHandler(file_handler)
-# Define a route for your Flask app
-
 SDIR = "static/"
 # Define the file path to store the script content
-script_file = os.path.join(os.getcwd(),SDIR, 'scripts', 'scripts.js')
+script_file = os.path.join(os.getcwd(), SDIR, 'scripts', 'scripts.js')
+
 
 @app.route('/hello_world')
 def hello_world():
@@ -95,9 +97,13 @@ app.config['video_PATH'] = 'sample_data/input_videio.mp4'
 app.config['DATABASE'] = 'code.db'  # SQLite database file
 
 app.secret_key = "your_secret_key"  # Add a secret key for session management
+
+
 @app.route('/favicons.ico')
 def favicons():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 @app.route('/favicon.ico')
 def favicon():
     # Set the size of the favicon
@@ -146,7 +152,6 @@ directory_path = 'temp'  # Replace with the desired directory path
 # Create the directory if it doesn't exist
 os.makedirs(directory_path, exist_ok=True)
 
-
 # Walk through all directories and subdirectories
 
 
@@ -165,10 +170,13 @@ def findvideos():
     else:
         return None
 
+
 @app.route("/")
 def index():
     video = findvideos()
     return render_template('index.html', video=video)
+
+
 @app.route("/index2")
 def index2():
     image_dir = 'static/images/MISC_MIX'
@@ -575,6 +583,7 @@ def upload():
 # List of image directories (you can add more as needed)
 image_directories = glob.glob('static/images/*')
 
+
 @app.route("/mkblend_video", methods=['GET', 'POST'])
 def mkblend_video():
     if request.method == 'POST':
@@ -891,12 +900,25 @@ def make_text():
 directories = glob.glob('static/images/*')
 
 # Route for the home page
+@app.route("/hello")
+def hello():  
+    video=findvideos()
+    return render_template('about.html', video=video)
 
+@app.route("/home", methods=['GET'])
+def home(): 
+    return render_template('HTML5_Canvas_Cheat_Sheet.html')
 
-@app.route('/home')
-def home():
-    return render_template('choose_dir.html', directories=directories)
-# Route for choosing a directory
+@app.route("/about", methods=['GET'])
+def about():     
+    video=findvideos()
+    return render_template('about.html', video=video)
+@app.route("/html_base", methods=['GET'])
+def html_base(): 
+    with open('static/code.txt', 'r') as file:
+        code_content = file.read()
+
+    return render_template('your_template.html', code_content=code_content)
 
 
 @app.route('/choose_dir', methods=['GET', 'POST'])
@@ -1438,7 +1460,7 @@ def process_videos():
     MUSIC = ["static/music/Born_a_Rockstar-Instrumental-NEFFEX.mp3", "static/music/Cattle-Telecasted.mp3", "static/music/Bite_Me-Clean-NEFFEX.mp3", "static/music/El_Secreto-Yung_Logos.mp3", "static/music/Blue_Mood-Robert_Munzinger.mp3", "static/music/Escapism-Yung_Logos.mp3", "static/music/Enough-NEFFEX.mp3", "static/music/As_You_Fade_Away-NEFFEX.mp3", "static/music/Culture-Anno_Domini_Beats.mp3", "static/music/Contrast-Anno_Domini_Beats.mp3", "static/music/Diving_in_Backwards-Nathan_Moore.mp3",
              "static/music/Aztec_Empire-Jimena_Contreras.mp3", "static/music/Devil_s_Organ-Jimena_Contreras.mp3", "static/music/Alpha_Mission-Jimena_Contreras.mp3", "static/music/Changing-NEFFEX.mp3", "static/music/Anxiety-NEFFEX.mp3", "static/music/6-Shots-NEFFEX.mp3", "static/music/DimishedReturns.mp3", "static/music/Drum_Meditation.mp3", "static/music/ChrisHaugen.mp3", "static/music/DoveLove-Moreira.mp3", "static/music/DesertPlanet.mp3", "static/music/David_Fesliyan.mp3"]
 
-    music = random.choice(MUSIC)
+    music = random.choice(glob.glob('static/MUSIC/*.mp3'))
     command3 = f"ffmpeg -i {DIR}alice/final5.mp4 -ss {init} -i {music} -af 'afade=in:st=0:d=4,afade=out:st=55:d=3' -map 0:0 -map 1:0 -shortest -y {DIR}alice/Final_End.mp4"
     subprocess.run(command3, shell=True)
 
@@ -1912,11 +1934,11 @@ def image_directories():
         # Pass the list of image directories to the template
         return render_template('image_directories.html', image_directories=image_directories)
 
-
-#USE_AUDIO_MP3 = False  # Set this to True if you want to use 'static/audio_mp3/'
-#MDIR = 'static/music/' if not USE_AUDIO_MP3 else 'static/audio_mp3/'
+# USE_AUDIO_MP3 = False  # Set this to True if you want to use 'static/audio_mp3/'
+# MDIR = 'static/music/' if not USE_AUDIO_MP3 else 'static/audio_mp3/'
 
 # ...
+
 
 @app.route('/select_playmp3', methods=['GET', 'POST'])
 def select_playmp3():
@@ -1954,21 +1976,20 @@ def select_playmp3():
     return render_template('select_playmp3.html', directories=directories, selected_directory=selected_directory, mp3_files=mp3_files, video=fvideo)
 
 
-
 @app.route("/make_animation")
 def make_animation():
     # Get a list of all files in the final_images directory
     # image_files = os.listdir("static/final_images/")
     # DIR = "/home/jack/Desktop/HDD500/collections/gypsy_files/"
     # DIR = "/home/jack/Desktop/HDD500/collections/hippy_files/"
-    #DIR = "/mnt/HDD500/collections/jungle/exotic_lithograph_prints-Playground_AI_files/512x768/"
+    # DIR = "/mnt/HDD500/collections/jungle/exotic_lithograph_prints-Playground_AI_files/512x768/"
     DIR = "static/images/clip_drop/"
     selected_files = random.sample(glob.glob(DIR + '*.jpg'), 30)
     print(selected_files)
-    #image_files = os.listdir(DIR)
+    # image_files = os.listdir(DIR)
     # image_files = os.listdir("/mnt/HDD500/collections/640x640-alien/")
     # Select 20 random files from the list
-    #selected_files = random.sample(image_files, 30)
+    # selected_files = random.sample(image_files, 30)
 
     # Load each selected file, resize it to 400x600, and save it to a temporary directory
     resized_images = []
@@ -2251,6 +2272,7 @@ def delete_product(product_id):
 
     return redirect('/products')
 # Function to create the database and table
+
     
 @app.route('/access_database')
 def access_database():
@@ -2649,7 +2671,7 @@ def get_db():
 def indexdb():
     logger.debug("Accessing indexdb route")
     video = findvideos()
-    return render_template('indexdb.html',video=video)
+    return render_template('indexdb.html', video=video)
 
 
 @app.route('/select_by_id_form', methods=['POST', 'GET'])
@@ -2866,13 +2888,17 @@ def handle_select_by_id():
     else:
         logger.debug("Rendering display_data.html template with no data found")
         return render_template('display_data.html', id_value=row_id, description="", code="", keywords="")
+
+
 def extract_code_blocks(file_path):
     with open(file_path) as file:
         content = file.read()
     return content.split("--Code Start:")[1:]
 
+
 def format_datetime(datetime_str):
     return datetime_str.replace("_", " ")
+
 
 @app.route('/enter_code', methods=['GET', 'POST'])
 def enter_code():
@@ -2885,6 +2911,7 @@ def enter_code():
         # Log code entry
         logger.debug('New code entered: %s', code_block)
     return render_template('enter_data.html', formatted_datetime=formatted_datetime)
+
 
 @app.route('/search_code', methods=['GET', 'POST'])
 def search_code():
@@ -2912,17 +2939,16 @@ def search_code():
     return render_template('search_data.html')
 
 
+@app.route('/tube_index')
+def tube_index():
+    return render_template('tube_index.html')
 
-@app.route('/indexM')
-def indexM():
-    return render_template('indexM.html')
 
 @app.route('/data_page')
 def data_page():
-    return render_template('data_page.html')    
+    return render_template('data_page.html') @ app.route('/capture_overlay_verify')
 
 
-@app.route('/capture_overlay_verify')
 def capture_overlay_verify():
     logger.info('Capture process started')
     logger.info('POST request received')
@@ -3022,31 +3048,29 @@ def view_log():
 
 @app.route('/self_check')
 def self_check():
-    try:
-        if os.path.exists('Logs'):
-            timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-            new_filename = f'Logs/{timestamp}.info'
-            shutil.copy('Logs/flake8.info', new_filename)
-            
-        result = subprocess.run(['flake8', '-v', 'MemMakerWdb'],
-                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        
-        with open('Logs/flake8.info', 'w') as flake_file:
-            flake_file.write(result.stdout)
-        
-        return redirect(url_for('view_flake8'))
-    except Exception as e:
-        return f"Self-check failed. Error: {e}"
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    new_filename = f'Logs/{timestamp}.info'
+    result = subprocess.run(['flake8', '-v', 'FlaskAppArchitect'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    logger.info("xxxxxxxx")
+    logger.info("Self-check completed", result.stdout)
+    with open('Logs/flake8.info', 'w') as flake_file:
+        flake_file.write(result.stdout)
+        shutil.copy('Logs/flake8.info', new_filename)
+    return redirect(url_for('view_flake8'))
+
 
 @app.route('/view_flake8')
 def view_flake8():
     with open('Logs/flake8.info', 'r') as flake_file:
         flake_content = flake_file.read()
     return render_template('flake8_viewer.html', flake_content=flake_content)
+
+
 def get_image_directories():
     dirs = os.listdir(os.path.join('static', 'images'))
     DIR = sorted(dirs)
     return DIR
+
 
 def feather_image(input_path):
     try:
@@ -3055,12 +3079,12 @@ def feather_image(input_path):
         # Load the image
         giger = cv2.imread(input_path)
         l_row, l_col, nb_channel = giger.shape
-        rows, cols = np.mgrid[:l_row, :l_col]
-        radius = np.sqrt((rows - l_row/2)**2 + (cols - l_col/2)**2)
+        rows, cols = np.mgrid[:l_row,:l_col]
+        radius = np.sqrt((rows - l_row / 2) ** 2 + (cols - l_col / 2) ** 2)
         alpha_channel = np.zeros((l_row, l_col))
         
         # Calculate alpha channel values
-        r_min, r_max = 1./3 * radius.max(), 0.6 * radius.max()
+        r_min, r_max = 1. / 3 * radius.max(), 0.6 * radius.max()
         alpha_channel[radius < r_min] = 1
         alpha_channel[radius > r_max] = 0
         gradient_zone = np.logical_and(radius >= r_min, radius <= r_max)
@@ -3069,7 +3093,7 @@ def feather_image(input_path):
         
         # Create feathered image
         feathered = np.empty((l_row, l_col, nb_channel + 1), dtype=np.uint8)
-        feathered[..., :3] = giger[:]
+        feathered[...,:3] = giger[:]
         feathered[..., -1] = alpha_channel[:]
         
         # Save the feathered image
@@ -3082,6 +3106,8 @@ def feather_image(input_path):
     except Exception as e:
         logger.error("An error occurred during feathering: %s", str(e))
         return None
+
+
 @app.route('/feather_files', methods=['GET', 'POST'])
 def feather_files():
     if request.method == 'POST':
@@ -3099,6 +3125,8 @@ def feather_files():
             return render_template('feather_files.html', directories=get_image_directories(), selected_directory=selected_directory, images=os.listdir(os.path.join('static', 'images', selected_directory)), feathered_image_path=feathered_image_path)
     
     return render_template('feather_files.html', directories=get_image_directories())
+
+
 @app.route('/word_cloud')
 def word_cloud():
     code_blocks = extract_code_blocks('codeshints.txt')
@@ -3109,16 +3137,20 @@ def word_cloud():
         extracted_lines.append("\n".join(lines))
 
     return render_template('word_cloud.html', extracted_lines=extracted_lines)
+
+
 # ------------
 static_dir = 'static'
 text_dir = os.path.join(static_dir, 'text')
 original_text_dir = os.path.join(text_dir, 'original')
 os.makedirs(original_text_dir, exist_ok=True)
 
+
 def load_original_text_file(filename):
     original_file_path = os.path.join(text_dir, filename)
     with open(original_file_path, 'r') as file:
         return file.read()
+
 
 def save_original_text_file(filename, content):
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -3127,22 +3159,26 @@ def save_original_text_file(filename, content):
     with open(new_file_path, 'w') as file:
         file.write(content)
 
+
 def edit_and_save_text_file(filename, content):
     save_original_text_file(filename, content)
     edited_file_path = os.path.join(text_dir, filename)
     with open(edited_file_path, 'w') as file:
         file.write(content)
 
+
 @app.route('/edit_text')
 def edit_text():
     filenames = [f for f in os.listdir(text_dir) if f.endswith('.txt')]
     return render_template('edit_text.html', filenames=filenames)
+
 
 @app.route('/edit_text_page')
 def edit_text_page():
     selected_filename = request.args.get('filename')
     original_content = load_original_text_file(selected_filename)
     return render_template('edit_text_page.html', selected_filename=selected_filename, original_content=original_content)
+
 
 @app.route('/edit_text_save', methods=['POST'])
 def edit_text_save():
@@ -3151,30 +3187,36 @@ def edit_text_save():
     edit_and_save_text_file(selected_filename, edited_content)
     return redirect(url_for('edit_text'))
 
+
 @app.route('/the_description')
 def the_description():
     return render_template('the_description.html')
 
+
 @app.route('/run')
 def run():
     return render_template('execute.html')
+
+
 def save_script_to_file(script):
     # Retrieve textarea content
     script_content = script.strip('\r')
     for line in script_content.splitlines():
         if line.startswith('#'):
             script_head = script_content.replace(line, f"echo {line}")
-            print("SCRIPT HEAD: ",script_head)
+            print("SCRIPT HEAD: ", script_head)
 
     # Generate unique filename
     current_datetime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    filename = "static/scripts/"+current_datetime + "_script.sh"
+    filename = "static/scripts/" + current_datetime + "_script.sh"
 
     # Save content to file
     with open(filename, "w") as file:
         file.write(script_content)
 
     return filename
+
+
 def list_functions():
     # Retrieve all function names from the script
     script_filenames = glob.glob("static/scripts/*.sh")
@@ -3187,6 +3229,8 @@ def list_functions():
     # Find all function names
     function_names = re.findall(r"function\s+(\w+)\s*\(\)", script_content)
     return function_names
+
+
 @app.route('/execute', methods=['POST', 'GET'])
 def execute():
     # Extract the bash script from the textarea
@@ -3213,10 +3257,12 @@ def execute():
 
     return render_template("view_execute.html", content=CONTENT, result=filename)
 
+
 @app.route('/list_functions')
 def list_functions():
     route_lines = get_route_lines()
     return render_template('list_functions.html', functions=route_lines)
+
 
 def get_route_lines():
     with open('MemMakerWdb', 'r') as file:
@@ -3227,6 +3273,7 @@ def get_route_lines():
         ]
     return route_lines
 
+
 # Call the function to get the route lines
 route_lines = get_route_lines()
 # Print the result
@@ -3236,7 +3283,8 @@ for line in route_lines:
     
 @app.route('/all_routes')
 def all_routes(): 
-        return render_template('all_routes.html')
+    return render_template('all_routes.html')
+
  
 @app.route('/edit_description', methods=['GET', 'POST'])
 def edit_description():
@@ -3245,6 +3293,7 @@ def edit_description():
         description = file.read()
 
     return render_template('edit_the_description.html', description=description)
+
     
 @app.route('/save_description', methods=['POST'])
 def save_description():
@@ -3257,23 +3306,29 @@ def save_description():
 
     return redirect('/edit_description')
 
+
 @app.route('/app_utilities')
 def app_utilities():
     video = findvideos()
     return render_template('app_utilities.html', video=video)
+
+
 @app.route("/image_processing")
 def image_processing():
     video = findvideos()
     return render_template('image_processing.html', video=video)
 
+
 template_dir = 'templates'
 original_template_dir = os.path.join(template_dir, 'original')
 os.makedirs(original_template_dir, exist_ok=True)
+
 
 def load_original_template_file(filename):
     original_file_path = os.path.join(template_dir, filename)
     with open(original_file_path, 'r') as file:
         return file.read()
+
 
 def save_original_template_file(filename, content):
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -3282,18 +3337,21 @@ def save_original_template_file(filename, content):
     with open(new_file_path, 'w') as file:
         file.write(content)
 
+
 def edit_and_save_template_file(filename, content):
     save_original_template_file(filename, content)
     edited_file_path = os.path.join(template_dir, filename)
     with open(edited_file_path, 'w') as file:
         file.write(content)
 
+
 @app.route('/edit_template')
 def edit_template():
     filenames = [f for f in os.listdir(template_dir) if f.endswith('.html')]
     filenames = sorted(filenames)
-    fvideo = findvideos()
+    fvideo ="static/assets/voice-for_avatar_Edit_Files.mp4"
     return render_template('edit_template.html', filenames=filenames, video=fvideo)
+
 
 @app.route('/edit_template_page')
 def edit_template_page():
@@ -3301,12 +3359,22 @@ def edit_template_page():
     original_content = load_original_template_file(selected_filename)
     return render_template('edit_template_page.html', selected_filename=selected_filename, original_content=original_content)
 
+
 @app.route('/edit_template_save', methods=['POST'])
 def edit_template_save():
     edited_content = request.form['edited_content']
     selected_filename = request.form['filename']
     edit_and_save_template_file(selected_filename, edited_content)
     return redirect(url_for('edit_template'))
+
+
+@app.route('/edit_javascript')
+def edit_javascript():
+    filenames = [f for f in os.listdir(template_dir) if f.endswith('script.html')]
+    filenames = sorted(filenames)
+    fvideo = findvideos()
+    return render_template('edit_javascript.html', filenames=filenames, video=fvideo)
+
 
 @app.route('/images/<path>')
 def show_images(path):
@@ -3319,10 +3387,12 @@ def show_images(path):
     # pass the image names to the template
     return render_template('thumbnailz.html', images=image_list, path=path)
 
+
 @app.route('/code_editor')
 def code_editor():
     
     return render_template('code_editor.html')
+
 
 @app.route('/save', methods=['POST'])
 def save():
@@ -3335,7 +3405,9 @@ def save():
 
     return jsonify({'message': 'File saved successfully'})
 
+
 video_process = None
+
 
 @app.route('/run_capture', methods=['POST'])
 def run_capture():
@@ -3349,6 +3421,7 @@ def run_capture():
     
     return jsonify({'message': 'Video capture started'})
 
+
 @app.route('/stop_capture', methods=['POST'])
 def stop_capture():
     global video_process
@@ -3361,9 +3434,11 @@ def stop_capture():
     else:
         return jsonify({'message': 'Video capture process not found'})
 
+
 @app.route('/capture_html')
 def capture_html():
     return render_template('capture.html')
+
 
 @app.route('/youtube_videos')
 def youtube_videos():
@@ -3379,6 +3454,7 @@ def aigeneration_links():
 def index_bash():
     return render_template('run_bash.html')
 
+
 @app.route('/run_bash', methods=['POST'])
 def run_bash():
     bash_command = request.form.get('bash_command')
@@ -3389,14 +3465,18 @@ def run_bash():
         result = e.output
     video = findvideos()
     return render_template('run_bash.html', result=result, video=video)
+
+
 css_dir = 'static/css'
 original_css_dir = os.path.join(css_dir, 'original')
 os.makedirs(original_css_dir, exist_ok=True)
+
 
 def load_original_css_file(filename):
     original_file_path = os.path.join(css_dir, filename)
     with open(original_file_path, 'r') as file:
         return file.read()
+
 
 def save_original_css_file(filename, content):
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -3405,18 +3485,21 @@ def save_original_css_file(filename, content):
     with open(new_file_path, 'w') as file:
         file.write(content)
 
+
 def edit_and_save_css_file(filename, content):
     save_original_css_file(filename, content)
     edited_file_path = os.path.join(css_dir, filename)
     with open(edited_file_path, 'w') as file:
         file.write(content)
 
+
 @app.route('/edit_css')
 def edit_css():
     filenames = [f for f in os.listdir(css_dir) if f.endswith('.css')]
     filenames = sorted(filenames)
-    #render template
+    # render template
     return render_template ('edit_css.html', filenames=filenames)
+
 
 @app.route('/edit_css_page')
 def edit_css_page():
@@ -3424,15 +3507,19 @@ def edit_css_page():
     original_content = load_original_css_file(selected_filename)
     return render_template('edit_css_page.html', selected_filename=selected_filename, original_content=original_content)
 
+
 @app.route('/edit_css_save', methods=['POST'])
 def edit_css_save():
     edited_content = request.form['edited_content']
     selected_filename = request.form['filename']
     edit_and_save_css_file(selected_filename, edited_content)
     return redirect(url_for('edit_css'))
+
+
 @app.route('/terminal_index')
 def terminal_index():
     return render_template('terminal_index.html')
+
 
 @app.route('/execute_command', methods=['POST'])
 def execute_command():
@@ -3443,16 +3530,20 @@ def execute_command():
         output = e.output
     return jsonify({'output': output})
 
+
 @app.route('/comic_book')
 def comic_book():
     return render_template('comic_book.html')
+
 
 @app.route('/image_stuff')
 def image_stuff():
     return render_template('image_stuff.html')
 
+
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route('/crop', methods=['GET', 'POST'])
 def crop():
@@ -3465,6 +3556,7 @@ def crop():
             image.save(image_path)
     fvideo = findvideos()        
     return render_template('crop.html', image_path=image_path, video=fvideo)
+
 
 @app.route('/crop_and_save', methods=['POST'])
 def crop_and_save():
@@ -3481,6 +3573,8 @@ def crop_and_save():
         return render_template('crop.html', image_path='static/cropped_image.jpg')
     except Exception as e:
         return f"Error: {str(e)}"
+
+
 def move_cropped_image():
     source_path = 'static/cropped_image.jpg'
 
@@ -3504,28 +3598,36 @@ def move_cropped_image():
     except shutil.Error as e:
         return f"Error occurred while moving the file: {e}", 500
     return destination_path
+
+
 @app.route('/move_cropped', methods=['GET', 'POST'])
 def move_cropped():
     if request.method == 'POST':
         destination_path = move_cropped_image()
         source_path = 'static/cropped_image.jpg'
-        fvideo =findvideos()
+        fvideo = findvideos()
         return render_template('move_cropped.html', mv_img=destination_path, video=fvideo)
     else:
         return "Method not allowed", 405
 
+
 @app.route('/edit_images_video')
 def edit_images_video():
     fvideo = findvideos()
-    return render_template('edit_images_video.html',video=fvideo)
+    return render_template('edit_images_video.html', video=fvideo)
+
 
 @app.route('/mp3_player')
 def mp3_player():
     mp3_files = [file for file in os.listdir('static/music') if file.endswith('.mp3')]
     return render_template('mp3_player.html', mp3_files=mp3_files)
+
+
 @app.route('/NOTES')
 def plain_html():
     return render_template('NOTES.html')
+
+
 @app.route('/edit_script', methods=['GET', 'POST'])
 def edit_script():
     logger.info('Edit script page accessed')
@@ -3548,6 +3650,7 @@ def edit_script():
     logger.info('No script file selected')
     return render_template('edit_script.html', script_files=script_files)
 
+
 @app.route('/save_script', methods=['POST'])
 def save_script():
     logger.info('Save script request received')
@@ -3561,6 +3664,7 @@ def save_script():
         logger.info(f'Updated script_file:\n{script_file}')
     return render_template('index.html')
 
+
 @app.route('/edit_canvas_script', methods=['GET', 'POST'])
 def edit_canvas_script():
     logger.info('Edit canvas script page accessed')
@@ -3571,7 +3675,7 @@ def edit_canvas_script():
     for filename in os.listdir(script_dir):
         if filename.endswith('canvas.js'):
             script_files.append(filename)
-        logger.info("XXXXXXXXXXX:",script_files)
+        logger.info("XXXXXXXXXXX:", script_files)
     if request.method == 'POST':
         selected_file = request.form['script_file']
         if selected_file.endswith('canvas.js'):
@@ -3613,6 +3717,7 @@ def save_canvas_script():
 
     return render_template('save_canvas_script.html', script_file=script_file)
 
+
 @app.route('/preview', methods=['GET', 'POST'])
 def preview():
     logger.info('Preview page accessed')
@@ -3653,6 +3758,8 @@ def preview_two_canvass():
     html_content = "<p>This is a dynamic HTML content. It can include various elements, <br />such as paragraphs, headings, lists, etc.</p>"
 
     return render_template('two_canvas.html', html_content=html_content, script_content=script_content)
+
+
 @app.route('/capture_video')
 def capture_video():
     now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
@@ -3660,7 +3767,7 @@ def capture_video():
     
     command = f"sleep 5 && ffmpeg -f x11grab -framerate 24 -video_size 1366x760 -i :0.0 -f alsa -i plughw:0,0 -f pulse -i default -filter_complex '[1:a]volume=0.1[headset_audio];[2:a]volume=1[system_audio];[headset_audio][system_audio]amix=inputs=2[a]' -map 0:v -map '[a]' -c:v libx264 -r 24 -g 48 -c:a aac -b:a 128k -t 58 {video_filename}"
     
-    #command = f'ffmpeg -f x11grab -framerate 24 -video_size 1366x760 -i :0.0 -f alsa -i plughw:0,0 -f pulse -i default -filter_complex "[1:a]volume=0.1[headset_audio];[2:a]volume=1[system_audio];[headset_audio][system_audio]amix=inputs=2[a],[0:v]scale=512x666[aout]" -map "[aout]" -map "[a]" -c:v libx264 -r 24 -g 48 -c:a aac -b:a 128k -t 58 -y {video_filename}'
+    # command = f'ffmpeg -f x11grab -framerate 24 -video_size 1366x760 -i :0.0 -f alsa -i plughw:0,0 -f pulse -i default -filter_complex "[1:a]volume=0.1[headset_audio];[2:a]volume=1[system_audio];[headset_audio][system_audio]amix=inputs=2[a],[0:v]scale=512x666[aout]" -map "[aout]" -map "[a]" -c:v libx264 -r 24 -g 48 -c:a aac -b:a 128k -t 58 -y {video_filename}'
      
     logger.info(f'Command: {command}')  # Additional informational log  
     try:
@@ -3669,6 +3776,7 @@ def capture_video():
         return "Video captured successfully"
     except subprocess.CalledProcessError as e:
         return f"Error capturing video: {str(e)}"
+
     
 @app.route('/capture_square')
 def capture_square():
@@ -3677,7 +3785,6 @@ def capture_square():
     
     command2 = (f'sleep 5 && ffmpeg -f x11grab -framerate 24 -video_size 580x580 -i :0+374,170 -f alsa -i plughw:0,0 -f pulse -i default -filter_complex "[1:a]volume=0.1[headset_audio];[2:a]volume=1[system_audio];[headset_audio][system_audio]amix=inputs=2[a],[0:v]scale=512x666[aout]" -map "[aout]" -map "[a]" -c:v libx264 -r 24 -g 48 -c:a aac -b:a 128k -t 58 -y {videos_filename}'
 )
-
     
     logger.info(f'Command: {command2}')  # Additional informational log  
     try:
@@ -3686,10 +3793,11 @@ def capture_square():
         return "Video captured successfully"
     except subprocess.CalledProcessError as e:
         return f"Error capturing video: {str(e)}"   
+
     
 @app.route('/misc_links')
 def misc_links():
-        return render_template('misc_links.html')   
+        return render_template('misc_links.html')  
 
 
 @app.route('/search_chat')
@@ -3712,39 +3820,50 @@ def search_chat():
     # Render the search results in the template
     return render_template('search_chat.html', output=results)  # Pass 'results' instead of 'output'
 
+
 @app.route('/canvas')
 def canvas():
         return render_template('canvas.html') 
+
       
 @app.route('/index_canvas')
 def index_canvas():
         fvideo = findvideos()
         return render_template('index_canvas.html', video=fvideo)   
 
+
 @app.route('/one_canvas')
 def one_canvas():
         return render_template('one_canvas.html')  
+
     
 @app.route('/two_canvas')
 def two_canvas():
         return render_template('two_canvas.html') 
+
       
 @app.route('/processing_text')
 def processing_text():
     fvideo = findvideos()
-    return render_template('processing_text.html',video=fvideo)
+    return render_template('processing_text.html', video=fvideo)
+
 
 @app.route('/image_video')
 def image_video():
         fvideo = findvideos()
         return render_template('image_video.html', video=fvideo)   
 
+
 @app.route('/kaleidoscope')
 def kaleidoscope():
         fvideo = findvideos()
         return render_template('kaleidoscope.html', video=fvideo)  
+
+
 from YouTube_key import YouTube_key
 key = YouTube_key()
+
+
 # Your YouTube Live Streaming key
 @app.route('/start_stream')
 def start_stream():
@@ -3776,15 +3895,19 @@ def start_stream():
         return "Streaming started. Check your YouTube Live Dashboard."
     except Exception as e:
         return f"Error: {str(e)}"
+
+
 canvas_dir = 'static/canvas'
 original_canvas_dir = os.path.join(canvas_dir, 'original')
 os.makedirs(original_canvas_dir, exist_ok=True)
 
+
 def load_original_canvas_file(filename):
     original_file_path = os.path.join(canvas_dir, filename)
     with open(original_file_path, 'r') as file:
-        logger.debug("original_file_path:",original_file_path)
+        logger.debug("original_file_path:", original_file_path)
         return file.read()
+
 
 # Function to save the original canvas file with a timestamp
 def save_original_canvas_file(filename, content):
@@ -3794,11 +3917,12 @@ def save_original_canvas_file(filename, content):
     with open(new_file_path, 'w') as file:
         file.write(content)
 
+
 # Function to edit and save the canvas file
 def edit_and_save_canvas_file(filename, content):
     save_original_canvas_file(filename, content)
-    logger.debug("filename:",filename)
-    logger.debug("content:",content)
+    logger.debug("filename:", filename)
+    logger.debug("content:", content)
     edited_file_path = os.path.join(canvas_dir, filename)
     with open(edited_file_path, 'w') as file:
         file.write(content)
@@ -3808,19 +3932,21 @@ def edit_and_save_canvas_file(filename, content):
 def edit_canvas():
     filenames = [f for f in os.listdir(canvas_dir) if f.endswith('canvas.js')]
     filenames = sorted(filenames)
-    logger.debug("FILENAMES:",filenames)
+    logger.debug("FILENAMES:", filenames)
     fvideo = findvideos()  # Assuming findvideos() is defined elsewhere
     fvideo = "static/assets/How_to_Edit_an_HTML_Page_With_FlaskAppArchitect_Editing_Error.mp4"
-    logger.debug("FVIDEO:",fvideo)
+    logger.debug("FVIDEO:", fvideo)
     return render_template('edit_canvas.html', filenames=filenames, video=fvideo)
+
 
 @app.route('/edit_canvas_page')
 def edit_canvas_page():
     selected_filename = request.args.get('filename')
-    logger.debug("selected_filename:",selected_filename)
+    logger.debug("selected_filename:", selected_filename)
     original_content = load_original_canvas_file(selected_filename)
-    logger.debug("original_content:",original_content)
+    logger.debug("original_content:", original_content)
     return render_template('edit_canvas_page.html', selected_filename=selected_filename, original_content=original_content)
+
 
 @app.route('/edit_canvas_save', methods=['POST'])
 def edit_canvas_save():
@@ -3828,34 +3954,37 @@ def edit_canvas_save():
     selected_filename = request.form['filename']
     edit_and_save_canvas_file(selected_filename, edited_content)
     return redirect(url_for('edit_canvas'))
+
+
 def get_an_image():
-    #image_dir =random.choice(glob.glob("/home/jack/Desktop/StoryMaker/static/images/*"))
-    image_dir =glob.glob("/home/jack/Desktop/StoryMaker/static/images/*")
-    #images = glob.glob(image_dir)
+    # image_dir =random.choice(glob.glob("/home/jack/Desktop/StoryMaker/static/images/*"))
+    image_dir = glob.glob("/home/jack/Desktop/StoryMaker/static/images/*")
+    # images = glob.glob(image_dir)
     image_dir = sorted(image_dir)
     return image_dir
+
 
 def list_image_directories():
     image_directories = get_an_image()
     return image_directories
 
 
-@app.route('/')
+@app.route('/fade_index')
 def fade_index():
     # List available image directories
     image_directories = list_image_directories()
-    logger.debug("LINE 56: ",image_directories)
-    video='assets/framed_final_output.mp4'
-    video2='assets/final_output.mp4'
+    logger.debug("LINE 56: ", image_directories)
+    video = 'assets/framed_final_output.mp4'
+    video2 = 'assets/final_output.mp4'
     return render_template('fade_index.html', image_directories=image_directories, video=video, video2=video2)
 
+
 def get_an_mp3():
-    mp3s = random.choice(glob.glob("static/free_no_attribute_music/*"))
-    return mp3s 
+    mp3s = random.choice(glob.glob("static/MUSIC/*.mp3"))
+    return mp3s
 
 
-
-@app.route('/generate_videoz', methods=['POST'])
+@app.route('/generate_videoz', methods=['POST', 'GET'])
 def generate_videoz():
     try:
         selected_directory = request.form['selected_directory']
@@ -3872,7 +4001,8 @@ def generate_videoz():
                     image_files.append(os.path.join(root, file))
 
         if not image_files:
-            return render_template('fade_index.html', video='')
+            outV = 'assets/output.mp4'
+            return render_template('fade_index.html', video=outV)
 
         # Shuffle the image files to mix them randomly
         random.shuffle(image_files)
@@ -3919,12 +4049,6 @@ def generate_videoz():
         # Prepare an audio clip of the same duration (58 seconds)
         audio_clip = AudioFileClip(get_an_mp3())  # Replace with your audio file path
         audio_clip = audio_clip.subclip(0, 58)  # Limit audio to 58 seconds
-
-
-
-
-
-
         # Load the video clip
         video_clip = VideoFileClip(out_path)
 
@@ -3935,16 +4059,16 @@ def generate_videoz():
         final_output_path = 'static/assets/final_output.mp4'
         uid = str(uuid.uuid4())  # Generate a unique ID using uuid
         mp4_file = os.path.join("static", "assets", f"{uid}.mp4")
-      
         
         video_clip.write_videofile(final_output_path, codec='libx264')
         shutil.copyfile(final_output_path, mp4_file) 
-        #return render_template('fade_index.html', video='assets/final_output.mp4',video2='assets/framed_final_output.mp4')
+        # return render_template('fade_index.html', video='assets/final_output.mp4',video2='assets/framed_final_output.mp4')
         return redirect(url_for('frame_final_output'))
 
     except Exception as e:
         # Handle any exceptions
         return "An error occurred. Please check the logs for details."
+
     
 @app.route('/frame_final_output')
 def frame_final_output():
@@ -3977,15 +4101,115 @@ def frame_final_output():
         framed_final_output_path = 'static/assets/framed_final_output.mp4'
         final_video_with_overlay.write_videofile(framed_final_output_path, codec='libx264')
         shutil.copyfile(framed_final_output_path, frame_file) 
-        return render_template('fade_index.html', video='assets/final_output.mp4',video2='assets/framed_final_output.mp4')
+        return render_template('fade_index.html', video='assets/final_output.mp4', video2='assets/framed_final_output.mp4')
 
     except Exception as e:
         # Handle any exceptions
         logger.debug("Exception: ", e)
         return "An error occurred. Please check the logs for details."
-@app.route('/large')
-def large():
-    return render_template('large.html')
+
+
+@app.route('/large_script')
+def large_script():
+    return render_template('large_script.html')
+
+
+@app.route('/java_script')
+def java_script():
+    return render_template('java_script.html')
+@app.route('/upload_file_rename', methods=['POST', 'GET'])
+def upload_file_rename():
+    try:
+        # Get the uploaded file
+        uploaded_file = request.files['file']
+
+        # Check if a file was selected
+        if uploaded_file.filename == '':
+            return jsonify({"error": "No file selected."})
+
+        # Get the new filename (you can customize this logic)
+        new_filename = request.form.get('new_filename')
+        if not new_filename:
+            return jsonify({"error": "New filename not provided."})
+
+        # Get the selected directory
+        selected_directory = 'static/images/Leonardo'
+        #selected_directory = request.form.get('selected_directory')
+        if not selected_directory:
+            return jsonify({"error": "Selected directory not provided."})
+
+        # Ensure the selected directory exists
+        if not os.path.exists(selected_directory):
+            return jsonify({"error": "Selected directory does not exist."})
+
+        # Save the file to the selected directory with the new filename
+        file_path = os.path.join(selected_directory, new_filename)
+        uploaded_file.save(file_path)
+
+        # Log the operation
+        logging.info(f"File '{uploaded_file.filename}' was renamed to '{new_filename}' and moved to '{selected_directory}'")
+
+        return jsonify({"message": "File uploaded, renamed, and moved successfully."})
+
+    except Exception as e:
+        # Log any errors
+        logging.error(str(e))
+        return jsonify({"error": "An error occurred."})
+    
+@app.route('/uploadrename_fileform', methods=['GET'])
+def uploadrename_fileform():
+    return render_template('uploadrename_fileform.html')
+
+@app.route('/upload_file_renamed', methods=['POST'])
+def upload_file_renamed():
+    # Handle the file upload and renaming here
+    # You can access the form data using request.form and request.files
+
+    return "File uploaded, renamed, and moved successfully."
+@app.route('/archive_video', methods=['POST'])
+def archive_video():
+    directory_path = "/home/jack/Desktop/StoryMaker/static/images/steampunk_mouse/"
+    try:
+        # Get the directory path from the request
+        directory_path = request.form.get('directory_path')
+
+        if not directory_path:
+            logging.error('Directory path is missing in the request.')
+            return jsonify({'error': 'Directory path is required'}), 400
+
+        if not os.path.isdir(directory_path):
+            logging.error('Invalid directory path provided.')
+            return jsonify({'error': 'Invalid directory path'}), 400
+
+        # Get a list of image files in the directory
+        image_files = [file for file in os.listdir(directory_path) if file.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))]
+
+        if not image_files:
+            logging.error('No image files found in the directory.')
+            return jsonify({'error': 'No image files found'}), 400
+
+        # Sort the image files alphabetically
+        image_files.sort()
+
+        # Create a list of file paths for the images
+        image_paths = [os.path.join(directory_path, file) for file in image_files]
+
+        # Create a video from the images
+        video = ImageSequenceClip(image_paths, fps=1)
+
+        # Define the output video file path
+        output_path = os.path.join(directory_path, 'ARCHIVE_output_video.mp4')
+
+        # Write the video to the output file
+        video.write_videofile(output_path, codec='libx264', fps=1, threads=4)
+
+        logging.info('Video successfully generated.')
+        return jsonify({'message': 'Video successfully generated', 'video_path': output_path}), 200
+
+    except Exception as e:
+        logging.error(f'Error occurred: {str(e)}')
+        return jsonify({'error': 'An error occurred'}), 500
+
 
 if __name__ == '__main__':
     create_databaseD()  # Create the database and table before starting the app

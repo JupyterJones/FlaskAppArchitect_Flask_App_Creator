@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <a href="/api_search/view_text">View JSON as Text</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+    <a href="/api_search/info_json">View JSON</a><br /><br />
+    <a href="/api_search/json_convert">json_convert</a><br /><br />
+    <form method="POST">
+        <label for="query">Enter a search query:</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if info %}
+    <h2>Search Results:</h2>
+    <ul>
+        {% for result in info %}
+        <li>{{ result.content }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
+

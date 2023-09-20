@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Info Page</title>
+</head>
+<body>
+    <h1>Data</h1>
+    {% for item in data %}
+        {% if 'href' in item %}
+            <a href="{{ item.href }}">{{ item.text }}</a>
+        {% else %}
+            <p>{{ item.text }}</p>
+        {% endif %}
+    <h3>{{ item}}</h3>    
+    {% endfor %}
+
+    <h1>Data</h1>
+    {% for item in data %}
+        {% if 'href' in item %}
+            <p>{{ item }}</p>
+        {% else %}
+            <a href="{{ item.href }}">{{ item }}</a>
+        {% endif %}
+    {% endfor %}
+
+
+
+</body>
+</html>

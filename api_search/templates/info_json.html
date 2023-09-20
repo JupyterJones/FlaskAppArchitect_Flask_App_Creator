@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info JSON</title>
+</head>
+<body>
+    <h1>Info JSON</h1>
+    <a href="/api_search/view_text">View JSON as Text</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+    <a href="/api_search/info_json">View JSON</a><br /><br />
+    <ul>
+        {% for data in parsed_data %}
+            <li>{{ data }}</li>
+        {% endfor %}
+    </ul>
+    
+    <a href="/api_search">Return to Search</a>
+</body>
+</html>

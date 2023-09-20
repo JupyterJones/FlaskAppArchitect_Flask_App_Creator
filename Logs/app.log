@@ -279,3 +279,7 @@ on('DOMContentLoaded', init); [in /home/jack/Desktop/FlaskAppArchitect_Flask_App
 2023-09-06 15:19:23,462 INFO: circle_center, circle_radius:,(8, 8) 5 [in /home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FlaskAppArchitect:119]
 2023-09-06 15:19:37,969 INFO: Edit script page accessed [in /home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FlaskAppArchitect:3531]
 2023-09-06 15:19:37,969 INFO: No script file selected [in /home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FlaskAppArchitect:3548]
+2023-09-20 11:54:06,195 INFO: circle_center, circle_radius:,(8, 8) 5 [in /home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FlaskAppArchitect_try:140]
+2023-09-20 11:54:18,155 INFO: circle_center, circle_radius:,(8, 8) 5 [in /home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FlaskAppArchitect_try:140]
+2023-09-20 11:55:29,506 DEBUG: WE MADE IT HERE ! [in /home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FlaskAppArchitect_try:4124]
+2023-09-20 11:55:29,695 DEBUG: [512, 768] [in /home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/FlaskAppArchitect_try:4129]

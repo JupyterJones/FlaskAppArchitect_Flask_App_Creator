@@ -1,0 +1,5 @@
+INFO:werkzeug:127.0.0.1 - - [15/Sep/2023 20:27:57] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [15/Sep/2023 20:27:58] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [15/Sep/2023 20:28:23] "POST /duck_search HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/jack/Desktop/FlaskAppArchitect_Flask_App_Creator/duck_search.py', reloading
+INFO:werkzeug: * Restarting with watchdog (inotify)

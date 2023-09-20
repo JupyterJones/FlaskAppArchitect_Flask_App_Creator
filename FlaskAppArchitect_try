@@ -45,6 +45,7 @@ from create_comic import create_comic_bp
 from view_archive_videos import view_archive_videos_bp
 from api_search.api_search import api_search_bp
 from zoomin import zoomin_bp
+import sys
 # Initialize Flask app
 app = Flask(__name__)
 # Set the template folder for the main app
@@ -3907,6 +3908,7 @@ def kaleidoscope():
         return render_template('kaleidoscope.html', video=fvideo)  
 
 
+sys.path.append('/home/jack/hidden')
 from YouTube_key import YouTube_key
 key = YouTube_key()
 
